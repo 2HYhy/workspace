@@ -249,12 +249,12 @@ View(视图)------>DispatcherServelt(前端控制器) 。
 12. `alter table 列名 change 列名 新列名 数据类型`  修改表中的列  
 
 **关于表结构的修改语句:** 
-> ALTER TABLE 旧表名 rename 新表名  
-> ALTER TABLE <表名> modify  属性  数据类型
-> ALTER TABLE <表名> change 旧属性名 新属性名 新数据类型
-> ALTER TABLE 表名 ADD 属性名1 数据类型 [完整性约束条件]
-> ALTER TABLE 表名 DROP 属性名 
-> ALTER TABLE 表名 DROP FOREIGN KEY 外键别名
+> ALTER TABLE 旧表名 rename 新表名    
+> ALTER TABLE <表名> modify  属性  数据类型    
+> ALTER TABLE <表名> change 旧属性名 新属性名 新数据类型    
+> ALTER TABLE 表名 ADD 属性名1 数据类型 [完整性约束条件]    
+> ALTER TABLE 表名 DROP 属性名     
+> ALTER TABLE 表名 DROP FOREIGN KEY 外键别名      
 
 ## 六、Maven常用语句 
  mvn clean install -Dmaven.test.skip=true   
