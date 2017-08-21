@@ -413,7 +413,7 @@ View(视图)------>DispatcherServelt(前端控制器) 。
 
 4.  查看本机ssh连接到的host： vi ~/.ssh/known_hosts  
 5. Homebrew---mac的软件包管理工具：
-> **brew安装** , 输入`ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"`   
+> **brew安装** , 输入`ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`      
 > **brew安装软件**, 输入`brew install 软件名`  
 > **brew卸载软件**, 输入`brew uninstall/remove 软件名`   
 > **brew查询软件**, 输入`brew search 软件名`      
