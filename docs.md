@@ -411,8 +411,18 @@ View(视图)------>DispatcherServelt(前端控制器) 。
 **`commond + N`**：重新打开一个页面  
 **`commond + T`**：在原来的页面里打开新的页面  
 
-4.  查看本机ssh连接到的host： vi ~/.ssh/known_hosts
-
+4.  查看本机ssh连接到的host： vi ~/.ssh/known_hosts  
+5. Homebrew---mac的软件包管理工具：
+> **brew安装** , 输入`ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"`   
+> **brew安装软件**, 输入`brew install 软件名`  
+> **brew卸载软件**, 输入`brew uninstall/remove 软件名`   
+> **brew查询软件**, 输入`brew search 软件名`      
+> **brew列出已安装软件**, 输入`brew list`       
+> **更新brew**, 输入`brew update`      
+> **用浏览器打开brew的官方网站**, 输入`brew home`     
+> **显示软件信息**, 输入`brew info 软件名`  
+> **显示包依赖**, 输入`brew deps`           
+  
 ## 三、redis
 1. 缓存注解  
 > @Cacheable(value="缓存的名称",key= "key",condition="符合缓存的条件)  
