@@ -382,8 +382,10 @@ View(视图)------>DispatcherServelt(前端控制器) 。
 > chown -R <用户>:<组> <目录>  
 <font color = "green">更改目录的所有者:将目录中所有文件的所有者和组更改为用户和组</font>   
 > chmod <u|g|a|o>  <+|-|=>  <r|x|w> <文件名>  
-<font color = "green">改变文件或目录的访问权限</font>  
- 
+<font color = "green">改变文件或目录的访问权限</font>    
+> ps -ef | grep <进程名> 
+<font color = "green">查看某进程是否运行</font>    
+    
  ## 一、Windows应用技巧
  1. 一键锁屏：windows + L 
  2. 显示桌面： windows + D
