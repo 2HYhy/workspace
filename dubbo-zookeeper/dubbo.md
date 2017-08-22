@@ -78,20 +78,20 @@ mvn install
 1. 提供者项目模块，依次配置好pom.xml,applicationContext.xml,TestService接口及实现类，TestServiceTest测试类。在保证zookeeper，tomcat启动的前提下，运行TestServiceTest:
 
 consule控制台提示：  
-![Alt text](/Users/CH-yfy/mygit/dubbo-zookeeper/photos/dubbo.png)     
+![Alt text](/dubbo-zookeeper/photos/dubbo.png)     
 dubbo控制台显示：  
-![Alt text](/Users/CH-yfy/mygit/dubbo-zookeeper/photos/aa.png)   
-![Alt text](/Users/CH-yfy/mygit/dubbo-zookeeper/photos/bb.png)   
-![Alt text](/Users/CH-yfy/mygit/dubbo-zookeeper/photos/cc.png)  
-![Alt text](/Users/CH-yfy/mygit/dubbo-zookeeper/photos/dd.png) 
+![Alt text](/dubbo-zookeeper/photos/aa.png)   
+![Alt text](/dubbo-zookeeper/photos/bb.png)   
+![Alt text](/dubbo-zookeeper/photos/cc.png)  
+![Alt text](/dubbo-zookeeper/photos/dd.png) 
 
-3. 服务者项目模块，依次配置好pom.xml,applicationContext.xml,ConsumerServiceTest测试类。在保证zookeeper，tomcat,provider都已启动的前提下，运行ConsumerServiceTest:  
+3. 服务者项目模块，依次配置好pom.xml,applicationContext.xml,ConsumerServiceTest测试类。在保证zookeeper，tomcat,provider都已启动的前提下，运行ConsumerServiceTest:  
 
 consule控制台提示：  
-![Alt text](/Users/CH-yfy/mygit/dubbo-zookeeper/photos/consule.png)
+![Alt text](/dubbo-zookeeper/photos/consule.png)
 dubbo控制台显示：
-![Alt text](/Users/CH-yfy/mygit/dubbo-zookeeper/photos/ee.png)   
-![Alt text](/Users/CH-yfy/mygit/dubbo-zookeeper/photos/ff.png) 
+![Alt text](/dubbo-zookeeper/photos/ee.png)   
+![Alt text](/dubbo-zookeeper/photos/ff.png) 
 
 
 
