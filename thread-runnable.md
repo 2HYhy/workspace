@@ -28,9 +28,8 @@ public class ThreadController extends Thread {
     }
 }
 ```     
-运行结果如图：    
-![alt-text](/images/thread.png)    
-
+运行结果如图：      
+![alt-text](/images/thread.png)        
 ## 实现Runnable接口：
 ```java
 public class RunnableController implements Runnable {
