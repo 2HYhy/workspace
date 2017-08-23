@@ -820,7 +820,7 @@ docker是一个开源的容器引擎，基于go语言，可以让开发者打包
 } 
 ```      
 
-3. **DockerFile常用指令**   
+3. DockerFile常用指令  
 > 一般由四部分组成：   
 >- 基础镜像信息(FROM)
 >- 镜像维护者信息（可省略）(MAINTAINER) 
@@ -888,7 +888,26 @@ docker是一个开源的容器引擎，基于go语言，可以让开发者打包
 **WORKDIR:**  
 > `WORKDIR </path/to/workdir>`    
 
-> 一个Dockerfile可以使用多个，为后续的RUN,CMD,ENTRYPOINT配置工作目录。后续命令若为相对路径，则会基于之前指定的路径，eg: `WORKDIR /a , WORKDIR b , WORKDIR c` , 则最终路径为/a/b/c。  
+> 一个Dockerfile可以使用多个，为后续的RUN,CMD,ENTRYPOINT配置工作目录。后续命令若为相对路径，则会基于之前指定的路径，eg: `WORKDIR /a , WORKDIR b , WORKDIR c` , 则最终路径为/a/b/c。    
+
+4. 镜像部署服务器流程     
+可以采用执行自动化脚本文件的方式，会简便些，当然也可逐个命令运行。       
+> 创建脚本文件build.sh:  
+```java
+mvn clean install -Dmaven.test.skip=true
+docker build --no-cache -t <镜像名>:$1 .
+docker tag <镜像名>:$1 <带有仓库地址的完整镜像名>:$1
+docker push <带有仓库地址的完整镜像名>:$1  
+```  
+
+> 首次执行脚本文件时，为其添加权限:    
+```java 
+chmod +x build.sh  
+```
+> 每次更新时，在脚本文件目录下执行:  
+```java
+sh build.sh 1.5      //sh $0 $1
+``` 
 
 ## 六、Tomcat虚拟目录映射方式
 web应用开发好之后，若想供外界访问，需要把web应用所在目录交给web服务器管理，这个过程称之为虚拟目录的映射。   
