@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <span>单行文本：</span>
+  <p>{{ message }}</p>
+  <input v-model="message">
+  <hr>
+  <span>多行文本：</span>
+  <p>{{information}}</p>
+  <textarea v-model="information" placeholder="add multiple lines"></textarea>
+</div>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'noodles',
+    information:''
+  }
+})
+</script>
+</body>
+</html>

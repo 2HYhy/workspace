@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <p>total: {{ total }}</p>
+  <component-counter v-on:increment="incrementTotal"></component-counter>
+  <component-counter v-on:increment="incrementTotal"></component-counter>
+</div>
+
+<script>
+Vue.component('component-counter', {
+	template: '<button v-on:click="incrementCounter">计数:{{counter}}</button>',
+	data: function() {
+		return {
+			counter: 0
+		}
+	},
+	methods: {
+		incrementCounter: function() {
+			this.counter += 1
+			this.$emit('increment')  //触发事件,子组件和父组件通信
+		}
+	}
+})
+
+var app = new Vue({
+  el: '#app',
+  data: {
+  	total: 0
+  },
+  methods: {
+  	incrementTotal: function() {
+  		this.total += 1
+  	}
+  }
+})
+</script>
+</body>
+</html>
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app-1">
+ <li v-for="item in items">
+    {{ item.message }}
+  </li>
+</div>
+
+<script>
+var app = new Vue({
+  el: '#app-1',
+  data:{
+   items: [
+     {message: 'Apple'},
+     {message: 'Banana'}
+   ]
+  }
+})
+/**
+app.items.push({message:'Watermelton'}) //向数组添加元素
+Vue.set(app.items, 2, 'Pear')  //更新元素的值
+Vue.set(app.items, 'info', 'fruit') //向对象添加属性
+*/
+</script> 
+</body>
+</html>
+<!--console输入或者vue实例外添加：app.items.push({message:'xxx'})增加一个message数组元素-->

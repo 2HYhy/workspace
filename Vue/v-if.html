@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+ <p v-if="seen">正常显示</p>
+ <template v-if="condition">
+ 	<h2>Apple</h2>
+ 	<p>Pear</p>
+ 	<span>Tomato</span>
+ </template>
+</div>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    seen:false,
+    condition:true
+  }
+})
+</script>
+</body>
+</html>
+<!--当seen为false，页面会隐藏p元素的内容,v-show和v-if用法一致，只是不支持template-->

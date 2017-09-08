@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <p>{{fullName}}</p>
+  <span>当一些数据需要根据其他数据变化时，多用计算属性computed</span>
+</div>
+
+<script>
+var vm = new Vue({
+  el: '#app',
+  data: {
+    firstName:'Foor',
+    lastName:'Bar'
+  },
+  computed: { //计算属性默认只有get方法
+  	fullName:{
+  		//getter
+  		get: function(){
+  			return this.firstName+' '+this.lastName
+  		},
+  		//setter
+  		set:function(newValue){
+  			var name = newValue.split(' ')
+  			this.firstName = name[0]
+  			this.lastName = name[name.length-1]
+  		}
+  	}
+  }
+})
+vm.site = 'Jhon Doe';
+document.write('firName: ' + vm.firstName);
+document.write('<br>');
+document.write('lastName: ' + vm.lastName);
+</script>
+</body>
+</html>
+<!--console中运行vm.fullName='Jhon Doe'时，set方法就会被调用，firstName和lastName就会更新-->

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+  {{ message | capitalize }}
+</div>
+  
+<script>
+new Vue({
+  el: '#app',
+  data: {
+  message: 'runoob'
+  },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(2)
+    }
+  }
+})
+</script>
+</body>
+</html>
+<!--capitalize 过滤器函数将会收到 message 的值作为第一个参数-->
+<!--{{ message | filterA | filterB }},将 filterA 的结果传递到 filterB 中,slice(x)表示删除前x个字符，返回剩余的。-->

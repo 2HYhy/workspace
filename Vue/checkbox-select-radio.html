@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+ <input type="checkbox" id='jack' value='Jack' v-model='checkName'>
+ <label for="jack">Jack</label>
+ <input type="checkbox" id='jhon' value='Jhon' v-model='checkName'>
+ <label for="jhon">Jhon</label>
+ <input type="checkbox" id='jeffier' value='Jeffier' v-model='checkName'>
+ <label for="jeffier">Jeffier</label>
+ <br/>
+ <span>ckeckName:{{checkName}}</span>
+ <hr/>
+ <input type="radio" id="one" value="One" v-model="picked">
+ <label for="one">One</label>
+ <input type="radio" id="two" value="Two" v-model="picked">
+ <label for="two">Two</label>
+ <br/>
+ <span>picked:{{picked}}</span>
+ <hr/>
+ <select v-model="selected">
+   <option disabled value="">请选择</option>
+   <option>A</option>
+   <option>B</option>
+   <option>C</option>
+ </select>
+ <span>Selected:{{selected}}</span>
+</div>
+
+<script>
+var vm = new Vue({
+  el: '#app',
+  data: {
+  	checkName:[],
+  	picked:''
+  	selected:'',
+  }
+})
+</script>
+</body>
+</html>

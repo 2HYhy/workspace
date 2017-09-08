@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+<p>切换登录类型时，并不会清除已输入内容，因为两个模板使用了相同的元素！</p>
+ <template v-if="loginType ==='username'">
+ 	<label>Username</label>
+ 	<input placeholder="Enter your name">
+ </template>
+ <template v-else>
+ 	<label>Email</label>
+ 	<input placeholder="Enter your email">
+ </template>
+ <br>
+ <button v-on:click="change">点击切换</button>
+ <hr>
+ <p>切换登录类型时，会清除已输入内容，因为两个元素具有唯一值的key属性！</p>
+ <template v-if="loginType ==='username'">
+ 	<label>Username</label>
+ 	<input placeholder="Enter your name" key="username-input">
+ </template>
+ <template v-else>
+ 	<label>Email</label>
+ 	<input placeholder="Enter your email" key="email-input">
+ </template>
+ <br>
+ <button v-on:click="change">toggle login type</button>
+</div>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+  	loginType:'username'
+  },
+  methods:{
+  	change: function() {
+  		if(this.loginType != 'username') {
+  			return this.loginType = 'username'
+  		}
+  		return this.loginType = 'email'
+  	}
+  }
+})
+</script>
+</body>
+</html>

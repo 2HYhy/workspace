@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+ <!-- kebab-case in HTML -->
+  <input v-model="parentMsg">
+  <br>
+  <!--使用v-bind将父组件的数据动态绑定到子组件-->
+  <child v-bind:my-message="parentMsg"></child>
+  <hr>
+  <h6>当使用的不是字符串模板,camelCased(驼峰式)命名的prop需要转换为相对应的kebab-case(短横线隔开式)命名</h6>
+  <hr/>
+  <ul>
+  <todo-item v-for="item in sites" v-bind:todo="item"></todo-item>
+ </ul>
+</div>
+
+<script>
+Vue.component('child', {
+	// camelCase in JavaScript
+	props: ['myMessage'],
+	template: '<span> {{myMessage}} </span>'
+})
+
+Vue.component('todo-item', {
+  props: ['todo'],
+  template: '<li>{{todo.text}}</li>'
+})
+var app = new Vue({
+  el: '#app',
+  data: {
+  	parentMsg: 'Hello Vue',
+    sites: [
+     {text:'Runoob'},
+     {text:'Google'},
+     {text:'Taobao'}
+    ]
+  }
+})
+</script>
+</body>
+</html>

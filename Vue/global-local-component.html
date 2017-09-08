@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <span>调用Vue.component()注册组件时，组件的注册是全局的，这意味着该组件可以在任意Vue示例下使用。 如果不需要全局注册，或者是让组件使用在其它组件内，可以用选项对象的components属性实现局部注册。</span>
+  <local-component></local-component>
+ <!--  全局组件挂载在任意实例下 -->
+  <global-component></global-component>
+</div>
+
+<script>
+var componentLocal = Vue.extend({
+	template: '<div>This is a local component which can only used in #app元素对应的Vue实例下!</div>'
+})
+//1.创建构造器
+var componentGlobal = Vue.extend({
+	
+	template: '<p>This is a global component!</p>',
+})
+//2. 注册组件
+Vue.component('global-component', componentGlobal)
+	
+var app = new Vue({
+  el: '#app',
+  components: {
+  	'local-component': componentLocal
+  }
+})
+</script>
+</body>
+</html>
+
