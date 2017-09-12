@@ -246,7 +246,12 @@ View(视图)------>DispatcherServelt(前端控制器) 。
 ` select * from table limit m , n `   数据库中的记录下标是从0开始的，即从记录的第 m+1 条开始，共选择 n 条数据。    
 ` select * from table limit x ` 取出前x条记录     
 11. `alter table 表名 add  列名 数据类型`   在表中添加列  
-12. `alter table 列名 change 列名 新列名 数据类型`  修改表中的列  
+12. `alter table 列名 change 列名 新列名 数据类型`  修改表中的列      
+13. `truncate table xxxxxx`    清除某个表的全部数据     
+**MySql的group by分级查询中，（1）在select中指定返回的字段，要么包含在group by语句的后面，作为分组依据，要么就要被包含在聚合函数中。（2）where子句的作用是在对查询结果进行分组前，将不符合条件的行去掉，即在分组之前过滤数据，不能包含聚合函数；having子句的作用是筛选满足条件的组，即在分组之后过滤数据，经常包含聚合函数。**     
+14.安装命令行连接mysql：   
+> 进入mysql/bin目录路径下：    
+> MySQL  -hlocalhost -uroot -proot， 分别为本地连接的地址，用户名，密码  
 
 **关于表结构的修改语句:** 
 > ALTER TABLE 旧表名 rename 新表名    
