@@ -297,12 +297,13 @@ select num;
 end
 ```
 
-3. 原始表tt：<font color="red">创建一个存储过程实现：统计apple的总数量</font> 
-| id        | t_name           | t_count  |
-| ---------- |:---------:| -----:|
-| 1    | pear | 10 |
-| 2     |  apple     |   7|
-| 3 | banana     |    3|
+3. 原始表tt：<font color="red">创建一个存储过程实现：统计apple的总数量</font>     
+
+| id  | t_name   | t_count  |  
+| --- |:--------:| --------:|  
+| 1   | pear     | 10       |  
+| 2     |  apple     |   7|  
+| 3 | banana     |    3|   
 |  4 | apple | 4 |
 | 5     |  banana     |   9|
 | 6 | apple     |    2|  
