@@ -160,6 +160,16 @@ DispatcherServelt(前端控制器)------>HandlerAdapter(处理器适配器) ；
 HandleAdapter(处理器适配器)------>Handler(处理器) ；
 DispatcherServelt(前端控制器)------>ViewResolver(视图解析器) ；  
 View(视图)------>DispatcherServelt(前端控制器) 。  
+```   
+
+### java访问网页  
+```java
+public class TestUrl {
+        public static void main(String [] args) throws URISyntaxException, IOException {
+            java.net.URI uri = new java.net.URI("http://www.baidu.com");
+            java.awt.Desktop.getDesktop().browse(uri);
+    }
+}
 ```
 
 ## 四、Git命令
