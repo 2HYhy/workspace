@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <div>
+    push:最后添加<br/>
+  	<input type="text" v-model="text" @keyup.enter="methodPush">   <!--输入后按回车，或点击按钮，完成添加功能-->
+  	<input type="button" value="测试" @click="methodPush">
+  	<ul>
+  		<li v-for="item in arrays">
+  			<span v-text="item"></span>
+  		</li>
+  	</ul>
+  </div>
+  <div>
+  	pop:最后删除<br/>
+  	<input type="button" value="测试" @click="methodPop">
+  	<ul>
+  		<li v-for="item in arrays">
+  			<span v-text="item"></span>
+  		</li>
+  	</ul>
+  </div>
+  <div>
+    unshift:最前添加<br/>
+    <input type="text" v-model="text" @keyup.enter="methodUnshift">  
+        <input type="button" value="测试" @click="methodUnshift">  
+        <ul>  
+          <li v-for="item of arrays">  
+            <span v-text="item"></span>  
+          </li>  
+        </ul>  
+  </div>
+  <div>
+    shift:最前删除<br/>
+  	<input type="button" value="测试" @click="methodShift">
+  	<ul>
+  		<li v-for="item in arrays">
+  			<span v-text="item"></span>
+  		</li>
+  	</ul>
+  </div>
+  <div>
+  	splice:添加删除<!--有三个参数param1(添加/删除项目的位置),param2(要删除的项目数量。如果设置为 0，则不会删除项目),param3(向数组添加的新项目)--><br/>
+  	<input type="button" value="测试" @click="methodSplice">
+  	<ul>  
+        <li v-for="item of arrays">  
+            <span v-text="item"></span>  
+         </li>  
+    </ul>  
+  </div>
+  <div>
+  	<input type="button" value="测试" @click="methodSort">
+  	<ul>  
+        <li v-for="item of arrays">  
+            <span v-text="item"></span>  
+        </li>  
+    </ul>  
+  </div>
+  <p>result:展示结果<br/> 
+    <span v-text="result"></span>
+  </p>
+</div>
+
+<script>
+var vm = new Vue({
+  el: '#app',
+  data: {
+  	text:'',   //每次添加的内容
+  	result:'', //操作数组后的结果
+  	arrays:[]  //数组
+  },
+  methods: {
+  	methodPush: function() {
+  		this.result = this.arrays.push(this.text)
+  	},
+  	methodPop: function() {
+  		this.result = this.arrays.pop()
+  	},
+  	methodShift: function() {
+  		this.result = this.arrays.shift()
+  	},
+  	methodUnshift: function() {
+  		this.result = this.arrays.unshift(this.text)
+  	},
+  	methodSplice: function() {
+  		this.result = this.arrays.splice(2,1,'hyh')
+  	},
+  	methodSort: function() {
+  		this.result = this.arrays.sort()
+  	}
+  }
+})
+/**
+methods: {  
+        methodByPush: function () {  
+          this.result = this.items.push(this.text)  
+          this.text = ''  
+        },  
+        methodByPop: function () {  
+          this.result = ''  
+          this.result = this.items.pop()  
+        },  
+        methodByShift: function () {  
+          this.result = ''  
+          this.result = this.items.shift()  
+        },  
+        methodByUnshift: function () {  
+          this.result = ''  
+          this.result = this.items.unshift(this.text)  
+          this.text = ''  
+        },  
+        methodBySplice: function () {  
+          this.result = ''  
+          this.result = this.items.splice(2,1,'yovan')  
+        },  
+        methodBySort: function () {  
+          this.result = ''  
+          this.result = this.items.sort()  
+        },  
+        methodByReverse: function () {  
+          this.result = ''  
+          this.result = this.items.reverse()  
+          alert(this.result)  
+        }  
+      }  
+
+push():往数组最后面添加一个元素，成功返回当前数组的长度
+pop():删除数组的最后一个元素，成功返回删除元素的值
+shift():删除数组的第一个元素，成功返回删除元素的值
+unshift():往数组最前面添加一个元素，成功返回当前数组的长度
+splice():有三个参数，第一个是想要删除的元素的下标（必选），第二个是想要删除的个数，第三个是删除后想要在原位置替换的值
+sort():使数组按照字符编码默认从小到大排序,成功返回排序后的数组
+*/
+</script>
+</body>
+</html>

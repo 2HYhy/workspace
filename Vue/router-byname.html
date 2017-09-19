@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+  <p>
+    <router-link :to="{ name: 'userinfo', params:{uid:123} }">hit-user</router-link>   <!--to前需加:-->
+  </p>
+  <p>
+    <p><router-link :to="{ name:'fourname', query:{name:'hyh'} }">fourth</router-link></p>
+  </p>
+  <!--路由出口-->
+  <router-view></router-view>
+</div>
+<script>
+
+//1. 定义路由组件
+const User = { template: `<div><h2>User : {{ $route.params.uid }}</h2></div>` }
+const Fourth = {template: '<div><h4>Fourth : name = {{ $route.query.name }}<h4></div>' }
+//2. 创建路由实例
+const router = new VueRouter({
+  routes: [
+  { 
+    path: '/user/:uid', 
+    component: User,
+    name: 'userinfo'   //通过一个名称来标识一个路由
+  },
+  {
+    path: '/fourth',
+    component: Fourth,
+    name: 'fourname'
+}
+ ]
+})
+
+//3.创建和挂载根实例
+const app = new Vue({
+  router
+}).$mount('#app')
+</script>
+</body>
+</html>

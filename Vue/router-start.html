@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+  <p>
+    <router-link to="/first">Go to first</router-link>
+    <br/>
+    <router-link to="/second">Go to second</router-link>
+    <br/>
+    <router-link to="/third/123">Go to third</router-link>
+    <br/>
+    <router-link to="/fourth?name=hyh">Go to fourth</router-link>
+  </p>
+  <!--路由出口,渲染最高级路由匹配到的组件-->
+  <router-view></router-view>
+</div>
+
+<script>
+//1. 定义路由组件
+const First = { template: '<div>first-content</div>' }
+const Second = { template: '<div>second-content</div>' }
+//动态路径参数
+const Third = { template: '<div>third:{{ $route.params.id }}</div>' }
+//动态查询参数
+const Fourth = { template: '<div>fourth:{{ $route.query.name }}</div>' }
+
+//2. 定义路由，一个路由对应一个组件
+const routes = [
+  { path: '/first', component: First },
+  { path: '/second', component: Second },
+  { path: '/third/:id', component: Third},
+   { path: '/fourth', component: Fourth}
+]
+
+//3. 创建路由实例
+const router = new VueRouter({
+  routes 
+})
+
+//4.创建和挂载根实例
+const app = new Vue({
+  router
+}).$mount('#app')
+</script>
+
+<style>
+  .router-link-active {
+  color: red;
+}
+</style>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+  <p>
+    <router-link to="/user/123/getName">url-1</router-link>
+    <br/>
+    <router-link to="/user/123/getAddress">url-2</router-link>
+    <br/>
+    <router-link to="/user/123">url-3</router-link>
+  </p>
+  <!--路由出口-->
+  <router-view></router-view>
+</div>
+<script>
+
+//1. 定义路由组件
+const Name = { template: '<div>my-name</div>' }
+const Address = { template: '<div>my-address</div>' }
+const User = { template: 
+                 `<div class="user">
+                     <h2>User {{ $route.params.id }}</h2>
+                     <router-view></router-view>
+                  </div>`
+             }
+const Default = { template: '<div>default-content</div>'}            
+
+//2. 创建路由实例
+const router = new VueRouter({
+  routes: [
+  { path: '/user/:id', 
+    component: User,
+    children: [
+    { path: '', component: Default},  //当/user/:id匹配成功，Default会被渲染在User的<router-view>中,若没有该子路由时，将不会渲染default组件内容
+    { path: 'getName', component: Name},  //当/user/:id/getName匹配成功，Name会被渲染在User的<router-view>中
+    { path: 'getAddress', component: Address}    //当/user/:id/getAddress匹配成功，Address会被渲染在User的<router-view>中
+    ]
+  }
+ ]
+})
+
+//3.创建和挂载根实例
+const app = new Vue({
+  router
+}).$mount('#app')
+</script>
+</body>
+</html>
