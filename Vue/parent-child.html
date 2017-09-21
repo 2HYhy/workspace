@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>父向子传值</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <input v-model="parentMsg">
+  <br>
+  <!--使用v-bind将父组件的数据动态绑定到子组件-->
+  <child v-bind:message="parentMsg"></child>
+</div>
+
+<script>
+Vue.component('child', {
+	props: ['message'],
+	template: '<span> {{message}} </span>'
+})
+Vue.component('parent', {
+})
+var app = new Vue({
+  el: '#app',
+  data: {
+  	parentMsg: 'Hello Vue'
+  }
+})
+</script>
+</body>
+</html>

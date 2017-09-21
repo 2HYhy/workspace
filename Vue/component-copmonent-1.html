@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+<component-one></component-one>
+<br>
+<component-two></component-two>
+</div>
+
+<script>
+var bus = new Vue()
+
+Vue.component('component-one', {
+ template: `发送方组件: <button v-on:click="sendMsg">点击触发自定义事件</button>`,
+ methods: {
+    sendMsg: function() {
+      bus.$emit('defaultEvent',"This message is from sender")
+    }
+  }
+})
+Vue.component('component-two', {
+  template: `接收方组件:<p>{{message}}</p>`,
+  data: function() {
+  return {
+      message:'默认值'
+    }
+  },
+ created: function() {
+   var self = this
+   bus.$on('defaultEvent', function(msg){
+     self.message = msg     //不再需要.bind(this)
+   })
+ }
+})
+
+var app = new Vue({  
+  el: '#app'
+})
+</script>
+</body>
+</html>

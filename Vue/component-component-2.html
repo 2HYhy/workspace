@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>vue</title>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <Display></Display>
+  <Increment></Increment>
+</div>
+
+<script>
+var bus = new Vue()
+
+Vue.component('Increment', {
+  template: `<button @click="increment"> + </button>`,
+  data: function() {
+   return {count: 1}
+  },
+  methods: {
+    increment: function(){
+      var increment = this.count++
+      bus.$emit('inc', increment)
+  }
+ }
+})
+Vue.component('Display', {
+  template: `<h3>Clicked: {{count}} times</h3>`,
+  data: function() {
+  return {count: 0}
+  },
+  mounted: function() { 
+    bus.$on('inc', function(num) {
+      this.count = num
+    }.bind(this))    //没有var self = this,所以必须有.bind(this)
+  }
+})
+
+var app = new Vue({  
+  el: '#app'
+})
+</script>
+</body>
+</html>
