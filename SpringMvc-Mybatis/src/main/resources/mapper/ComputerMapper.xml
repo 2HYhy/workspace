@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--数据库表字段与实体类属性字段不一致-->
+<mapper namespace="com.me.gacl.dao.ComputerDao">
+    <resultMap id="computerMap" type="com.me.gacl.domain.Computer">
+        <id property="comId" column="com_id" jdbcType="INT"/>
+        <result property="comType" column="type" jdbcType="VARCHAR"/>
+        <result property="comSize" column="size" jdbcType="INT"/>
+        <result property="comColor" column="color" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--方式1-->
+    <select id="selectComputer" resultType="com.me.gacl.domain.Computer">
+        select com_type comType,com_size comSize, com_color comColor
+        from computer where com_type=#{type}
+    </select>
+
+    <!--方式2-->
+    <select id="selectComputer" resultMap="ComputerMap">
+        select com_type,com_size, com_color from computer where com_type=#{type}
+    </select>
+</mapper>
+
+
+
+<!--TODO 表关联-->

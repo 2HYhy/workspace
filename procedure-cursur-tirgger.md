@@ -169,8 +169,11 @@ end
  
 ## 触发器 
 ### 相关定义：  
-1. 触发器创建语法四要素：1.监视地点(table) 2.监视事件(insert/update/delete) 3.触发时间(after/before) 4.触发事件(sql语句的insert/update/delete)。   
-2. MySql使用触发器注意事项：1.触发器使用的表需要支持事务（就是InnoDB);2.创建触发器的表，不能再sql语句（就是BEGIN...END）中再次操作该张表。 
+1. 触发器创建语法四要素：  
+> 1.监视地点(table) 2.监视事件(insert/update/delete) 3.触发时间(after/before) 4.触发事件(sql语句的insert/update/delete)。     
+
+2. MySql使用触发器注意事项：  
+> 1.触发器使用的表需要支持事务（就是InnoDB);2.创建触发器的表，不能再sql语句（就是BEGIN...END）中再次操作该张表。 
 
 ### 语法格式即命令：  
 ```java 
