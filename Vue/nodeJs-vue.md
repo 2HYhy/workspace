@@ -37,9 +37,10 @@ node
 
 **新建初始化vue项目框架**
 ```java
-//全局安装 vue-cli
+//环境:全局安装 vue-cli(只安装一次就不再需要)
 cnpm install --global vue-cli 
-// 创建一个基于 webpack 模板的新项目 
+
+// start:创建一个基于 webpack 模板的新项目 
 vue init webpack my-project  
 //接下来是进行一系列配置，默认回车即可
 
@@ -47,6 +48,9 @@ vue init webpack my-project
 cd my-project
 cnpm install
 cnpm run dev
+
+//启动后，若有其他组件需求也要安装
+npm install vue-router vue-resource vuex --save
 
 //浏览器访问`http://localhost:8080/`即可
 ```
