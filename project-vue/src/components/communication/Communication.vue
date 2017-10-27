@@ -9,6 +9,12 @@
     <hr/>
     <send></send>
     <receive></receive>
+    <hr/>
+    <autoinput></autoinput>
+    <hr/>
+    <myslot></myslot>
+    <hr/>
+    <futozi></futozi>
   </div>
 </template>
 
@@ -19,6 +25,9 @@
   import bcom from './B.vue'
   import send from './Send.vue'
   import receive from './Receive.vue'
+  import autoinput from './AutoInput.vue'
+  import myslot from './MySlot.vue'
+  import futozi from './FuDiaoZi.vue'
 
   export default {
     name: 'com',
@@ -28,7 +37,10 @@
       acom,
       bcom,
       send,
-      receive
+      receive,
+      autoinput,
+      myslot,
+      futozi
     },
     data () {
       return {
