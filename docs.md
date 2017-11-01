@@ -243,8 +243,14 @@ public class TestUrl {
  1. select column from table where volumn = value
  2. select volumn from table where volumn1 = value1 and(or) volumn2= value2
  3. select volumn from table where volumn in List
- 4.  select volumn from table where volumn between value1 and value2
+ 4. select volumn from table where volumn between value1 and value2
  5. insert into table (volumn) values (value)
+ ```java
+ //一次性插入多条记录
+insert into user_login_log_test(uid，logintime) values 
+(value11, value12),
+(value21, value22);
+```   
  6. update table set volumn = value where volumn = value
  7. delete from table where volumn = value
  8. create database / drop database
@@ -257,22 +263,28 @@ public class TestUrl {
 ` select * from table limit x ` 取出前x条记录     
 11. `alter table 表名 add  列名 数据类型`   在表中添加列  
 12. `alter table 列名 change 列名 新列名 数据类型`  修改表中的列      
-13. `truncate table xxxxxx`    清除某个表的全部数据     
->- **MySql的group by分级查询中，（1）在select中指定返回的字段，要么包含在group by语句的后面，作为分组依据，要么就要被包含在聚合函数中。（2）where子句的作用是在对查询结果进行分组前，将不符合条件的行去掉，即在分组之前过滤数据，不能包含聚合函数；having子句的作用是筛选满足条件的组，即在分组之后过滤数据，经常包含聚合函数。**     
+13. `truncate table xxxxxx`    清除某个表的全部数据 
+```java
+//查看event是否开启:
+ show variables like 'event_scheduler'; 
+//将事件计划开启: 
+set global event_scheduler=1; 
+```      
   
 14. 安装命令行连接mysql：     
 > 进入mysql/bin目录路径下：    
 > MySQL  -hlocalhost -uroot -proot， 分别为本地连接的地址，用户名，密码    
 
-### unsigned属性，特殊应用场景：存放ip  
+15. 关于几大数据类型：   
+#### unsigned属性，特殊应用场景：存放ip  
 > INET_ATON()函数：将IP转换为数值类型;   
 > INET_NTOA()函数：将数值类型转换为IP。   
 > - IPV4的最大地址(255.255.255.255)转换后即为unsigned int的最大值(4294967295), 而int的范围为-2147483648-21474833647, 所以要用unsigned int 存储IP地址。  
 
-### DECIMAL(M,D)
+#### DECIMAL(M,D)
 > 其中，M代表正数和小数部分的总位数，D代表小数部分的位数。  
 
-### TIMESTAMP和DATETIME 
+#### TIMESTAMP和DATETIME 
 > 显示结果一样，都是固定的“YYYY-mm-dd hh:MM:ss”的形式。
 
 ```java
@@ -284,7 +296,7 @@ t1="2017-10-06 16:12:56" ,  t2="2017-10-06 16:12:56"
  >timestamp时间范围为"1970-01-01 00:00:01" UTC 到"2038-01-19 03:14:07" UTC , UTC是协调世界时，就如我们中国的时区是UTC+8，显示的时间范围要加上8小时。    
 > 保存一个timestamp类型的时间时，它的值以UTC格式存放，即就是从"1970-01-01 00:00:01"到当前的秒数。  
 
-### char(M)和varchar(M)  
+#### char(M)和varchar(M)  
 > M指的是字符数；  
 
 > 常规的laint1字符集，1个字符=1个字节，char存储最大占用255个字节； 国内使用的UTF-8字符集，1个字符=3个字节，char存储最大占用255*3=765个字节。
@@ -302,13 +314,54 @@ t1="2017-10-06 16:12:56" ,  t2="2017-10-06 16:12:56"
  | 'abcdefg' | 'abcd' | 12个字节 | 'abcd' | 13个字节 |
 
 
-**关于表结构的修改语句:** 
+16. 关于表结构的修改语句:
 > ALTER TABLE 旧表名 rename 新表名    
 > ALTER TABLE <表名> modify  属性  数据类型    
 > ALTER TABLE <表名> change 旧属性名 新属性名 新数据类型    
 > ALTER TABLE 表名 ADD 属性名1 数据类型 [完整性约束条件]    
 > ALTER TABLE 表名 DROP 属性名     
-> ALTER TABLE 表名 DROP FOREIGN KEY 外键别名      
+> ALTER TABLE 表名 DROP FOREIGN KEY 外键别名 
+
+17. 关于分级，组合，内连接查询：  
+#### 分级查询group by 
+> group by单独使用时，只显示出每组的第一条记录，意义不大;  
+> group by + group_concat用来放置每一组的某字段的值的集合;
+>- `select sso, GROUP_CONCAT(phone) from user group by sso`
+
+> group by +聚合函数最常用于统计   
+> group by + having用户限制分组结果的显示  
+> group by + with rollup会在最后加上一条新纪录，统计各分组总和。  
+>- `select app_id, count(uid) as counts from t_ucop_user_test group by app_id  with rollup`  
+
+> group by分级查询中，（1）在select中指定返回的字段，要么包含在group by语句的后面，作为分组依据，要么就要被包含在聚合函数中。（2）where子句的作用是在对查询结果进行分组前，将不符合条件的行去掉，即在分组之前过滤数据，不能包含聚合函数；having子句的作用是筛选满足条件的组，即在分组之后过滤数据，经常包含聚合函数。   
+
+#### 组合查询union  
+用于合并两个select的结果集，只要两个结果集的列数相等，顺序相同。默认消去结果集中的重复行，若要返回重复数据，使用union all。    
+`select uid from user union select uid from user_test`   
+
+#### 内连接inner join   
+实质是两表先进行笛卡尔乘积运算(用第一个对象的每一项乘以第二个对象的每一项，即交叉成绩)，然后再根据on后面的限制条件对结果进行筛选。   
+
+18. 一些sql语句集锦：  
+> 两表联合，按分组进行更新  
+```java
+UPDATE table1 A
+INNER JOIN (SELECT id,COUNT(*) AS Stat FROM table2 WHERE enable=1 GROUP BY id) as B
+ON B.id = A.id
+SET A.UpdateColumn = B.Stat
+```    
+> 统计某天注册后连续登录3天的用户数
+```java
+select idd, count(tti) as num from 
+(select distinct(ull.uid) as idd, left(logintime,10) as tti
+from user_login_log  ull inner join  user u  on ull.uid=u.uid
+where left(registertime,10) = "2017-06-26" and left(logintime,10) between DATE_ADD("2017-06-26",INTERVAL 1 DAY)  and  DATE_ADD("2017-06-26",INTERVAL 3 DAY)
+)a group by idd having num >=3 
+```
+> 统计存在于一个表而另一个表不存在的数据   
+```java
+select count(*) from user_test where uid not in (select uid from user)
+```
 
 ## 六、Maven常用语句 
  mvn clean install -Dmaven.test.skip=true   
@@ -438,7 +491,13 @@ t1="2017-10-06 16:12:56" ,  t2="2017-10-06 16:12:56"
 > chmod <u|g|a|o>  <+|-|=>  <r|x|w> <文件名>  
 <font color = "green">改变文件或目录的访问权限</font>    
 > ps -ef | grep <进程名> 
-<font color = "green">查看某进程是否运行</font>    
+<font color = "green">查看某进程是否运行</font>  
+> ifconfig
+<font color = "green">查看激活网卡的详细信息,eth/en代表以太网网卡信息（ipv4,ipv6,broadcast,mask）</font>  
+> ifconfig eth0 172.16.0.118 netmask 255.255.0.0 = ifconfig eth0 172.16.0.118/16 
+<font color = "green">配置临时IP：只需要两个参数，一个IP地址，一个子网掩码</font>  
+> ps -A / ps -e
+<font color = "green">查看所有进程</font>    
     
  ## 一、Windows应用技巧
  1. 一键锁屏：windows + L 
