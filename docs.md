@@ -539,6 +539,97 @@ select count(*) from user_test where uid not in (select uid from user)
 > **显示包依赖**, 输入`brew deps`           
   
 ## 三、redis
+### springBoot集成redis缓存
+1. 添加依赖：
+```java
+<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>1.5.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-redis</artifactId>
+            <version>1.3.8.RELEASE</version>
+        </dependency>
+```
+2. application.properties添加配置：
+```java
+// redis数据库的索引，默认为0
+spring.redis.database=0　　　　
+spring.redis.host=127.0.0.1
+#spring.redis.password=pwd
+spring.redis.port=6379
+// 最大空闲链接数
+spring.redis.pool.max-idle=8　
+// 最小空闲连接数　
+spring.redis.pool.min-idle=0　
+// 连接池最大连接数，负数表示无最大连接数　
+spring.redis.pool.max-active=8　
+// 连接池最大阻塞等待时间，负数表示没有
+spring.redis.pool.max-wait=-1　　
+```
+3. 启动类或者具体的DAO类中添加注解@EnableCaching:
+此注解会对每个bean中被@Cacheable, @CachePut, @CacheEvict修饰的public方法进行缓存操作。   
+
+### @Cacheable用法(value属性是必须的)
+```java
+@Cacheable(value = "companyCache", key = "'myCompanyCache:'.concat(#root.methodName)")
+public void findByCompanyId(){ }
+```
+> redis中生成: `companyCache~keys` 和 `myCompanyCache: (文件夹)   
+myCompanyCache:findByCompanyId (key)
+`
+
+**正确应设置成**:  
+```java
+@Cacheable(value = "companyCache:", key = "'companyCache:'.concat(#root.methodName)")
+```
+### @CacheEvict用法
+```java
+ @CacheEvict(value = "companyCache", key = "'myCompanyCache:'.concat('findByCompanyId')")
+    public void updateCompanyId(){}
+```
+> 可用在update类方法上，也可用在remove类方法上。
+
+### @cachePut用法
+> 每次都会执行方法，并将结果进行缓存。用法与@Cacheable用法一致,用在update类方法上。
+
+### @Caching用法
+> 可以包含以上三个注解，key-value分别对应(cachable=[@Cacheable], put=[@CachePut], evict=[@CacheEvict])。
+
+### @CacheConfig用法
+> 类级的注解，统一指定缓存的value和key。
+
+### 自定义KeyGenerator和CacheManager  
+```java
+@Configuration
+public class RedisConfig extends CachingConfigurerSupport {
+
+    @Bean
+    public KeyGenerator wiselyKeyGenerator() {
+        return new KeyGenerator() {
+            @Override
+            public Object generate(Object target, Method method, Object... params) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(target.getClass().getName());
+                sb.append(method.getName());
+                for (Object obj : params) {
+                    sb.append(obj.toString());
+                }
+                return sb.toString();
+            }
+        };
+    }
+
+    @Bean
+    public CacheManager cacheManager(@SuppressWarnings("rawtypes") RedisTemplate redisTemplate) {
+        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
+        return cacheManager;
+    }
+}
+```
+
 1. 缓存注解  
 > @Cacheable(value="缓存的名称",key= "key",condition="符合缓存的条件)  
 ```java  
@@ -560,8 +651,8 @@ public void removeCache(){}
 *清除名为redisName的缓存内容。*   
 > `@Caching(put = {@CachePut(value = "",key = ""),@CachePut(value = "",key = "")})`   
 > `@Caching(evit = {@CacheEvit(value = "",key = ""),@CacheEvit(value = "",key = "")})`    
-*多用于更新，清除，组合多个Cache注解。*      
-
+*多用于更新，清除，组合多个Cache注解。*    
+  
 2. 操作命令(redis是使用内存存储的非关系数据库)  
 > redis-server.exe  
 > redis-cli.exe -h 127.0.0.1 -p 6379 (重新打开一个命令框输入)
