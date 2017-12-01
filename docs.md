@@ -876,7 +876,7 @@ public void removeCache(){}
 > db.CollectionName.aggregate([{$sort:{key:-1}}])  
 > db.CollectionName.aggregate([{$skip:3}])
 
-###具体查询例子：
+#### 具体查询例子：
 ```java
 db.userLoginLogDO.find({"loginTime" : { "$gte" : ISODate("2017-11-02 06:09:00.000Z")  
 , "$lte" : ISODate("2017-11-02 06:09:00.000Z") }})    
@@ -904,7 +904,7 @@ db.userLoginLogDO.find({"uid"  :  {"$exists" : true}})  //判断某个字段是�
 db.userLoginLogDO.find().sort({"loginTime" : -1})  //降序
 ```
 
-### mongoTemplate, java版：
+#### mongoTemplate, java版：
 ```java
 public UserLoginLogDO func1(String param) {
         Criteria base = new Criteria();
