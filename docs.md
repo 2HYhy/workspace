@@ -858,7 +858,8 @@ public void removeCache(){}
 > $limit：用来限制MongoDB聚合管道返回的文档数。  
 > $skip：在聚合管道中跳过指定数量的文档，并返回余下的文档。   
 > $group：将集合中的文档分组，可用于统计结果。  
-> $sort：将输入文档排序后输出。   
+> $sort：将输入文档排序后输出。 
+
 > db.CollectionName.count()  
 > db.CollectionName.aggregate([{$group:{id:null,count:{$sum:1}}}])  
 >- select count(1) as count from collectionName  
@@ -874,6 +875,95 @@ public void removeCache(){}
 
 > db.CollectionName.aggregate([{$sort:{key:-1}}])  
 > db.CollectionName.aggregate([{$skip:3}])
+
+###具体查询例子：
+```java
+db.userLoginLogDO.find({"loginTime" : { "$gte" : ISODate("2017-11-02 06:09:00.000Z")  
+, "$lte" : ISODate("2017-11-02 06:09:00.000Z") }})    
+
+db.getCollection("userLoginLogDO").find({"uid": "c7d6ad0c2ea34719", "loginTime" : ISODate("2017-11-02 06:09:00.000Z")})   
+
+db.getCollection("userLoginLogDO").find({}, {"uid" : 1, "_id" : 0})  //阻止_id返回          
+db.getCollection("userLoginLogDO").find({}, {"uid" : 1, "loginTime" : 1})
+select uid, logintime from user_login_log
+
+db.getCollection("userLoginLogDO").find({"uid": {"$in" : ["c7d6ad0c2ea34719", "6817f364aeb44ab1", "f020cbf41d7b4e51"] }})
+select * from user_login_log where uid in [xxx, xxx, xxx]
+// "$nin"  =  no in ,  "$ne"  =   !=
+
+db.userLoginLogDO.find({"$or"  : [{"uid" : "c7d6ad0c2ea34719"}, {"uid" : "6817f364aeb44ab1"}]})
+
+db.userLoginLogDO.find({"uid"  :  /6817/})
+db.getCollection("userLoginLogDO").find({"uid" : {"$regex" : "6817"}})
+select * from user_login_log where uid like concat("%", "6817", "%")  //正则表达式
+
+db.userLoginLogDO.find({"uid"  :  {"$all" : ["6817f364aeb44ab1", "c7d6ad0c2ea34719"]}})  //必须满足all中的所有值，而in是满足其中一个即可
+
+db.userLoginLogDO.find({"uid"  :  {"$exists" : true}})  //判断某个字段是否存在
+
+db.userLoginLogDO.find().sort({"loginTime" : -1})  //降序
+```
+
+### mongoTemplate, java版：
+```java
+public UserLoginLogDO func1(String param) {
+        Criteria base = new Criteria();
+        base.andOperator(Criteria.where("uid").is(param));
+        List<UserLoginLogDO> loginLogDOList = mongoTemplate.find(new Query(base).with(new Sort(Sort.Direction.DESC, "loginTime")).limit(1), UserLoginLogDO.class);
+        if (loginLogDOList.size() > 0) {
+            return loginLogDOList.get(0);
+        }
+    }
+
+ public String func2(String param1, String param2) {
+        Criteria base = new Criteria();
+        base.andOperator(Criteria.where("deviceSn").is(param1), Criteria.where("macAddress").is(param2));
+        List<UserLoginLogDO> loginLogDOList = mongoTemplate.find(new Query(base).with(new Sort(Sort.Direction.DESC, "loginTime")).limit(1), UserLoginLogDO.class);
+        if (loginLogDOList.size() > 0) {
+            String uid = loginLogDOList.get(0).getUid();
+            UserDO userDO = userMapper.findUserByUid(uid, livemode);
+            return userDO.getPhone();
+        }
+    }
+
+ public int func3(String start, String end, Integer livemode) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date sDate = null;
+        Date eDate = null;
+        try {
+             sDate = sdf.parse(start);
+             eDate = sdf.parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Criteria base = new Criteria();
+        base.andOperator(Criteria.where("loginTime").gte(sDate), Criteria.where("loginTime").lte(eDate));
+        Aggregation agg = newAggregation(match(base), group("uid"));
+        AggregationResults<UserLoginLogDO> temp = mongoTemplate.aggregate(agg, UserLoginLogDO.class, UserLoginLogDO.class);
+        List<UserLoginLogDO> results = temp.getMappedResults();
+        if (results.size() > 0) {
+            return results.size();
+        }
+    }
+
+ public String func4(String stime, String etime, String uid, Integer livemode) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date sDate = null;
+        Date eDate = null;
+        try {
+            sDate = sdf.parse(stime);
+            eDate = sdf.parse(etime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Criteria base = new Criteria();
+        base.andOperator(Criteria.where("loginTime").gte(sDate), Criteria.where("loginTime").lte(eDate), Criteria.where("uid").is(uid));
+        UserLoginLogDO userLoginLog = mongoTemplate.findOne(new Query(base).with(new Sort(Sort.Direction.DESC, "loginTime")).limit(1), UserLoginLogDO.class);
+        if (userLoginLog != null) {
+            return String.valueOf(userLoginLog.getLoginTime());
+        }
+    }
+```
 
 ## 五、docker基础  
 docker是一个开源的容器引擎，基于go语言，可以让开发者打包他们的应用及依赖包到一个轻量级、可移植的容器中 。  
