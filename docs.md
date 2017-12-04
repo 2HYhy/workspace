@@ -273,7 +273,10 @@ set global event_scheduler=1;
   
 14. 安装命令行连接mysql：     
 > 进入mysql/bin目录路径下：    
-> MySQL  -hlocalhost -uroot -proot， 分别为本地连接的地址，用户名，密码    
+> MySQL  -hlocalhost -uroot -proot， 分别为本地连接的地址，用户名，密码  
+> exit;  退出数据库 
+> net start mysql; 启动数据库
+> net stop mysql;  关闭数据库 
 
 15. 关于几大数据类型：   
 #### unsigned属性，特殊应用场景：存放ip  
@@ -766,7 +769,8 @@ public void removeCache(){}
 >- 连接本地数据库服务器，端口默认  
 
 > mongodb://<用户名>:<密码>@<主机地址>/<数据库名>  
->- 使用用户名/密码连接到指定服务器的某个数据库  
+>- 使用用户名/密码连接到指定服务器的某个数据库  
+
 > show dbs 
 >- 查看所有数据库   
 
@@ -785,18 +789,15 @@ public void removeCache(){}
 > db.TableName.drop()
 >- 删除数据库的指定集合
 
-> db.CollectName.insert()   
+#### MongoDB的增删改查
+> db.CollectName.insert({key1:value1,key2:value2})   
 >- 向数据库集合中插入文档  
-
-> document=({key1:value1,key2:value2})  
-> db.CollectionName.insert(document)  
->- 将数据定义为变量，然后添加至集合中
 
 > db.CollectName.find()
 >- 查询文档
 
 > db.CollectName.find().pretty()
->- 查询文档，，并将结果格式化
+>- 查询文档，并将结果格式化
 
 > db.CollectName.findOne()
 >- 只返回一个文档  
@@ -821,21 +822,12 @@ public void removeCache(){}
 
 > db.CollectionName.update( {oldkey:oldvalue},{$set:{newkey:newvalue}} )   
 >- 只更新第一条记录  
-
-> db.CollectionName.update( {oldkey:oldvalue},{$set:{newkey:newvalue}}, {upsert:false,multi:true})   
->- 全部更新  
-
-> db.CollectionName.update( {oldkey:oldvalue},{$set:{newkey:newvalue}}，true,false ）  
->- 记录不存在时，只添加第一条
  
 > db.CollectName.remove( {key:value},{justOne:boolean})
 >- 删除文档，justOne表示是否只删除一个符合条件的文档
 
 > db.CollectName.find().sort( {key:1} )
 >- 按指定字段升序排序，-1为降序  
-
-> db.CollectName.ensureIndex( {key:1} )
->- 按升序为指定字段创建索引     
 
 > db.CollectionName.find( {key:{$type:2}} )  
 >- 查找集合中指定key类型为String的记录  
@@ -852,7 +844,29 @@ public void removeCache(){}
 > db.CollectionName.find( {},{key1:1, key2:1 _id:0}).limit(3).skip(1)  
 >- 跳过第一列后，返回三条记录，只返回key1,key2两列  
 
-**聚合框架中常用的操作：**
+> db.CollectionName.remove() 
+>- 清空集合
+
+#### MongoDB的索引
+> db.CollectName.ensureIndex( {key : 1} )
+>- 按升序为指定字段创建单个索引   
+
+> db.CollectName.ensureIndex({key1 : 1, key2 : -1})
+>- 为指定字段创建复合索引 
+
+> db.CollectName.dropIndex("ndexName")
+>- 删除指定名字的索引,名字一般为:字段_1(-1)
+
+> db.userLoginLogDO.dropIndexes()
+>- 删除全部索引 
+
+> db.CollectName.getIndexes()
+>- 查看索引 
+
+> db.CollectName.find({}).explain()
+>- 获取执行计划，性能分析
+
+#### MongoDB聚合查询
 > $project：修改输入文档的结构。可以用来重命名、增加或删除域，也可以用于创建计算结果以及嵌套文档。  
 > $match：用于过滤数据，只输出符合条件的文档。$match使用MongoDB的标准查询操作。  
 > $limit：用来限制MongoDB聚合管道返回的文档数。  
@@ -860,49 +874,75 @@ public void removeCache(){}
 > $group：将集合中的文档分组，可用于统计结果。  
 > $sort：将输入文档排序后输出。 
 
-> db.CollectionName.count()  
-> db.CollectionName.aggregate([{$group:{id:null,count:{$sum:1}}}])  
->- select count(1) as count from collectionName  
-
-> db.CollectionName.aggregate([{$group:{id:null,total:{$sum:"$key"}}}])   
->- select sum(key) as total from collectionName  
-
-> db.CollectionName.aggregate([{$group:{_id:"$key1",total:{$sum:"$key2"}}}])  
->- select sum(key2) as total from collectionName group by key1  
-
-> db.CollectionName.aggregate([{$group:{_id:"$key1",max:{$max:"$key2"}}}])   
->- select max(key2) as max from CollectionName  group by key1  
-
-> db.CollectionName.aggregate([{$sort:{key:-1}}])  
-> db.CollectionName.aggregate([{$skip:3}])
-
-#### 具体查询例子：
 ```java
-db.userLoginLogDO.find({"loginTime" : { "$gte" : ISODate("2017-11-02 06:09:00.000Z")  
-, "$lte" : ISODate("2017-11-02 06:09:00.000Z") }})    
+//返回结果字段名称：returnName， 表中属性字段名称：fieldName
 
-db.getCollection("userLoginLogDO").find({"uid": "c7d6ad0c2ea34719", "loginTime" : ISODate("2017-11-02 06:09:00.000Z")})   
+db.CollectionName.count() 
+db.runCommand({"distinct" : "CollectName", "key" : "fieldName"})  // 必须指定集合名和要区分的字段
 
-db.getCollection("userLoginLogDO").find({}, {"uid" : 1, "_id" : 0})  //阻止_id返回          
-db.getCollection("userLoginLogDO").find({}, {"uid" : 1, "loginTime" : 1})
-select uid, logintime from user_login_log
+db.CollectionName.aggregate([{"$group" : {"_id": null, "returnName":{"$sum" : 1}}}])  //不分组
+db.CollectionName.aggregate([{"$group" : {"_id" : null, "total" :{"$sum" : "$quantity"}}}])  
+//select sum(quantity) as total from tableName
 
-db.getCollection("userLoginLogDO").find({"uid": {"$in" : ["c7d6ad0c2ea34719", "6817f364aeb44ab1", "f020cbf41d7b4e51"] }})
+db.CollectionName.aggregate([{"$group" : {"_id" : "$fieldName", "returnName": {"$sum" : 1}}}])  //分组
+
+db.CollectionName.aggregate([{$group : {_id : "$fieldName", returnName : {$max : "$fieldName"}}}])
+db.CollectionName.aggregate([{$group: {_id: "$fieldName", returnName1: {$max : "$fieldName"}}}, {$group: {_id: null, returnName: {$max: "$returnName1"}}}])
+
+db.CollectionName.aggregate([{$group: {_id: "$fieldName", returnName: {$push: "$fieldName"}}}])   
+
+db.CollectionName.aggregate({"$project" : {"key1" : 1, "key2" : 1, "_id" : 0}})
+//结果中只返回指定的列
+db.CollectionName.find({}, {key1: 1, key2:1, _id:0})
+
+db.CollectionName.aggregate([{$group: {_id: "$fieldName", returnName: {$push: {time: "$fieldName", returnName: "$fieldName"}}}}])
+//将指定字段的值添加到数组中
+
+db.collectName.aggregate([{$group: {_id: "$uid", sets: {$addToSet: "$loginTime"}}}])  
+//将指定字段的值添加到数组中，不允许重复值
+
+db.collectName.aggregate([{$group: {_id: "$uid", results: {$first: "$loginTime"}}}]) 
+//返回每组第一个文档
+db.collectName.aggregate([{$group: {_id: "$uid", results: {$last: "$loginTime"}}}])  
+//返回每组最后一个文档
+
+db.CollectName.find({"uid": {"$in" : ["c7d6ad0c2ea34719", "6817f364aeb44ab1", "f020cbf41d7b4e51"] }})
 select * from user_login_log where uid in [xxx, xxx, xxx]
 // "$nin"  =  no in ,  "$ne"  =   !=
 
-db.userLoginLogDO.find({"$or"  : [{"uid" : "c7d6ad0c2ea34719"}, {"uid" : "6817f364aeb44ab1"}]})
+db.CollectName.find({"uid"  :  /6817/})
+db.CollectName.find({"uid" : {"$regex" : "6817"}})
+select * from tableName where uid like concat("%", "6817", "%")  //正则表达式
 
-db.userLoginLogDO.find({"uid"  :  /6817/})
-db.getCollection("userLoginLogDO").find({"uid" : {"$regex" : "6817"}})
-select * from user_login_log where uid like concat("%", "6817", "%")  //正则表达式
+db.ConnectNam.find({"uid"  :  {"$all" : ["6817f364aeb44ab1", "c7d6ad0c2ea34719"]}})  
+//必须满足all中的所有值，而in是满足其中一个即可
 
-db.userLoginLogDO.find({"uid"  :  {"$all" : ["6817f364aeb44ab1", "c7d6ad0c2ea34719"]}})  //必须满足all中的所有值，而in是满足其中一个即可
-
-db.userLoginLogDO.find({"uid"  :  {"$exists" : true}})  //判断某个字段是否存在
-
-db.userLoginLogDO.find().sort({"loginTime" : -1})  //降序
+db.CollectName.find({"uid"  :  {"$exists" : true}})  //判断某个字段是否存在
 ```
+
+#### MongoDB与日期时间相关查询
+```java
+db.CollectName.find({"fieldName" : { "$gte" : ISODate("2017-11-02 06:09:00.000Z")  
+, "$lte" : ISODate("2017-11-02 06:09:00.000Z") }})    
+
+db.CollectName.find({"fieldName" : {"$gte" : new Date("2017-11-02"), "$lte" : new Date("2017-11-06")}})
+
+db.CollectName.aggregate([{"$match" : {"fieldName" : {"$gte" : new Date("2017-11-02"), "$lte" : new Date("2017-11-10")}}},
+                                             {"$group" : {"_id" : "$fieldName", "returnName" : {"$sum" : 1}}}])  
+```  
+
+         
+
+
+
+
+
+
+
+
+
+
+
 
 #### mongoTemplate, java版：
 ```java
