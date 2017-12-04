@@ -119,7 +119,7 @@ Size s = Enum.valueOf(Size.class,string);
 > `StringBuilder insert(int offset , String one/char two)` : 在offset位置插入一个字符串或代码单元。  
 > `StringBuilder delete(int start , int end)` : 删除从start到end-1的字符串。  
 
-### java输入流：  
+### java输入输出流：  
 ```java
 Scanner in = new Scanner(System.in);   
 T content = in.nextLine() / in.next() / in.nextInt() / in.nextDouble();     
@@ -134,25 +134,32 @@ T content = in.nextLine() / in.next() / in.nextInt() / in.nextDouble();
 **输出流抽象类：**    
 > OutputStream(字节输出流)，Writer(字符输出流)
 
-### Compareable<T>接口中的方法：     
+#### Compareable<T>接口中的方法：     
  `int compareTo(T other);`  将当前对象与other对象进行比较，若小于，返回负数，若大于，返回正数，若等于，返回0。  
-### 当内部类不需要访问外围类对象时，应该使用静态内部类。    
-### 标注于类上，字段的值为空时，不参与序列化，不在返回结果中显示：`@JsonInclude(JsonInclude.Include.NON_NULL)`。    
-### 标注于类上，字段的值为空时，参与序列化，仍在返回结果中显示：`@JsonInclude(JsonInclude.Include.ALWAYS)`。
+#### 当内部类不需要访问外围类对象时，应该使用静态内部类。    
+#### 标注于类上，字段的值为空时，不参与序列化，不在返回结果中显示：`@JsonInclude(JsonInclude.Include.NON_NULL)`。    
+#### 标注于类上，字段的值为空时，参与序列化，仍在返回结果中显示：`@JsonInclude(JsonInclude.Include.ALWAYS)`。
  
 ## 三、spring与resteasy  
 ### 依赖注入：
 > (1) 使用@Autowired注解，应用处格式为：首字母小写的bean类.方法名,方法不必静态化  
 > (2) 不用@Autowired注解，应用处格式为：首字母大写的bean类.方法名，方法必须静态化 
 ### 注解区别：    
-> (1) Controller层：spring中使用@Controller注解类上 ，使用@RequestMapping（value=“url,metdod=RequestMethod=GET/POST）注解方法上 ， 使用@RequestParam和@PathVariable注解参数 ， 使用@RequestBody 注解body部分 ；resteasy中使用@Service注解类上 ， 使用@GET/@POST , @Path(value="url")注解方法上 ， 使用@Context注解request对象。  
-> (2) Service层： spring中使用@Service注解类上 ； resteasy中可以使用@Service注解在类上，也可使用通用的@Component注解在类上。  
-> (3) Dao层：Spring中使用通用的@Component注解在类上 ，然后在Mapper层使用@Mapper注解在类上 ；  resteasy中使用@MybatisRepository注解在类上。    
-> ### spring中dao层与mapper.xml文件的参数传递：  
+> (1) Controller层：    
+>- spring中使用@Controller注解类上 ，使用@RequestMapping（value=“url,metdod=RequestMethod=GET/POST）注解方法上 ， 使用@RequestParam和@PathVariable注解参数 ， 使用@RequestBody 注解body部分 ；resteasy中使用@Service注解类上 ， 使用@GET/@POST , @Path(value="url")注解方法上 ， 使用@Context注解request对象。  
+
+> (2) Service层：     
+>-  spring中使用@Service注解类上 ； resteasy中可以使用@Service注解在类上，也可使用通用的@Component注解在类上。  
+
+> (3) Dao层： 
+>- Spring中使用通用的@Component注解在类上 ，然后在Mapper层使用@Mapper注解在类上 ；  resteasy中使用@MybatisRepository注解在类上。 
+
+> #### spring中dao层与mapper.xml文件的参数传递：  
 dao: `void func(String param1,Integer param2);`  
 mapper: `select * from table where pam1 = #{0} and pam2 = #{1}`  
 dao: `void func(@Param(pam1)String param1,@Param("pam2")Integer param2);`  
-mapper: `select * from table where pam1 = #{pam1} and pam2 = #{pam2}`  
+mapper: `select * from table where pam1 = #{pam1} and pam2 = #{pam2}` 
+
 ### springmvc处理请求流程：
 ```java
 DispatcherServelt(前端控制器)------>HandlerMapping(映射器处理器) ；      
@@ -240,11 +247,11 @@ public class TestUrl {
  >- git branch -d Branch 
 
  ## 五、MySql基本语句  
- 1. select column from table where volumn = value
- 2. select volumn from table where volumn1 = value1 and(or) volumn2= value2
- 3. select volumn from table where volumn in List
- 4. select volumn from table where volumn between value1 and value2
- 5. insert into table (volumn) values (value)
+ 1. select column from table where column = value
+ 2. select column from table where column = value1 and(or) column= value2
+ 3. select column from table where column in List
+ 4. select column from table where column between value1 and value2
+ 5. insert into table (column) values (value)
  ```java
  //一次性插入多条记录
 insert into user_login_log_test(uid，logintime) values 
@@ -252,7 +259,7 @@ insert into user_login_log_test(uid，logintime) values
 (value21, value22);
 ```   
  6. update table set volumn = value where volumn = value
- 7. delete from table where volumn = value
+ 7. delete from table where column = value
  8. create database / drop database
  9. 关于日期的函数：  
 > `DATE(xx)` 提取时间xx的日期部分  
@@ -345,7 +352,7 @@ t1="2017-10-06 16:12:56" ,  t2="2017-10-06 16:12:56"
 #### 内连接inner join   
 实质是两表先进行笛卡尔乘积运算(用第一个对象的每一项乘以第二个对象的每一项，即交叉成绩)，然后再根据on后面的限制条件对结果进行筛选。   
 
-18. 一些sql语句集锦：  
+18. sql语句集锦：  
 > 两表联合，按分组进行更新  
 ```java
 UPDATE table1 A
@@ -374,7 +381,7 @@ select count(*) from user_test where uid not in (select uid from user)
  mvn clean install  
 ### 使用maven命令构建Java项目：  
  > `mvn archetype:generate/create -DgroupId=packageName -DartifactId=projectName -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false`   
- **pom中添加插件`spriong-boot-maven-plugin`的两个好处**：
+ **pom中添加插件`spriong-boot-maven-plugin`的两个好处**：   
  > 打包项目为可执行jar包，即可运行`java -jar xxx.jar`启动项目  
  > 运行`spring-boot:run` 直接启动项目    
 
@@ -575,7 +582,7 @@ spring.redis.pool.max-wait=-1　　
 3. 启动类或者具体的DAO类中添加注解@EnableCaching:
 此注解会对每个bean中被@Cacheable, @CachePut, @CacheEvict修饰的public方法进行缓存操作。   
 
-### @Cacheable用法(value属性是必须的)
+#### @Cacheable用法(value属性是必须的)
 ```java
 @Cacheable(value = "companyCache", key = "'myCompanyCache:'.concat(#root.methodName)")
 public void findByCompanyId(){ }
@@ -588,20 +595,20 @@ myCompanyCache:findByCompanyId (key)
 ```java
 @Cacheable(value = "companyCache:", key = "'companyCache:'.concat(#root.methodName)")
 ```
-### @CacheEvict用法
+#### @CacheEvict用法
 ```java
  @CacheEvict(value = "companyCache", key = "'myCompanyCache:'.concat('findByCompanyId')")
     public void updateCompanyId(){}
 ```
 > 可用在update类方法上，也可用在remove类方法上。
 
-### @cachePut用法
+#### @cachePut用法
 > 每次都会执行方法，并将结果进行缓存。用法与@Cacheable用法一致,用在update类方法上。
 
-### @Caching用法
+#### @Caching用法
 > 可以包含以上三个注解，key-value分别对应(cachable=[@Cacheable], put=[@CachePut], evict=[@CacheEvict])。
 
-### @CacheConfig用法
+#### @CacheConfig用法
 > 类级的注解，统一指定缓存的value和key。
 
 ### 自定义KeyGenerator和CacheManager  
@@ -632,31 +639,8 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 }
 ```
-
-1. 缓存注解  
-> @Cacheable(value="缓存的名称",key= "key",condition="符合缓存的条件)  
-```java  
-@Cacheable(value = "redisName"，key="#username")  
-public void func(String username){}  
-```  
-*调用该方法时，会先从一个名叫redisName的缓存中查询，如果没有，则执行实际的方法(即查询数据库),并将执行结果存入缓存；如果有，则返回缓存中的key(即username)对应的对象。*   
-> @CachePut(value = "缓存的名称",key = "key",condition = "符合缓存的条件")    
-```java  
-@CachePut(value = "redisName",key = "#user.getUsername()",condition = "#user.getAge()>20")  
-public User updateUser(User user){}  
-``` 
-*方法总是会被执行，其结果也会保存至缓存，确保缓存与数据库的同步更新。*    
-> @CacheEvit(value = "",key = "",condition = "",allEntries = "是否清空所有缓存缺省为false",beforeInvocation = "是否在方法执行前清空缓存")   
-```java 
-@CacheEvit(value = "redisName",allEntries=true)  
-public void removeCache(){}  
-```  
-*清除名为redisName的缓存内容。*   
-> `@Caching(put = {@CachePut(value = "",key = ""),@CachePut(value = "",key = "")})`   
-> `@Caching(evit = {@CacheEvit(value = "",key = ""),@CacheEvit(value = "",key = "")})`    
-*多用于更新，清除，组合多个Cache注解。*    
   
-2. 操作命令(redis是使用内存存储的非关系数据库)  
+#### 操作命令(redis是使用内存存储的非关系数据库)  
 > redis-server.exe  
 > redis-cli.exe -h 127.0.0.1 -p 6379 (重新打开一个命令框输入)
 >- 启动该redis服务器  
@@ -854,7 +838,7 @@ public void removeCache(){}
 > db.CollectName.ensureIndex({key1 : 1, key2 : -1})
 >- 为指定字段创建复合索引 
 
-> db.CollectName.dropIndex("ndexName")
+> db.CollectName.dropIndex("IndexName")
 >- 删除指定名字的索引,名字一般为:字段_1(-1)
 
 > db.userLoginLogDO.dropIndexes()
