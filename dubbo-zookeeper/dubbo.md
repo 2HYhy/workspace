@@ -85,7 +85,7 @@ dubbo控制台显示：
 ![Alt text](/dubbo-zookeeper/photos/cc.png)  
 ![Alt text](/dubbo-zookeeper/photos/dd.png) 
 
-3. 服务者项目模块，依次配置好pom.xml,applicationContext.xml,ConsumerServiceTest测试类。在保证zookeeper，tomcat,provider都已启动的前提下，运行ConsumerServiceTest:  
+3. 消费者项目模块，依次配置好pom.xml,applicationContext.xml,ConsumerServiceTest测试类。在保证zookeeper，tomcat,provider都已启动的前提下，运行ConsumerServiceTest:  
 
 consule控制台提示：  
 ![Alt text](/dubbo-zookeeper/photos/consule.png)
