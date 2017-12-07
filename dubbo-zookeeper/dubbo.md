@@ -59,7 +59,8 @@ mvn install
 ```  
 (二)zookeeper注册中心准备：     
 1. 配置文件修改(重命名为zoo.cfg) 
-2. 启动zookeeper，进入bin目录，运行：`sh zkServer.sh start `(mac操作)，或者双击`zkServer.cmd`(windows操作)，不要关掉窗口。 (zookeeper的连接命令为： sh zkCli.sh -server 127.0.0.1:2181)
+2. 启动zookeeper，进入bin目录，运行：`sh zkServer.sh start `(mac操作)，或者双击`zkServer.cmd`(windows操作)，不要关掉窗口。 (zookeeper的连接命令为： sh zkCli.sh -server 127.0.0.1:2181)  
+** 默认zookeeper连接的是127.0.0.1:2181，如果要连接远程的，就需要修改dubbo.properties中的注册地址。
 
 (三)tomcat启动准备
 **两种方式：**
