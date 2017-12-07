@@ -59,7 +59,7 @@ mvn install
 ```  
 (二)zookeeper注册中心准备：     
 1. 配置文件修改   
-2. 启动zookeeper，进入bin目录，运行：`sh zkServer.cmd start `(mac操作)，或者双击`zkServer.cmd`(windows操作)，不要关掉窗口。  
+2. 启动zookeeper，进入bin目录，运行：`sh zkServer.sh start `(mac操作)，或者双击`zkServer.cmd`(windows操作)，不要关掉窗口。  
 
 (三)tomcat启动准备
 **两种方式：**
