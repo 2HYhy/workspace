@@ -731,7 +731,10 @@ public class RedisConfig extends CachingConfigurerSupport {
 >- 为数据库设置密码，并查看密码
 
 > flushdb  
->- 清空redis缓存
+>- redisDeskManage清空redis缓存
+
+> select 0/1/2    
+>- redisDeskManage选择要操作的数据库
 
 ##  四、mongodb  
 | database  |   table | row  | column  | index  |
@@ -1242,3 +1245,5 @@ web应用开发好之后，若想供外界访问，需要把web应用所在目�
 3. 添加xml文件：  
 > 在conf/Catalina/localhost目录下添加一个以xml为扩展名的demo.xml文件，文件中添加`<Context docBase = "F:\DemoProject"/>`。  
 > 浏览器访问： `http://localhost:8080/demo/demo.jsp`,这里的虚拟目录就是文件名。  
+
+4. 查看tomcat日志: tail -f catalina.out
