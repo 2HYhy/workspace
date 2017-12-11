@@ -58,8 +58,9 @@ mvn install
 5. 修改<build>中的<port>为8080以外的端口，eg:8090 。
 ```  
 (二)zookeeper注册中心准备：     
-1. 配置文件修改   
-2. 启动zookeeper，进入bin目录，运行：`sh zkServer.cmd start `(mac操作)，或者双击`zkServer.cmd`(windows操作)，不要关掉窗口。  
+1. 配置文件修改(重命名为zoo.cfg) 
+2. 启动zookeeper，进入bin目录，运行：`sh zkServer.sh start `(mac操作)，或者双击`zkServer.cmd`(windows操作)，不要关掉窗口。 (zookeeper的连接命令为： sh zkCli.sh -server 127.0.0.1:2181)  
+** 默认zookeeper连接的是127.0.0.1:2181，如果要连接远程的，就需要修改dubbo.properties中的注册地址。
 
 (三)tomcat启动准备
 **两种方式：**
@@ -85,7 +86,7 @@ dubbo控制台显示：
 ![Alt text](/dubbo-zookeeper/photos/cc.png)  
 ![Alt text](/dubbo-zookeeper/photos/dd.png) 
 
-3. 服务者项目模块，依次配置好pom.xml,applicationContext.xml,ConsumerServiceTest测试类。在保证zookeeper，tomcat,provider都已启动的前提下，运行ConsumerServiceTest:  
+3. 消费者项目模块，依次配置好pom.xml,applicationContext.xml,ConsumerServiceTest测试类。在保证zookeeper，tomcat,provider都已启动的前提下，运行ConsumerServiceTest:  
 
 consule控制台提示：  
 ![Alt text](/dubbo-zookeeper/photos/consule.png)
