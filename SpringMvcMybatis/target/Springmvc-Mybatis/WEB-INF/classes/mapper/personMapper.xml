@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--数据库表字段与实体类属性字段完全一致-->
+<mapper namespace="com.me.gacl.dao.PersonDao">
+
+    <select id="getPerson" resultType="com.me.gacl.domain.Person">
+        select * from person where name=#{name}
+    </select>
+
+    <insert id="addPerson">
+        insert into person(id,name,age) values (#{param.id},#{param.name},#{param.age})
+    </insert>
+</mapper>
