@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: config  # 和配置文件名保持一致
+  cloud:
+    config:
+      uri: http://localhost:8081
+  profiles:
+    active: dev
+
+server:
+  port: 8082
+
+
