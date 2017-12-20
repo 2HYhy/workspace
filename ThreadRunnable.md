@@ -31,7 +31,7 @@ public class ThreadController extends Thread {
 运行结果如图：  
 ![alt-text](/images/thread.png)
 
-## 实现Runnable接口：
+### 实现Runnable接口：
 ```java
 public class RunnableController implements Runnable {
 
@@ -61,5 +61,10 @@ public class RunnableController implements Runnable {
 运行结果如图：  
 ![alt-text](/images/runnable.png)  
 ## 两者的区别：
-1. Thread比较少用,因为 1）一个子类只能继承一个父; 2）资源无法共享。以上为例：定义了两个线程，彼此之间是独立的，各自卖出6张票，共卖出12张。  
-2. Runnable比较多用，因为 1) 一个类可以继承多个接口; 2) k可以实现资源共享。以上为例：定义了两个线程，资源是共享的，共卖出6张票。
+1. Thread比较少用,因为:  
+1）一个子类只能继承一个父;   
+2）资源无法共享。以上为例：定义了两个线程，彼此之间是独立的，各自卖出6张票，共卖出12张。 
+
+2. Runnable比较多用，因为:  
+1) 一个类可以继承多个接口;   
+2) k可以实现资源共享。以上为例：定义了两个线程，资源是共享的，共卖出6张票。  
