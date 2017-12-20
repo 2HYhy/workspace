@@ -47,7 +47,7 @@
 ## 二、Java语法 
 ### 日期相关函数：  
  > `Date date = new Date();`    获取系统当前日期和时间  
- > `String time = TimeHandle.getNowTimeStamp();` 获取当前毫秒级时间   
+ > `System.currentMillis();` 获取当前毫秒级时间   
  > `SimpleDateFormat sdf = new SimpleFormat("yyyy-MM-dd HH:mm:ss);` 时间格式化  
  > `Date date = sdf.parse(stringtime);` 字符串转日期格式   
  > `String time = sdf.format(date);` 日期转字符串格式       
@@ -59,23 +59,31 @@
  ```    
 ### 命令运行Java程序：  
 1. 进入Java类所在目录  
-2. 运行javac 编译  :  javac 类名.java
-3. 运行 java 类名 输出结果       
+2. 编译:  javac 类名.java
+3. 运行:  java 类名 输出结果       
 ### 数据类型转换： 
 `int intdate = Integer.parseInt(stringdata);`  
-`String stringdata = String.valueOf(intdata);` 
+
+`String stringdata = String.valueOf(intdata);`
+
 `String stringdata = JSONObject.toJSONString(jsonObject);`  
-`JSONObject json = JSONObject.parseObject(stringdata);`
+
+`JSONObject json = JSONObject.parseObject(stringdata);`   
+
 `ClassDO classDO = JSON.parseObject(stringdata,ClassDO.class);`  
-`ClassDO classDO = JSONObject.parseObject(String.valueOf(jsonObject),ClassDO.class);`    
-`String stringdata = JSON.toJSONString(classDO);`
-`List<ClassDo> list = JSONArray.parseArray(jsonArray.toJSONString());`   
+
+`ClassDO classDO = JSONObject.parseObject(String.valueOf(jsonObject),ClassDO.class);`       
+
+`String stringdata = JSON.toJSONString(classDO);`   
+
+`List<ClassDo> list = JSONArray.parseArray(jsonArray.toJSONString());`  
+ 
 ### 时间类型转换:
  String-->Date    
 ```java 
 String time = "2017-07-26 10:06:09";
 Date date = new Date();
-DateFormat df= new DateFormat("yyyy-mm-dd HH:mm:ss");
+SimpleDateFormat df= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 date = df.parse(time);
 System.ou.println("date="+date);  
 ```
