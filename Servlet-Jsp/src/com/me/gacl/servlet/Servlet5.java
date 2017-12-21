@@ -20,6 +20,8 @@ public class Servlet5 extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/one.jsp").forward(request,response);
+//        request.getRequestDispatcher("/one.jsp").forward(request,response);
+//        request.getRequestDispatcher("/listener.jsp").forward(request,response);
+        request.getRequestDispatcher("/attrlisten.jsp").forward(request,response);
     }
 }

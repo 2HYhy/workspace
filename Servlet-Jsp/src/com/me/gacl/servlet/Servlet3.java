@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * @author yunhua.he
  * @date 2017/12/18
- * cookie, 一种将会话数据保存在浏览器客户端的技术
+ * cookie, 一种将会话数据保存在浏览器客户端的技术,删除Cookie时，path必须保持一致，否则不会删除
  * session, 一种将会话数据保存在服务器端的技术
  */
 @WebServlet(value = "/s3")

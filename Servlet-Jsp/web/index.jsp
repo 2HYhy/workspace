@@ -11,6 +11,7 @@
     <title>servlet</title>
   </head>
   <body>
-  已成功启动servlet ！！！
+  已成功启动servlet ！！！<br/>
+  一访问JSP页面，HttpSession对象就创建，其sessionID=${pageContext.session.id}
   </body>
 </html>

@@ -63,6 +63,7 @@ public class Servlet2 extends HttpServlet {
     private void funWriterStream(HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         response.setHeader("content-type", "text/html;charset=UTF-8");
+        //字符流输出
         PrintWriter out1 = response.getWriter();
         String data1 = "陕西西安";
         out1.write("<br/>"+data1);
@@ -71,6 +72,7 @@ public class Servlet2 extends HttpServlet {
 
     private void funOutputStream(HttpServletResponse response) throws IOException {
         response.setHeader("content-type", "text/html;charset=UTF-8");
+        //字节流输出
         OutputStream out2 = response.getOutputStream();
         String data2 = "四川成都";
         byte[] by = data2.getBytes("UTF-8");

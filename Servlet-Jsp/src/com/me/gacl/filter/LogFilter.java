@@ -14,8 +14,10 @@ import java.util.Date;
  * @author yunhua.he
  * @date 2017/12/18
  * 日志过滤器
+ * 对用户请求进行预处理，对用户响应进行后处理
  */
 
+//等价于在web.xml中的配置
 @WebFilter(filterName = "log-filter", urlPatterns = "/filter")
 public class LogFilter implements Filter {
     private static String logDir = "/Users/CH-yfy/myproject/logs/";

@@ -13,6 +13,7 @@ import java.util.Enumeration;
 /**
  * @author yunhua.he
  * @date 2017/12/18
+ * servlet用于交互式地浏览和修改数据，生成动态web内容
  */
 //等价于<servlet-name>
 @WebServlet(name = "Servlet1")
@@ -27,7 +28,7 @@ public class Servlet1 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //获取web.xml，<servlet>的单个<init-param>
-        ServletConfig scg=this.getServletConfig();
+        ServletConfig scg = this.getServletConfig();
         String value1 = scg.getInitParameter("username");
         response.getWriter().println("username="+value1);
         //获取web.xml中servlet标签中的init-param集合
