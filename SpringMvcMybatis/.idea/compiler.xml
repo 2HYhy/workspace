@@ -22,11 +22,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="Springmvc-Mybatis" />
+        <module name="SpringMvcMybatis" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
-      <module name="Springmvc-Mybatis" target="1.8" />
+      <module name="SpringMvcMybatis" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

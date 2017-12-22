@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.InputStream;
 
 /**
- * Created by yunhua.he on 2017/8/23.
+ * @author yunhua.he
+ * @date 2017/12/22
  */
 public class PersonTest extends BaseTest {
 
@@ -35,7 +36,7 @@ public class PersonTest extends BaseTest {
     }
 
     /**
-     * 纯粹的mybatis,无controller，service,dao分层
+     * 纯粹的mybatis,无controller,service,dao分层
      */
     String resource = "/config/mybatis.xml";
     InputStream in = PersonTest.class.getClassLoader().getResourceAsStream(resource);
@@ -46,7 +47,8 @@ public class PersonTest extends BaseTest {
         Person person = new Person();
         person.setId(16);
         person.setName("Adlin");
-        int result = sqlSession.update("updatePerson", person);   //updatePerson是mapper.xml中的sql的id
+        //updatePerson是mapper.xml中的sql的id
+        int result = sqlSession.update("updatePerson", person);
         sqlSession.commit();
         System.out.println(result);
         sqlSession.close();

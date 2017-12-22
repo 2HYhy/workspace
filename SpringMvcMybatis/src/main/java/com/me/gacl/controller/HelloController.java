@@ -8,39 +8,51 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by yunhua.he on 2017/9/29.
+ * @author yunhua.he
+ * @date 2017/12/22
  */
+
 @Controller
-@RequestMapping("hello")
+@RequestMapping("/hello")
 public class HelloController {
+
+    //localhost:8080/hello/test1.do?name=xx&pwd=xx
     @RequestMapping("/test1.do")
     public String test1(@RequestParam("name")String username, @RequestParam("pwd")String password, Model model){
         model.addAttribute("userName1",username);
         model.addAttribute("passWord1",password);
         return "hello";
     }
+
+    //localhost:8080/hello/test2.do/hyh/123
     @RequestMapping("/test2.do/{name}/{pwd}")
     public String test2(@PathVariable("name")String name, @PathVariable("pwd")String password, Model model){
         model.addAttribute("userName2",name);
         model.addAttribute("passWord2",password);
         return "hello";
     }
-    @RequestMapping("/test3.do") //和test实质上是一个，URL相同。
+
+    //localhost:8080/hello/test3.do?name=xx&pwd=xx
+    @RequestMapping("/test3.do")
     public String test3(HttpServletRequest request, Model model){
         model.addAttribute("userName3",request.getParameter("name"));
         model.addAttribute("passWord3",request.getParameter("pwd"));
         return "test";
     }
+
+    //localhost:8080/hello/test4.do
     @RequestMapping("/test4.do")
     public ModelAndView test4(){
         ModelAndView mv=new ModelAndView();
-        mv.addObject("infos","This is a website named test!!!");
+        mv.addObject("info","This is a website named test!!!");
         mv.setViewName("hello");
         return mv;
     }
+
     @RequestMapping("test5.do")
     public String test5(@ModelAttribute("users")User user){
         return "hello";

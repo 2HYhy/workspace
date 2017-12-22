@@ -5,9 +5,9 @@
 <!--数据库表字段与实体类属性字段不一致-->
 <mapper namespace="com.me.gacl.dao.ComputerDao">
     <resultMap id="computerMap" type="com.me.gacl.domain.Computer">
-        <id property="comId" column="com_id" jdbcType="INT"/>
+        <id property="comId" column="com_id" jdbcType="TINYINT"/>
         <result property="comType" column="type" jdbcType="VARCHAR"/>
-        <result property="comSize" column="size" jdbcType="INT"/>
+        <result property="comSize" column="size" jdbcType="TINYINT"/>
         <result property="comColor" column="color" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -19,10 +19,6 @@
 
     <!--方式2-->
     <select id="selectComputer" resultMap="ComputerMap">
-        select com_type,com_size, com_color from computer where com_type=#{type}
+        select com_type, com_size, com_color from computer where com_type=#{type}
     </select>
 </mapper>
-
-
-
-<!--TODO 表关联-->

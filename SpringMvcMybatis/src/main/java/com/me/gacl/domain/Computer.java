@@ -1,10 +1,10 @@
 package com.me.gacl.domain;
 
 /**
- * Created by yunhua.he on 2017/8/23.
+ * @author yunhua.he
+ * @date 2017/12/22
  */
 public class Computer {
-
     private int comId;
     private String comType;
     private int comSize;

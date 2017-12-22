@@ -48,7 +48,4 @@ public class User {
         username=name;
         password=pwd;
     }
-    public User(){
-
-    }
 }

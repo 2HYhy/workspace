@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Created by yunhua.he on 2017/8/24.
+ *
+ * @author yunhua.he
+ * @date 2017/8/24
  */
 @Controller
 public class PersonController {
@@ -17,7 +19,7 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @RequestMapping("/")
+    @RequestMapping("/findUser")
     public ModelAndView getIndex(){
         ModelAndView model = new ModelAndView("index");
         Person person = personService.getPerson("Linda");
@@ -29,7 +31,7 @@ public class PersonController {
     public ModelAndView getUser(@RequestParam("name")String name){
         ModelAndView modelAndView=new ModelAndView();
         Person user=personService.getPerson(name);
-        modelAndView.addObject("userinfo",user);
+        modelAndView.addObject("userInfo",user);
         modelAndView.setViewName("index");
         return modelAndView;
     }
