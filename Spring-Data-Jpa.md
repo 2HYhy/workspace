@@ -13,7 +13,7 @@
       <version>5.1.38</version>
     </dependency>
 ```
-### 2.application.approperties定义数据源及spring data  
+### application.approperties定义数据源及spring data  
 ```java
 //datasourcce
 spring.datasource.url=jdbc:mysql://localhoat:3306/root?useUnicode=true&characterEncoding=utf-8
@@ -33,7 +33,7 @@ spring.jpa.properties.hibernate.hbm2ddl.auto=update  //作用是自动创建、�
 >  update：最常用的属性，第一次加载hibernate时根据model类会自动建立起表的结构（前提是先建立好数据库），以后加载hibernate时根据model类自动更新表结构，即使表结构改变了但表中的行仍然存在不会删除以前的行。要注意的是当部署到服务器后，表结构是不会被马上建立起来的，是要等应用第一次运行起来后才会。    
 > validate：每次加载hibernate时，验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，但是会插入新值。  
 
-### 3.创建实体类，自动生成相应的表
+### 创建实体类，自动生成相应的表
 ```java
 import javax.persistence.*;
 
@@ -92,7 +92,7 @@ public class PersonDO {
 }
 ```    
 
-### 4.创建数据访问dao层
+### 创建数据访问dao层
 > 接口继承关系： Repository<--CrudRepository<--PagingAndSortingRepository<--JpaRepository.  
 > jpa的查询方式有三种：1.方法命名查询；2.@NameQuery查询；3.@Query查询.  
 ```java
