@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * Created by yunhua.he on 2017/8/21.
+ *@date 2017/8/21
+ *@author yunhua.he
  */
 public class Sender extends BaseConnector {
 

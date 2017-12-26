@@ -1,7 +1,8 @@
 package com.me.gacl;
 
 /**
- * Created by yunhua.he on 2017/8/21.
+ *@date 2017/8/21
+ *@author yunhua.he
  */
 public class RabbitmqTest {
     public static void main(String [] args) throws Exception {
@@ -9,7 +10,7 @@ public class RabbitmqTest {
         Thread thread = new Thread(receiver);
         thread.start();
         Sender sender = new Sender("testQueue");
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             MessageInfo info = new MessageInfo();
             info.setChannel("testChannel");
             info.setContent("msg"+i);

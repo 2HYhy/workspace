@@ -7,7 +7,9 @@ import com.rabbitmq.client.ConnectionFactory;
 import java.io.IOException;
 
 /**
- * Created by yunhua.he on 2017/8/21.
+ *
+ * @author yunhua.he
+ * @date 2017/8/21
  */
 public class BaseConnector {
 
@@ -19,8 +21,13 @@ public class BaseConnector {
         this.queueName = name;
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("127.0.0.1");
+        factory.setUsername("guest");
+        factory.setPassword("guest");
+        factory.setVirtualHost("/test");
+        factory.setPort(5672);
         connection = factory.newConnection();
         channel = connection.createChannel();
-        channel.queueDeclare(queueName, false, false, false, null);  //声明创建队列
+        //声明创建队列(是否持久，是否唯一，是否自动删除)
+        channel.queueDeclare(queueName, false, false, true, null);
     }
 }

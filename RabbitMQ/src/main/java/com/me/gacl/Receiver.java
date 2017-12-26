@@ -9,7 +9,9 @@ import org.apache.commons.lang.SerializationUtils;
 import java.io.IOException;
 
 /**
- * Created by yunhua.he on 2017/8/21.
+ *
+ * @author yunhua.he
+ * @date 2017/8/21
  */
 public class Receiver extends BaseConnector implements Runnable,Consumer {
 
@@ -17,6 +19,7 @@ public class Receiver extends BaseConnector implements Runnable,Consumer {
         super(queueName);
     }
 
+    @Override
     public void run() {  //为了实现多线程
         try{
             channel.basicConsume(queueName, true, this);
