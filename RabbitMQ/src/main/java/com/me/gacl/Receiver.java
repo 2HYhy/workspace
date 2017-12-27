@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  *
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/8/21
  */
 public class Receiver extends BaseConnector implements Runnable,Consumer {

@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/5
  */
 @RunWith(SpringRunner.class)  //1.4版本之前用的是SpringJUnit4ClassRunner.class

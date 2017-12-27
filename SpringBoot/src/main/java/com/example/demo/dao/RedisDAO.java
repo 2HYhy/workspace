@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/6
  */
 

@@ -2,7 +2,7 @@ package com.me.gacl;
 
 /**
  *@date 2017/8/21
- *@author yunhua.he
+ *@author CH-yfy
  */
 public class RabbitmqTest {
     public static void main(String [] args) throws Exception {

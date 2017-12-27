@@ -4,7 +4,7 @@ import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/21
  * 实现该接口的javabean对象可以感知自己被绑定到session中或者从session中删除
  */

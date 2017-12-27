@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/5
  */
 

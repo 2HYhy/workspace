@@ -3,7 +3,7 @@ package com.example.demo.bean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/5
  */
 

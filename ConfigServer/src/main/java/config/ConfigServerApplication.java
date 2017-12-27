@@ -6,7 +6,7 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 
 /**
  *
- * @author mmb
+ * @author CH-yfy
  * @date 2016/7/30
  */
 @EnableConfigServer

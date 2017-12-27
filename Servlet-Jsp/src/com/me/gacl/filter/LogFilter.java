@@ -11,7 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/18
  * 日志过滤器
  * 对用户请求进行预处理，对用户响应进行后处理

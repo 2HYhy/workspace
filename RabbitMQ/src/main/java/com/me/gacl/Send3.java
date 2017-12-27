@@ -7,7 +7,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import java.io.IOException;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/26
  * 路由模式Routing:生产者发送消息到交换机并指定路由key，消费者将队列绑定到交换机时需路由key
  * 如果vhost中不存在RouteKey中指定的队列名，则该消息会被抛弃，需要将队列绑定到交换机上

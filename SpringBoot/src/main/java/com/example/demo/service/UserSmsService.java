@@ -5,7 +5,7 @@ import com.example.demo.bean.UserSms;
 import java.util.List;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/5
  */
 public interface UserSmsService {

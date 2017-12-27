@@ -1,7 +1,7 @@
 package com.example.demo.bean;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/11
  */
 public class Student {

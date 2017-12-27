@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  *
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/8/21
  * 简单模式hello world：一个生产者发送消息到队列，一个消费者接收
  */

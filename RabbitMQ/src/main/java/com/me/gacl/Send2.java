@@ -7,7 +7,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import java.io.IOException;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/26
  * 发布/订阅模式：一个生产者，一个交换机，多个队列，多个消费者
  * 如果消息发送到没有队列绑定的交换机上，那么消息将丢失,所以要在消费之前就创建好队列

@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/5
  */
 

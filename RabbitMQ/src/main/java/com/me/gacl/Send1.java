@@ -5,7 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/26
  * 工作队列模式：一个生产者，多个消费者，且消息唯一
  */

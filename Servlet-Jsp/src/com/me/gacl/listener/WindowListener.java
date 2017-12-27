@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/20
  * 事件监听，涉及三个组件:事件源，事件对象，事件监听器
  */

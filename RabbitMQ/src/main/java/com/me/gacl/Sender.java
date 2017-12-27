@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  *@date 2017/8/21
- *@author yunhua.he
+ *@author CH-yfy
  */
 public class Sender extends BaseConnector {
 

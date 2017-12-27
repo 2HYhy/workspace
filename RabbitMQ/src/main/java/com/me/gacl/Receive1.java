@@ -6,7 +6,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/26
  */
 public class Receive1 {

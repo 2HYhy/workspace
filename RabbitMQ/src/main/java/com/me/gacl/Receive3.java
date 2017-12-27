@@ -8,7 +8,7 @@ import com.rabbitmq.client.QueueingConsumer;
 import java.io.IOException;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/26
  */
 public class Receive3 {

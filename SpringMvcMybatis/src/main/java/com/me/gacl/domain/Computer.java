@@ -1,7 +1,7 @@
 package com.me.gacl.domain;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/22
  */
 public class Computer {

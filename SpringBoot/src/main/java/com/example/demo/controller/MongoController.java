@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/6
  * spring boot整合mongodb
  */

@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.concurrent.Future;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/11
  */
 @RunWith(SpringRunner.class)

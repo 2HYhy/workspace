@@ -5,7 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.IOException;
 
 /**
- * Created by yunhua.he on 2017/8/17.
+ * Created by CH-yfy on 2017/8/17.
  */
 public class ConsumerServiceTest {
     public static void main(String [] args){

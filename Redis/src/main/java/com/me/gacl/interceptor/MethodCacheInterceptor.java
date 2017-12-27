@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by yunhua.he on 2017/8/22.
+ * Created by CH-yfy on 2017/8/22.
  */
 public class MethodCacheInterceptor implements MethodInterceptor {
 

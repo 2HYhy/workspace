@@ -4,7 +4,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/20
  * 监听HttpSession域对象的创建和销毁
  * 访问jsp页面时创建，timeout时间到时销毁

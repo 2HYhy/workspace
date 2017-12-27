@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSessionEvent;
 import java.io.Serializable;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/21
  * JavaBean可以感知自己被活化（反序列化）或钝化（序列化）
  */

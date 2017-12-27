@@ -1,0 +1,5 @@
+com/me/gacl/pojo/PersonDO.class
+com/me/gacl/Application.class
+com/me/gacl/dao/PersonDao.class
+com/me/gacl/controller/PersonController.class
+com/me/gacl/Swagger2.class

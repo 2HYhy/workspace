@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/11
  * spring boot 利用swagger2自动生成在线文档的查阅和测试
  */

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/5
  * spring boot 整合jpa
  */

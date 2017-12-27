@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.InputStream;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/22
  */
 public class PersonTest extends BaseTest {

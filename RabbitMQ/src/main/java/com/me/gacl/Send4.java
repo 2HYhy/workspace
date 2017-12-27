@@ -7,7 +7,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import java.io.IOException;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/26
  * 通配符模式topic:生产者P发送消息到交换机X，交换机根据绑定队列的routing key的值进行通配符匹配
  * 符号#：匹配一个或者多个词, 符号*：只能匹配一个词， 以.分割字符

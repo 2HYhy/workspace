@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Created by yunhua.he on 2017/8/22.
+ * Created by CH-yfy on 2017/8/22.
  */
 //redis:单线程，耗内存
 public class RedisServiceTest extends BaseTest {

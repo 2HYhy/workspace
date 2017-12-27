@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/5
  * spring boot自定义属性的各种获取方式
  */

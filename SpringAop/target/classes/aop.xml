@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+    <bean id="aopServiceImpl" class="com.me.gacl.AopServiceImpl"></bean>
+    <bean id="aopServiceImpls" class="com.me.gacl.AopServiceImpls"/>
+    <bean id="timeHandler" class="com.me.gacl.aop.TimeHandler"/>
+    <bean id="logHandler" class="com.me.gacl.aop.LogHandler"/>
+
+    <aop:config>
+        <aop:aspect id="time" ref="timeHandler" order="1">
+            <aop:pointcut id="includeAll" expression="execution(* com.me.gacl.AopService.*(..))"></aop:pointcut>
+            <aop:before method="printTime" pointcut-ref="includeAll"/>
+            <aop:after method="printTime" pointcut-ref="includeAll"/>
+        </aop:aspect>
+        <aop:aspect id="log" ref="logHandler" order="2">
+            <!--logHandler只会织入以do开头的方法-->
+            <aop:pointcut id="includeSome" expression="execution(* com.me.gacl.AopService.do*(..))"/>
+            <aop:before method="doBefore" pointcut-ref="includeSome"/>
+            <aop:after method="doAfter" pointcut-ref="includeSome"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

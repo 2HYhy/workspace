@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.concurrent.Future;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/11
  * spring boot异步调用方法
  */

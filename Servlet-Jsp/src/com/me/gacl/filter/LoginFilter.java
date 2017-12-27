@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/18
  * 拦截跳转过滤器(拦截对成功页面的请求)
  */

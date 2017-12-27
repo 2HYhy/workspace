@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSessionBindingEvent;
 import java.text.MessageFormat;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/20
  * 监听域对象中属性的变更的监听器(一次性继承三者包含)
  */

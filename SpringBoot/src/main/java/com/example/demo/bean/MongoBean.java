@@ -3,7 +3,7 @@ package com.example.demo.bean;
 import javax.persistence.Id;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/5
  */
 public class MongoBean {

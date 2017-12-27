@@ -3,7 +3,7 @@ package com.me.gacl.service;
 import com.me.gacl.domain.Computer;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/22
  */
 public interface ComputerService {

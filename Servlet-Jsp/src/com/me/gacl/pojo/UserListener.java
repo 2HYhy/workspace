@@ -1,7 +1,7 @@
 package com.me.gacl.pojo;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2017/12/20
  * 事件监听器
  */
