@@ -14,6 +14,12 @@ redis-cli -a redis -h 127.0.0.1 -p 6500   //重启一个页面
 ```
   
 ## 操作命令(redis是使用内存存储的非关系数据库):     
+> config get requirepass   
+>- 查看当前redis有没有设置密码     
+
+> config set requirepass 123456
+>- 设置密码(redis重启之后密码就会失效)
+
 > redis-server.exe  
 > redis-cli.exe -h 127.0.0.1 -p 6379 (重新打开一个命令框输入)
 >- 启动该redis服务器  

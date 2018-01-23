@@ -177,6 +177,12 @@ db.CollectName.find({"fieldName" : {"$gte" : new Date("2017-11-02"), "$lte" : ne
 
 db.CollectName.aggregate([{"$match" : {"fieldName" : {"$gte" : new Date("2017-11-02"), "$lte" : new Date("2017-11-10")}}},
                                              {"$group" : {"_id" : "$fieldName", "returnName" : {"$sum" : 1}}}])  
+                                            
+db.CollectName.find({"loginTime":{"$gte":new Date("2018-01-18"),"$lte": new Date("2018-01-21")}}).count()
+
+db.CollectName.find({"loginTime":{"$gte":new Date(2018,00,18),"$lte": new Date(2018,00,21)}}).count()
+
+db.getCollection('CollectName').find({"loginTime":{"$gte":ISODate("2018-01-17T16:00:00.000Z"),"$lte": ISODate("2018-01-21T15:59:59.000Z")}}).count()                                            
 ```   
 
 ### mongoTemplate, java版：
