@@ -876,3 +876,65 @@ chmod a-x mytest.sh
 //要删除其他用户的写权限时
 chmod o-w mytest.sh
 ```
+
+## 五、Nginx简单配置负载均衡  
+1. 启动退出nginx:
+```java
+//1.启动
+cd /usr/local/nginx/sbin
+./nginx
+//2.启动,进入部署目录
+start nginx
+
+//停止,进入部署目录
+nginx -s stop
+//退出,进入部署目录
+nginx -s quit
+
+//修改后重载
+cd /usr/local/nginx
+nginx -s reload
+```
+2. 配置负载均衡
+负载均衡服务器C0: 外网=www.user.com, 内网=192.168.1.0     
+web服务器1C1: 内网=192.168.1.1    
+web服务器2C2: 内网=192.168.1.2   
+web服务器3C3: 内网=192.168.1.3  
+
+```java
+//C0的配置文件nginx.conf
+upstream www.mylocal.com {
+    server 192.168.1.1:8081
+    server 192.168.1.2:8082
+    server 192.168.1.3:8083
+}
+server {
+    listen: 80;
+    server_name: www.user.com
+    location / {
+      proxy_pass http://www.mylocal.com;  //反向代理的地址
+      proxy_set_header Host $host;   //主机头
+      proxy_set_header X-Real-IP $remote_addr;   //客户端真实地址
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;   //客户端真实ip
+    }
+}
+
+//C1的配置
+server{ 
+    listen 8081; 
+    server_name www.user.com; 
+    index index.html;
+}
+//C2的配置
+server{ 
+    listen 8082; 
+    server_name www.user.com; 
+    index index.html;
+}
+//C3的配置
+server{ 
+    listen 8083; 
+    server_name www.user.com; 
+    index index.html;
+}
+```
