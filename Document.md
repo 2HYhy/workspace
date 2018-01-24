@@ -376,6 +376,15 @@ t1="2017-10-06 16:12:56" ,  t2="2017-10-06 16:12:56"
 > ALTER TABLE 表名 ADD 属性名1 数据类型 [完整性约束条件]    
 > ALTER TABLE 表名 DROP 属性名     
 > ALTER TABLE 表名 DROP FOREIGN KEY 外键别名 
+```java
+ALTER TABLE user ADD refresh_token VARCHAR(1000);
+ALTER TABLE user MODIFY c CHAR(10);
+ALTER TABLE user CHANGE i j BIGINT;  //i是要修改的列名，j是修改后的列名。
+ALTER TABLE user  DROP i;
+ALTER TABLE user ALTER i SET DEFAULT 1000;
+ALTER TABLE user RENAME TO alter_tbl;
+SHOW COLUMNS FROM user;
+```
 
 17. 关于分级，组合，内连接查询：  
 #### 分级查询group by 
