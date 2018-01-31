@@ -832,6 +832,15 @@ chmod +x build.sh
 > 每次更新时，在脚本文件目录下执行:  
 ```java
 sh build.sh 1.5      //sh $0 $1
+```
+5. docker查看日志
+```java
+1. docker inspect <容器>
+//找到logPath
+2. sudo sl -l logPath  //查看总日志数量
+3. sudo grep 'XXX' logPath
+4. grep 'XXX' info.log
+5. vi info.log
 ``` 
 
 ## 四、Tomcat虚拟目录映射方式

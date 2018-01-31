@@ -1,16 +1,17 @@
 ## redis 下载链接:[https://redis.io/download](https://redis.io/download),stable版。
-1. 下载解压后，进乳安装目录路径，依次执行`make`, `make test`, `make install`,编译安装redis。  
-2. mac启动redis服务端，运行`redis-server` 或者 `./redis-server redis.conf`。 
+1. 下载解压后，进入安装目录路径，依次执行`make`, `make test`, `make install`,编译安装redis。  
+2. mac启动redis服务端，运行`redis-server`。 
 3. mac启动redis客户端，运行`redis-cli`。
-4. 关闭redis:`quit` 或者 `./redis-cli -p 6379 shutdown`。  
+4. 关闭redis:`quit` 或者 `exit`。  
 5. 成功启动redis的效果图如: ![alt-text](/images/redis1.png)  
-6. 程序运行结果图: ![alt-text](/images/redis2.png)
-7.连接远程的redis服务器:`redis-cli -h host -p port -a password`
+6. 程序运行结果图: ![alt-text](/images/redis2.png) 
+7. 连接远程的redis服务器:`redis-cli -h host -p port -a password`
 
 #### docker启动redis服务:
 ```java
 docker run --name myredis -d -p 6500:6379 redis
-redis-cli -a redis -h 127.0.0.1 -p 6500   //重启一个页面
+//重启一个页面
+redis-cli -a redis -h 127.0.0.1 -p 6500   
 ```
   
 ## 操作命令(redis是使用内存存储的非关系数据库):     
