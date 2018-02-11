@@ -265,12 +265,8 @@ string是要解析的字符串，radix是要解析的数字的基数，介于2-3
 >- 若string以“0x/0X”开头，将string的其余部分解析为16进制数返回； 
 >- 若string以“0”开头，将string的其余部分解析为10进制数返回；  
 >- 若string以1-9开头，直接将其解析为10进制数返回。
-<<<<<<< HEAD
-       
-=======
 
->>>>>>> 2cb4dfc9fb8aad030ff7a3e59e16e89e8b011117
-当string是一组数字数组时，只有第一组数字被返回。
+> 当string是一组数字数组时，只有第一组数字被返回。
 ```java
 <html>
 <head>
@@ -488,8 +484,8 @@ set global event_scheduler=1;
 
 > ALTER TABLE <表名> DROP <属性名>     
 > ALTER TABLE <表名> DROP FOREIGN KEY <外键别名> 
-> ALTER TABLE user CHANGE i j BIGINT;  //i是要修改的列名，j是修改后的列名。
-> ALTER TABLE user ALTER i SET DEFAULT 1000;
+> ALTER TABLE user CHANGE i j BIGINT;  //i是要修改的列名，j是修改后的列名。           
+> ALTER TABLE user ALTER i SET DEFAULT 1000;      
 > SHOW COLUMNS FROM user;
 
 17. 关于分级，组合，内连接查询：  
