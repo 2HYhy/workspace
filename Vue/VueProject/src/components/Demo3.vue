@@ -24,6 +24,7 @@
 
 <script>
   import Vue from 'vue'
+  import swal from 'sweetalert'
 
   const child = Vue.extend({
     props: {
@@ -41,6 +42,9 @@
       return {
         counter: 0
       }
+    },
+    created () {
+      swal('This is Title！', 'This is message！', 'success')
     },
     methods: {
       add () {

@@ -19,6 +19,36 @@
     </h2>
     <p v-bind:title="suggest">float some seconds</p>
     <a v-bind:href="url">jump to link</a>
+
+    <!--模态框按钮-->
+    <hr/>
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" @click="show">点击触发模态框</button>
+    <!--模态框实体-->
+    <modal></modal>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" v-if="display">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+              模态框（Modal）标题
+            </h4>
+          </div>
+          <div class="modal-body">
+            在这里添加一些文本
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+            </button>
+            <button type="button" class="btn btn-primary">
+              提交更改
+            </button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
   </div>
 </template>
 <script>
@@ -26,6 +56,7 @@
     e1: 'vm1',
     data () {
       return {
+        display: false,
         message: 'This is Friday',
         information: 'This is Cloudy',
         counter: 0,
@@ -36,6 +67,9 @@
       }
     },
     methods: {
+      show () {
+        this.display = !this.display
+      },
       reverseMsg: function () {
         this.message = this.message.split('').reverse().join('')
       },

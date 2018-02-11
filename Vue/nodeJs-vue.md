@@ -54,3 +54,12 @@ npm install vue-router vue-resource vuex --save
 
 //浏览器访问`http://localhost:8080/`即可
 ```
+```java
+npm install xxx            //安装但不写入package.json；
+npm install xxx –save      //安装并写入package.json的”dependencies”中；
+npm install xxx –save-dev  //安装并写入package.json的”devDependencies”中。
+npm uninstall xxx          //删除xxx模块； 
+npm uninstall -g xxx       //删除全局模块xxx；
+npm cache clean            //清除 npm 内部缓存
+rm -rf node_modules/       //删除已安装的模块
+```
