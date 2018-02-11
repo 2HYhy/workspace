@@ -483,8 +483,10 @@ set global event_scheduler=1;
 > - ALTER TABLE user ADD refresh_token VARCHAR(1000);  
 
 > ALTER TABLE <表名> DROP <属性名>     
-> ALTER TABLE <表名> DROP FOREIGN KEY <外键别名> 
-> ALTER TABLE user CHANGE i j BIGINT;  //i是要修改的列名，j是修改后的列名。           
+> ALTER TABLE <表名> DROP FOREIGN KEY <外键别名>         
+> ALTER TABLE user CHANGE i j BIGINT;  
+>- i是要修改的列名，j是修改后的列名。    
+
 > ALTER TABLE user ALTER i SET DEFAULT 1000;      
 > SHOW COLUMNS FROM user;
 
