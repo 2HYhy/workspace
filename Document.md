@@ -174,7 +174,7 @@ string是要解析的字符串，radix是要解析的数字的基数，介于2-3
 >- 若string以“0”开头，将string的其余部分解析为10进制数返回；  
 >- 若string以1-9开头，直接将其解析为10进制数返回。
 
-**当string是一组数字数组时，只有第一组数字被返回。
+** 当string是一组数字数组时，只有第一组数字被返回。 **
 ```java
 <html>
 <body>
@@ -681,7 +681,8 @@ docker是一个开源的容器引擎，基于go语言，可以让开发者打包
 > docker exec -it <容器名> bash         
 >- 以交互式终端方式进入容器，并执行bash命令，即获得一个可操作的shell
 
-> docker inspect --format="{{.xxx}}"  ContainerName/Id
+> docker inspect --format="{{.xxx}}"  ContainerName/Id   
+> docker inspect -f '{{.Name}} {{.NetworkSettings.IPAddress}}' ContainerName/Id
 >- 查看指定容器的某项属性
 
 > docker tag ImageName:tag <打完标签的完整镜像名>
