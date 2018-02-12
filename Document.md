@@ -508,7 +508,7 @@ set global event_scheduler=1;
 `select uid from user union select uid from user_test`   
 
 #### 内连接inner join   
-实质是两表先进行笛卡尔乘积运算(用第一个对象的每一项乘以第二个对象的每一项，即交叉成绩)，然后再根据on后面的限制条件对结果进行筛选。   
+实质是两表先进行笛卡尔乘积运算(用第一个对象的每一项乘以第二个对象的每一项，即交叉乘积)，然后再根据on后面的限制条件对结果进行筛选。   
     
 18. MySql语句集锦：  
 > 两表联合，按分组进行更新  
@@ -640,9 +640,9 @@ select count(*) from user_test where uid not in (select uid from user)
 >- 进入本地服务界面
 
 > date    
-> cal
-> bc   
->- 显示日期，日历，计算器 
+> cal      
+> bc  
+>- 显示日期，日历，计算器(回车后输入要计算的表达式再回车即显示结果)
 
 > cat / tac FILE  
 >- 从第一行/最后一行 查看文件内容 
