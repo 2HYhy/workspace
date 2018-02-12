@@ -651,9 +651,9 @@ select count(*) from user_test where uid not in (select uid from user)
 >- 新建一个文档
 
 >file FILE  
-查看文件类型</font>     
-> cls<windows>, command+K<mac> 
->- 清屏 
+查看文件类型     
+> cls, command+K
+>- 清屏(windows，mac) 
 
 > history | grep "xxx"   
 >- 查询指定的输入历史
