@@ -433,7 +433,7 @@ set global event_scheduler=1;
 14. 安装命令行连接mysql：     
 > 进入mysql/bin目录路径下（无环境变量时，需进入mysql的安装目录下）   
 > 连接远程: 
-> mysql  -h <主机> -P <port> -u <用户名> -p<密码>  //p之后不加空格直接登录，也可不输入密码，待回车后单独输入密码  
+> mysql  -h <主机> -P <端口> -u <用户名> -p<密码>  //p之后不加空格直接登录，也可不输入密码，待回车后单独输入密码  
 > exit;  退出数据库 
 > net start mysql; 启动数据库
 > net stop mysql;  关闭数据库 
