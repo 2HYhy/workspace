@@ -431,21 +431,28 @@ set global event_scheduler=1;
 ```      
   
 14. 安装命令行连接mysql：     
-> 进入mysql/bin目录路径下（无环境变量时，需进入mysql的安装目录下）   
-> 连接远程: 
-> mysql  -h <主机> -P <端口> -u <用户名> -p<密码>  //p之后不加空格直接登录，也可不输入密码，待回车后单独输入密码  
+> 进入mysql/bin目录路径下（无环境变量时，需进入mysql的安装目录下）     
+> 连接远程:    
+> mysql  -h <主机> -P <端口> -u <用户名> -p<密码>  //p之后不加空格直接登录，也可不输入密码，待回车后单独输入密码      
+
 > exit;  退出数据库 
+
 > net start mysql; 启动数据库
+
 > net stop mysql;  关闭数据库 
+
 > show databases;  //每一条语句必须以分号结尾
+
 > use db_name
-> 本地启动连接mysql:
->- 查看mysql状态: `sudo Documents/tools/mysql/support-files/mysql.server status`
->- 启动mysql服务: `sudo Documents/tools/mysql/support-files/mysql.server start`
->- 停止mysql服务: `sudo Documents/tools/mysql/support-files/mysql.server stop`
->- 连接本地mysql: `sudo Documents/tools/mysql/bin/mysql -u root -p` or `sudo Documents/tools/mysql/bin/mysql -h 127.0.0.1 -u root -p`
+
+> 本地启动连接mysql:   
+>- 查看mysql状态: `sudo Documents/tools/mysql/support-files/mysql.server status`    
+>- 启动mysql服务: `sudo Documents/tools/mysql/support-files/mysql.server start`   
+>- 停止mysql服务: `sudo Documents/tools/mysql/support-files/mysql.server stop`     
+>- 连接本地mysql: `sudo Documents/tools/mysql/bin/mysql -u root -p` or `sudo Documents/tools/mysql/bin/mysql -h 127.0.0.1 -u root -p`       
 
 **此处是没有配置环境变量，所以必须加上路径**
+
 15. 关于mysql的几大数据类型： 
 #### unsigned属性，特殊应用场景：存放ip  
 > INET_ATON()函数：将IP转换为数值类型;   
@@ -624,7 +631,7 @@ select count(*) from user_test where uid not in (select uid from user)
 > cp -V -R * DIR      
 >- 将当前目录下所有文件复制到指定目录中
 
-> echo 'content'>FILE    
+> echo 'content' > FILE    
 >- 创建指定内容的指定文件
 
 > grep --color = auto 'content' /DIR/FILE     
@@ -975,7 +982,7 @@ web应用开发好之后，若想供外界访问，需要把web应用所在目�
 其余的9个字符，分为三组，第一组代表创建者的权限，第二组代表同组用户的权限，第三组代表其他用户的权限。每组三个字符，均为”rwx“三个参数的组合且顺序是固定的。如果没有某个权限，就用"-"代替。  
 3. 文件权限的修改, 命令:chmod   
 > (1) 用数字组合表示权限：`r=4, w=2, x=1`       
->- 文件的权限为”-rwxrwx-w-“时，owner=4+2+1=7, groups=4+2+1=7, others=0+2+1=2, 所以文件的权限数字就是772。 
+>- 文件的权限为”-rwxrwx-w-“时，owner=4+2+1=7, groups=4+2+1=7, others=0+2+0=2, 所以文件的权限数字就是772。 
 ```java
 可执行命令:
 chmod 772 mytest.sh
