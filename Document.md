@@ -444,6 +444,7 @@ set global event_scheduler=1;
 >- 启动mysql服务: `sudo Documents/tools/mysql/support-files/mysql.server start`
 >- 停止mysql服务: `sudo Documents/tools/mysql/support-files/mysql.server stop`
 >- 连接本地mysql: `sudo Documents/tools/mysql/bin/mysql -u root -p` or `sudo Documents/tools/mysql/bin/mysql -h 127.0.0.1 -u root -p`
+
 **此处是没有配置环境变量，所以必须加上路径**
 15. 关于mysql的几大数据类型： 
 #### unsigned属性，特殊应用场景：存放ip  
