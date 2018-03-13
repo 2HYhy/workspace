@@ -656,12 +656,16 @@ select count(*) from user_test where uid not in (select uid from user)
 > touch FILE   
 >- 新建一个文档
 
->file FILE  
-查看文件类型     
+>file FILE    
+>- 查看文件类型 
+
 > cls, command+K
 >- 清屏(windows，mac) 
 
-> history | grep "xxx"   
+> command+D，command+T
+>- 页面分屏， 新打开一个页面
+
+> history | grep "xxx"  
 >- 查询指定的输入历史
 
 > cd ~/data/log    
