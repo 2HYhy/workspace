@@ -455,9 +455,13 @@ set global event_scheduler=1;
 
 15. 关于mysql的几大数据类型： 
 #### unsigned属性，特殊应用场景：存放ip  
-> INET_ATON()函数：将IP转换为数值类型;   
+> INET_ATON()函数：将IP转换为数值类型;  
+>- `select INET_ATON('127.0.0.1')` 
+
 > INET_NTOA()函数：将数值类型转换为IP。   
-> - IPV4的最大地址(255.255.255.255)转换后即为unsigned int的最大值(4294967295), 而int的范围为-2147483648-21474833647, 所以要用unsigned int 存储IP地址。  
+>- `select INET_NTOA(2130706433)`
+
+> IPV4的最大地址(255.255.255.255)转换后即为unsigned int的最大值(4294967295), 而int的范围为-2147483648-21474833647, 所以要用unsigned int 存储IP地址。  
 
 #### decimal(M,D)
 > 其中，M代表正数和小数部分的总位数，D代表小数部分的位数。  
@@ -542,6 +546,65 @@ where left(registertime,10) = "2017-06-26" and left(logintime,10) between DATE_A
 > 统计存在于一个表而另一个表不存在的数据   
 ```java
 select count(*) from user_test where uid not in (select uid from user)
+```
+
+19. mySql查询的整个执行过程：
+> 客户端向mysql服务器发送一条查询请求  
+> 服务器首先检查查询缓存，若命中缓存，则直接将存储在缓存中的结果返回给客户端，否则执行下一条  
+> 服务器进行SQL解析，预处理，再由优化器生成执行计划  
+> mySql根据执行计划调用存储引擎的接口执行查询  
+> 将结果返回给客户端，同时缓存查询结果
+
+20. 关于索引：
+> 当索引列是表达式的一部分，或者函数的参数时，mysql不会使用索引
+>- `select * from table where id += 10`
+
+> 当多个索引做相交操作时(AND), 一个包含所有列的多列索引要优于多个只含一列的独立索引   
+> 当多个索引做联合操作时(OR), 走索引不如走全表扫描   
+
+> 多列索引的顺序对查询至关重要，应把索引选择性高的字段放在前面，以便通过第一个字段就能过滤掉大部分不符合条件的数据     
+> 索引选择性=不重复的索引值/总记录值, 唯一索引选择性最高=1  
+```java
+select * from table where app_id = xx and uid = xx
+//计算选择性
+select count(distinct uid) / count(*) as uidSelecitivty, count(distinct app_id) / count(*) as appSelectivity from table
+//比较两个选择性值，若uidSelecitivty > appSelectivity, 则多列索引为{uid,app_id},而非{app_id,uid}
+```
+> 查询条件避免多个范围条件，否则mysql只能人选一列的索引，而不能同时使用它们
+>- `select * from table where time > '2018-03-20' and age between 10 and 30`
+
+> 覆盖索引是指其包含了所有需要查询的字段，可以极大地提高性能   
+>- `select * from table where id=x and name=x and birthday=x` , 覆盖索引为{id,name,birthday} 
+
+> 若已经有一个索引{a, b}, 再去创建一个索引{a}的话，就是冗余索引(相同的列上按相同的顺序创建的相同类型的索引),应该避免    
+
+21. mysql性能优化的三大方面:
+（一）数据类型优化     
+（二）创建高性能索引    
+（三）特定类型查询优化  
+> 优化count()查询
+```java
+count(咧): 统计某一列值的数量，要求列值非空，不会统计NULL
+count(*): 统计行数
+explain执行计划出来的rows行数就是count()的近似值，对数据精确性要求不高时可代替
+```
+> 优化关联查询
+```java
+1. ON子句中的列上最好有索引。 
+当关联顺序为 select * from A join B on A.uid = B.uid 时，整个关联查询只会用到B表的索引，不会使用A表的索引，因此，只需在B表的uid上创建索引，加速查询，而不用在A表的uid上创建索引，增加负担。
+2. GROUP BY 和 ORDER BY 中的表达式最好只涉及一个表，以便于mysql使用索引进行优化
+```
+> 优化limit分页
+```java
+当limit pageNum, pageSize的偏移量pageNum很大时,会导致查询效率低下。
+SELECT * FROM table LIMIT 50000, 5;  //需要查询50005条记录，只返回5条
+//两种优化方式
+select * from table where id >= (select id from table limit 50000,1) limit 5
+select * from table t1 join (select id from table limit 50000, 5) t2 on t1.id = t2.id
+```
+> 优化union查询
+```java
+尽量避免使用 UNION，除非一定要求结果去重，否则就用 UNION ALL
 ```
 
 ## 六、Maven常用语句 
