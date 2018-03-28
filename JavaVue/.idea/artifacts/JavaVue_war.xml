@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="JavaVue:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="JavaVue-2.0.0.war">
+      <element id="artifact" artifact-name="JavaVue:war exploded" />
+    </root>
+  </artifact>
+</component>
