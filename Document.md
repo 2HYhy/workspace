@@ -1136,3 +1136,98 @@ server{
     index index.html;
 }
 ```
+
+## 四、前后端分离跨域问题解决
+1. 过滤器filter: 
+```java
+public void doFilter(ServletRequest req, ServletResponse res,  FilterChain chain) throws IOException, ServletException {  
+    HttpServletResponse response = (HttpServletResponse) res;  
+    response.setHeader("Access-Control-Allow-Origin", "*");  
+    response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");  
+    response.setHeader("Access-Control-Max-Age", "3600");  
+    response.setHeader("Access-Control-Allow-Headers", "x-requested-with");  
+    chain.doFilter(req, res);  
+}  
+```
+2. 拦截器interceptor:
+```java
+public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    //添加跨域CORS
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type,token");
+    response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
+    return true;
+  }
+```
+
+## 五、关于"==",equals()和hashCode
+> "=="是判断两个变量或实例是不是指向同一个内存空间, "equals()"是判断两个变量或实例所指向的内存空间的值是不是相同
+> "=="是指对内存地址进行比较。 "equals()"是对字符串的内容进行比较
+> "equals()"在Object中与"=="是一样的，Object的子类一般需要重写该方法。即：Object的equal方法默认是两个对象的引用的比较，如果需利用对象里面的值来判断是否相等，就必须重载equals()方法
+
+```java
+public class Common {
+     public static void main(String [] args) {
+        String a = "123";
+        String b = "123";
+        String c = new String("123");
+        String d = new String("123");
+        System.out.println(a == b);
+        System.out.println(c == d);
+        System.out.println(a.equals(b));
+        System.out.println(c.equals(d));
+        System.out.println(42 == 42.0);
+
+        Object obj1 = new Object();
+        Object obj2 = new Object();
+        System.out.println(obj1.equals(obj2));
+        System.out.println(obj1 == obj2);
+     }
+}
+输出结果依次为:true,false,true,true,true,false,false
+```
+```java
+public class Common {
+    private int i;
+    public int getI() {
+        return i;
+    }
+    public void setI(int i) {
+        this.i = i;
+    }
+    //自定义重写hashCode方法
+    @Override
+    public int hashCode() {
+        return i % 8;
+    }
+    //重写equals方法
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Common)) {
+            return false;
+        }
+        Common common = (Common) obj;
+        if (this.getI() == common.getI()) {
+            return true;
+        }
+        return false;
+    }
+    public static void main(String [] args) {
+        Common x = new Common();
+        Common y = new Common();
+        x.setI(1);
+        y.setI(1);
+        Set<Common> set = new HashSet<>();
+        set.add(x);
+        set.add(y);
+        System.out.println(x.hashCode() == y.hashCode());
+        System.out.println(x.equals(y));
+        System.out.println(set);
+    }
+}
+输出结果依次为：true,true,[com.example.demo.utils.Common@1]
+```
+
