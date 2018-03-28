@@ -1,4 +1,5 @@
-<template xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<template xmlns:v-on="http://www.w3.org/1999/xhtml"
+          xmlns:v-bind="http://www.w3.org/1999/xhtml">
   <div id="vm1">
     <p>{{message}}</p>
     <button v-on:click="reverseMsg">hit reverse</button>

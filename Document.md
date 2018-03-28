@@ -450,7 +450,6 @@ set global event_scheduler=1;
 >- 启动mysql服务: `sudo Documents/tools/mysql/support-files/mysql.server start`   
 >- 停止mysql服务: `sudo Documents/tools/mysql/support-files/mysql.server stop`     
 >- 连接本地mysql: `sudo Documents/tools/mysql/bin/mysql -u root -p` or `sudo Documents/tools/mysql/bin/mysql -h 127.0.0.1 -u root -p`       
-
 **此处是没有配置环境变量，所以必须加上路径**
 
 15. 关于mysql的几大数据类型： 
@@ -607,6 +606,22 @@ select * from table t1 join (select id from table limit 50000, 5) t2 on t1.id = 
 尽量避免使用 UNION，除非一定要求结果去重，否则就用 UNION ALL
 ```
 
+22. 查看mysql版本:
+> mysql -V
+> status
+> show version();
+
+23. mysql两种常用存储引擎：
+> 查看表使用的存储引擎
+>- 
+```java
+show create table user
+select table_catalog,table_schema,table_name, engine from information_schema.tables where table_name='user'
+select table_schema,table_name from information_schema.tables where engine = "MyISAM"
+```
+
+> MyISAM存储引擎：
+> InnoDB存储引擎：
 ## 六、Maven常用语句 
  mvn clean install -Dmaven.test.skip=true   
  mvn clean compile  
