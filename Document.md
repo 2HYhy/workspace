@@ -619,9 +619,9 @@ show create table user
 select table_catalog,table_schema,table_name, engine from information_schema.tables where table_name='user'
 select table_schema,table_name from information_schema.tables where engine = "MyISAM"
 ```
-
 > MyISAM存储引擎：
 > InnoDB存储引擎：
+
 ## 六、Maven常用语句 
  mvn clean install -Dmaven.test.skip=true   
  mvn clean compile  
