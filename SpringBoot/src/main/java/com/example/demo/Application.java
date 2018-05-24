@@ -8,15 +8,16 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @author CH-yfy
  * 启动方式：1. mvn spring-boot:run   2. cd target, java -jar 项目.jar
  */
-@SpringBootApplication
-@EnableScheduling
-//@EnableAsync  //启用异步调用
 
+@EnableScheduling
+@SpringBootApplication
 public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
+
+
 
 	//查看Spring Boot启动时自动注入的bean
 //	@Bean

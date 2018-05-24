@@ -1,0 +1,50 @@
+server:
+  port: 9100
+
+eureka:
+  instance:
+    hostname: peer1
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://peer2:9200/eureka/
+
+spring:
+  profiles: peer1
+  application:
+    name: cluster-eureka
+
+
+---
+
+
+server:
+  port: 9200
+
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://peer1:9100/eureka/
+
+spring:
+  profiles: peer2
+  application:
+    name: cluster-eureka
+
+
+---
+
+# 关闭安全验证,boot 1.5后默认是开启的
+management:
+  security:
+    enabled: false
+
+# 本地host解析添加： 127.0.0.1  peer1   127.0.0.1  peer2
+# cd /Users/CH-yfy/myproject/SpringCloud-one/EurekaServer/target
+# java -jar EurekaServer-0.0.1-SNAPSHOT.jar  --spring.profiles.active=peer1
+# java -jar EurekaServer-0.0.1-SNAPSHOT.jar  --spring.profiles.active=peer2
