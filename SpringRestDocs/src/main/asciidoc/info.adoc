@@ -1,0 +1,26 @@
+= 使用 Spring RestDocs 构建API文档
+
+[overview]
+= Overview
+
+This is an example document for a service at host = http://localhost:8080/
+
+.request
+include::{snippets}/document-1/http-request.adoc[]
+.response
+include::{snippets}/document-1/http-response.adoc[]
+
+.request
+include::{snippets}/document-2/http-request.adoc[]
+.response
+include::{snippets}/document-2/http-response.adoc[]
+
+.request
+include::{snippets}/document-3/http-request.adoc[]
+.response
+include::{snippets}/document-3/http-response.adoc[]
+
+.request
+include::{snippets}/document-4/http-request.adoc[]
+.response
+include::{snippets}/document-4/http-response.adoc[]
