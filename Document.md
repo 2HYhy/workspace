@@ -434,9 +434,11 @@ Host tem.github.com
 ```
 3. 测试配置是否正常：
 `ssh -T git@github.com `  和 `ssh -T git@tem.github.com `     
-`git remote -v`  可以查看当前目录所连接的github库地址
  下图表示配置成功:     
- ![alt-text](/images/git.png)          
+ ![alt-text](/images/git.png)      
+ 
+ `git remote -v`  可以查看当前目录所连接的github库地址
+ 
 4. 可以按正常流程提交代码，只不过另一个账号关联远程库时要用 `git@tem.github.com`。
 
 ### 工作区，暂存区储藏
