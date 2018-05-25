@@ -316,9 +316,14 @@ View(视图)------>DispatcherServelt(前端控制器) 。
 ```   
 
 ## 四、Git命令
+### 基本命令
 > 设置用户名、邮箱：  
 >- git config --global user.name "Your Name"  
 >- git config --global user.email "Your email"    
+
+> 查看当前git用户名邮箱
+>- git config user.name 
+>- cat ~/.gitconfig
 
 > 初始化一个目录为本地仓库：  
 >- git init  
@@ -362,6 +367,9 @@ View(视图)------>DispatcherServelt(前端控制器) 。
 > 本地关联远程库：
 >- git remote add origin git@github.com : 用户名/远程库名.git  
 
+> 删除已关联的远程库:
+>- git remote rm origin  
+
 > 本地推送至远程库：
 >- git push (-u) origin master  
 
@@ -382,6 +390,117 @@ View(视图)------>DispatcherServelt(前端控制器) 。
 
  > 删除分支：
  >- git branch -d Branch 
+
+### git上传代码及ssh-key生成  
+#### ssh key： 
+1. 先查看ssh key 是否已经存在： 
+> windows进入`C:\Users\Administrator\.ssh`,查看`id_rsa`和`id_rsa.pub`文件是否存在;
+> mac 输入`cd ~/.ssh`查看, `open id_rsa.pub`查看文件内容;  
+2. 输入命令 `ssh-keyen -t rsa -C "your email" `,一直回车，即可生成上述两个文件;   
+3. 打开id_rsa.pub文件，复制其全部内容至gitlab中SSH-Add SSH Key中,title可以任意填。
+
+#### git上传代码：  
+**本地新建的项目首次提交到git远程库，必须先要创建一个目录作为与远程库对应的本地库，然后再进行如下系列操作**
+1. 通过`git init` 把当前目录变成git可以管理的本地仓库 ；  
+2. 通过`git add 文件/文件夹`将文件添加到暂存区 ， 通过`git commit -m "备注"`将文件提交到本地仓库 ；  
+3. 通过`git remote add origin 远程仓库地址`将本地仓库与远程仓库关联 ；  
+4. 通过`git push -u origin master`将本地master分支内容推送至远程master分支， -u只有第一次推送时添加，目的是将两处的master分支关联。
+
+#### idea 关于git操作：
+```java
+//1. 可以进行git的pull和push
+VCS -> Git -> Enable Version Control Integration -> Git
+//2. 查看默认的远程库地址
+VCS -> Git -> Pull 
+//3. 如果不对，进行修改
+//4. Push的远程库地址也是和Pull一样的
+
+当用idea导入从git上clone，或者push上git的项目时，打开VCS-Git-Pull时，就能看到远程库地址了。(自己首次push的需要先添加版本分布控制策略)。
+```
+
+#### 同一台机器使用两个GIT账号
+1. 两个账号对应生成两个公钥，并保存在不同的文件里：id_rsa.pub 和id_rsa_tem.pub
+2. 打开名为ssh目录下,名为config无后缀的文件(没有就vim新建),修改其内容为:
+```java
+Host github.com  
+    HostName github.com  
+    PreferredAuthentications publickey  
+    IdentityFile ~/.ssh/id_rsa  
+  
+Host tem.github.com  
+    HostName github.com  
+    PreferredAuthentications publickey  
+    IdentityFile ~/.ssh/id_rsa_tem  
+```
+3. 测试配置是否正常：
+`ssh -T git@github.com `  和 `ssh -T git@tem.github.com `     
+`git remote -v`  可以查看当前目录所连接的github库地址
+ 下图表示配置成功:     
+ ![alt-text](/images/git.png)          
+4. 可以按正常流程提交代码，只不过另一个账号关联远程库时要用 `git@tem.github.com`。
+
+### 工作区，暂存区储藏
+当前develop分支:
+```java
+public class Java {
+  //共同内容
+  @GetMapping("/one")
+  public String show() {
+    return "Hello ,it is original text";
+  }
+
+  //修改内容
+  @GetMapping("/two")
+  public String test() {
+    return "Hello ,it is modified text";
+  }
+}
+```
+
+```java
+git stash
+git stash list   //查看储藏列表
+git status //工作区就变成干净的了
+```
+切换master分支：
+```java
+public class Java {
+  //共同内容
+  @GetMapping("/one")
+  public String show() {
+    return "Hello ,it is original text";
+  }
+}
+/**
+   修改内容的内容并没有同步过来
+  */
+```
+切换develop分支:
+```java
+public class Java {
+  //共同内容
+  @GetMapping("/one")
+  public String show() {
+    return "Hello ,it is original text";
+  }
+}
+/**
+   修改内容的内容已经被隐藏
+  */
+```
+ 
+```java
+git stash apply    
+//或者 
+git stash apply —index  //不仅恢复工作区，也会恢复暂存区
+//或者 
+git stash pop  //重新应用储藏，同时立刻将其从堆栈中移走
+git stash drop  //删除储藏
+
+/**
+如果再次直接切回master，修改会同步，需要重新进行储藏
+*/
+```  
 
  ## 五、MySql基本语句  
  1. select column from table where column = value
@@ -902,23 +1021,8 @@ mvn install:install-file -Dfile=spring-cloud-dependencies.pom -DgroupId=org.spri
 > (1) 测试方法用@Test注解，public void 修饰        
 > (2) @BeforeClass和@AfterClass只执行一次，在所有方法都被调用之前/后            
 > (3) @Before和@After在每个方法被调用前/后执行          
-
-
-## 八、git上传代码及ssh-key生成  
-### ssh key： 
-1. 先查看ssh key 是否已经存在： 
-> windows进入`C:\Users\Administrator\.ssh`,查看`id_rsa`和`id_rsa.pub`文件是否存在;
-> mac 输入`cd ~/.ssh`查看, `open id_rsa.pub`查看文件内容;  
-2. 输入命令 `ssh-keyen -t rsa -C "your email" `,一直回车，即可生成上述两个文件;   
-3. 打开id_rsa.pub文件，复制其全部内容至gitlab中SSH-Add SSH Key中,title可以任意填。
-
-### git传代码：  
-1. 通过`git init` 把当前目录变成git可以管理的本地仓库 ；  
-2. 通过`git add 文件/文件夹`将文件添加到暂存区 ， 通过`git commit -m "备注"`将文件提交到本地仓库 ；  
-3. 通过`git remote add origin 远程仓库地址`将本地仓库与远程仓库关联 ；  
-4. 通过`git push -u origin master`将本地master分支内容推送至远程master分支， -u只有第一次推送时添加，目的是将两处的master分支关联 。
  
-## 九、linux常用命令  
+## 八、linux常用命令  
 > ls ;    ls -l ;   ls -s -S ;   ls -a ;  
 >- 显示所有目录和文件 
 
@@ -1020,7 +1124,7 @@ mvn install:install-file -Dfile=spring-cloud-dependencies.pom -DgroupId=org.spri
 > ps -A / ps -e
 >- 查看所有进程    
          
-## 十、docker基础   
+## 九、docker基础   
 docker是一个开源的容器引擎，基于go语言，可以让开发者打包他们的应用及依赖包到一个轻量级、可移植的容器中。          
 容器与镜像的关系：前者相当于对象实例是可以读写的，后者相当于类，只能读。先声明镜像，在创建容器。一个镜像可以有多个容器。
 
@@ -1274,7 +1378,7 @@ sh build.sh 1.5      //sh $0 $1
 5. vi info.log
 ``` 
 
-## 一、Tomcat虚拟目录映射方式
+## 十、Tomcat虚拟目录映射方式
 web应用开发好之后，若想供外界访问，需要把web应用所在目录交给web服务器管理，这个过程称之为虚拟目录的映射。   
 1. 在server.xml文件的host元素中配置：  
 > (1)`<Host></Host>`这对标签中添加`<Context path = "/demoapps" docBase = "F:\DemoProject"/>`即可将F盘的DemoProject应用映射到demoapps这个虚拟目录上，它是磁盘上不存在的目录，是我们自己定义的。  
@@ -1293,7 +1397,7 @@ web应用开发好之后，若想供外界访问，需要把web应用所在目�
 4. 查看tomcat日志: tail -f catalina.out
 5. 查看tomcat版本信息: cd Documents/tools/tomcat/bin 运行`./version.sh`
 
-## 二、Linux下文件权限设置
+## 一、Linux下文件权限设置
 1. linux下，文件的权限有读(r)，写(w)，可执行(x)三种，文件访问的用户类别有创建者(owner),与创建者同组用户(groups)，其他用户(others)三种。   
 2. 文件的权限由10个字符组成:         
 第1个字符的含义为: "d" 表示目录, "-" 表示文件, 还有"l, "b", "c"。       
@@ -1324,7 +1428,7 @@ drwxr-xr-x   2 root  wheel    68  4 10 14:20 data
 drwxr-xr-x   2 CH-yfy  wheel    68  4 10 14:20 data
 ```
 
-## 三、Nginx简单配置负载均衡  
+## 二、Nginx简单配置负载均衡  
 1. 启动退出nginx:
 ```java
 //1.启动
@@ -1386,7 +1490,7 @@ server{
 }
 ```
 
-## 四、前后端分离跨域问题解决
+## 三、前后端分离跨域问题解决
 1. 过滤器filter: 
 ```java
 public void doFilter(ServletRequest req, ServletResponse res,  FilterChain chain) throws IOException, ServletException {  
@@ -1409,7 +1513,7 @@ public boolean preHandle(HttpServletRequest request, HttpServletResponse respons
   }
 ```
 
-## 五、关于"==",equals()和hashCode
+## 四、关于"==",equals()和hashCode
 > "=="是判断两个变量或实例是不是指向同一个内存空间, "equals()"是判断两个变量或实例所指向的内存空间的值是不是相同
 > "=="是指对内存地址进行比较。 "equals()"是对字符串的内容进行比较
 > "equals()"在Object中与"=="是一样的，Object的子类一般需要重写该方法。即：Object的equal方法默认是两个对象的引用的比较，如果需利用对象里面的值来判断是否相等，就必须重载equals()方法
@@ -1480,7 +1584,7 @@ public class Common {
 输出结果依次为：true,true,[com.example.demo.utils.Common@1]
 ```
 
-## 六、 关于jar包
+## 五、 关于jar包
 1. 打成jar包/解压jar包:
 ```java
 mvn clean install  //即根据pom文件，打成jar或war包
@@ -1519,7 +1623,7 @@ jar xf test.jar
 jar xvf test.jar
 ```
 
-## 七、关于Prometheus，Grafana, influxDB
+## 六、关于Prometheus，Grafana, influxDB
 ### Prometheus:(pull型时间序列数据库)
 Mac下载的发行版为darwin版
 1. 启动prometheus
@@ -1587,6 +1691,7 @@ brew install grafana
 
 ### influxDB:(push型时序数据库)
 安装位置：/usr/local/opt/influxdb
+配置文件地址：/usr/local/etc/influxdb.conf
 1. 安装启动
 ```java
 brew update
