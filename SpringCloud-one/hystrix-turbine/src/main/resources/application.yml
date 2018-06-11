@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: hystrix-turbine
+server:
+  port: 9010
+turbine:
+  aggregator:
+    clusterConfig: default   # 指定聚合哪些集群，多个使用","分割，默认为default
+  appConfig: service-ribbon,service-feign  # 对这两个服务的hystrix dashboard数据进行整合
+  clusterNameExpression: new String("default")
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+

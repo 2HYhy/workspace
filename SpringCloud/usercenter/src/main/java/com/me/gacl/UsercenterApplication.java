@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author CH-yfy
  */
 @SpringBootApplication
-public class UsercenterApplication {
+public class UserCenterApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UsercenterApplication.class, args);
+		SpringApplication.run(UserCenterApplication.class, args);
 	}
 }

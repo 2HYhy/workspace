@@ -17,6 +17,8 @@
         <module>config-client</module>
         <module>EurekaServer</module>
         <module>feign-server-upload</module>
+        <module>eureka-server-cluster</module>
+        <module>hystrix-turbine</module>
     </modules>
 
 </project>

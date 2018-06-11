@@ -6,14 +6,23 @@
 	<artifactId>springcloud</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>SpringCloud</name>
+	<name>springcloud</name>
 	<description>Demo project for Spring Boot</description>
 
+	<modules>
+        <module>cloudzuul</module>
+		<module>sleuth-service-hello</module>
+		<module>sleuth-service-user</module>
+		<module>sleuth-zipkin</module>
+		<module>usercenter</module>
+		<module>usercenter-eureka</module>
+		<module>zuul-ratelimit</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.9.RELEASE</version>
-		<relativePath/>
+		<version>2.0.2.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -21,14 +30,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
-
-	<modules>
-		<module>usercenter</module>
-		<module>cloudzuul</module>
-		<module>sleuth-zipkin</module>
-		<module>sleuth-service-hello</module>
-		<module>sleuth-service-user</module>
-	</modules>
 
 	<dependencies>
 		<dependency>
@@ -40,14 +41,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -58,5 +51,6 @@
 			</plugin>
 		</plugins>
 	</build>
+
 
 </project>

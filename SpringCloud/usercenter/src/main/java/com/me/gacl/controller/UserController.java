@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2018/4/17
  */
 @RestController
-@RequestMapping("/user-demo")
+@RequestMapping("/users")
 public class UserController {
 
     @RequestMapping(value = "/getOne")
     public String available() {
-        return "Access by Spring Cloud Zuul One";
+        return "user-center,Access by Spring Cloud Zuul One";
     }
 
     @RequestMapping(value = "/getTwo")
     public String checkedOut() {
-        return "Access Spring Cloud Zuul Two";
+        return "user-center,Access Spring Cloud Zuul Two";
     }
 
 }

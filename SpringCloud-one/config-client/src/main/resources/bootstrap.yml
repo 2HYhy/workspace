@@ -1,17 +1,25 @@
 server:
-  port: 8089
+  port: 8082
 
 spring:
   application:
       name: config-client
   cloud:
     config:
-      name: config
+      name: config   # 与git仓库的文件名保持一致
       label: master
       profile: dev
       discovery:
         enabled: true
         serviceId: config-server
+    bus:
+      trace:
+        enabled: true  # 开启消息追踪服务
+  rabbitmq:
+     host: 127.0.0.1
+     port: 5672
+     username: guest
+     password: guest
 
 eureka:
   client:
@@ -38,4 +46,3 @@ management:
 # 访问 http://localhost:8088/git获取配置文件信息
 
 #消息总线发送 curl -X POST http://localhost:8089/bus/refresh
-

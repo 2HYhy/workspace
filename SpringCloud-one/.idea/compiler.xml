@@ -26,11 +26,12 @@
         <module name="config-server" />
         <module name="eureka-client" />
         <module name="eureka-server" />
+        <module name="eureka-server-cluster" />
         <module name="EurekaServer" />
         <module name="feign-server-upload" />
+        <module name="hystrix-turbine" />
         <module name="service-feign" />
         <module name="service-ribbon" />
-        <module name="servicefeign" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
@@ -38,13 +39,12 @@
       <module name="config-server" target="1.8" />
       <module name="eureka-client" target="1.8" />
       <module name="eureka-server" target="1.8" />
+      <module name="eureka-server-cluster" target="1.8" />
       <module name="EurekaServer" target="1.8" />
-      <module name="Feign" target="1.8" />
       <module name="feign-server-upload" target="1.8" />
-      <module name="FeignGithub" target="1.8" />
+      <module name="hystrix-turbine" target="1.8" />
       <module name="service-feign" target="1.8" />
       <module name="service-ribbon" target="1.8" />
-      <module name="servicefeign" target="1.8" />
       <module name="SpringCloud-one" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author CH-yfy
  * 服务提供者
+ * @EnableEurekaClient基于spring-cloud-netflix,@EnableDiscoveryClient基于spring-cloud-commons,一般注册中心为eureka时用前者，其他注册中心(consul,zookeeper)用后者
  */
 @RestController
 @EnableEurekaClient
@@ -25,8 +26,15 @@ public class EurekaClientApplication {
 	 */
 	@Value("${server.port}")
 	String port;
+
 	@RequestMapping("/client/hello")
 	public String sayHello() {
 		return "This is eureka-client from port=" + port + " registered to eureka-server !";
+	}
+
+
+	@RequestMapping("/ribbon/test")
+	public String show() {
+		return "This is from 127.0.0.1:" + port;
 	}
 }

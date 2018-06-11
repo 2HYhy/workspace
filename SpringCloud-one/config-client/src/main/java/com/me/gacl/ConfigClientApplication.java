@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author CH-yfy
- *修改了git上的配置后，需要重启服务才可生效，走动生效的方法:1-spring cloud bus; 2-refresh.
+ *修改了git上的配置后，若不使用cloud bus,需要重启服务才可生效;若使用cloud bus,无需重启服务,先发送http://localhost:8082/bus/refresh POST请求后,自动生效
  */
 
 @EnableDiscoveryClient
