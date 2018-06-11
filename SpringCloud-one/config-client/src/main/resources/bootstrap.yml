@@ -42,7 +42,3 @@ management:
 #      uri: http://localhost:8081
 #  profiles:
 #    active: dev
-
-# 访问 http://localhost:8088/git获取配置文件信息
-
-#消息总线发送 curl -X POST http://localhost:8089/bus/refresh
