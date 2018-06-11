@@ -401,9 +401,9 @@ View(视图)------>DispatcherServelt(前端控制器) 。
 
 #### git上传代码：  
 **本地新建的项目首次提交到git远程库，必须先要创建一个目录作为与远程库对应的本地库，然后再进行如下系列操作**
-1. 通过`git init` 把当前目录变成git可以管理的本地仓库 ；  
-2. 通过`git add 文件/文件夹`将文件添加到暂存区 ， 通过`git commit -m "备注"`将文件提交到本地仓库 ；  
-3. 通过`git remote add origin 远程仓库地址`将本地仓库与远程仓库关联 ；  
+1. 通过`git init` 把当前目录变成git可以管理的本地仓库 ； 
+2. 通过`git remote add origin 远程仓库地址`将本地仓库与远程仓库关联 ；
+3. 通过`git add 文件/文件夹`将文件添加到暂存区 ， 通过`git commit -m "备注"`将文件提交到本地仓库 ；
 4. 通过`git push -u origin master`将本地master分支内容推送至远程master分支， -u只有第一次推送时添加，目的是将两处的master分支关联。
 
 #### idea 关于git操作：
@@ -434,9 +434,11 @@ Host tem.github.com
 ```
 3. 测试配置是否正常：
 `ssh -T git@github.com `  和 `ssh -T git@tem.github.com `     
-`git remote -v`  可以查看当前目录所连接的github库地址
  下图表示配置成功:     
- ![alt-text](/images/git.png)          
+ ![alt-text](/images/git.png)      
+ 
+ `git remote -v`  可以查看当前目录所连接的github库地址
+ 
 4. 可以按正常流程提交代码，只不过另一个账号关联远程库时要用 `git@tem.github.com`。
 
 ### 工作区，暂存区储藏
