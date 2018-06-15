@@ -1014,7 +1014,7 @@ show processlist
 1. 进入jar所在路径
 2. 执行以下内容
 ```java
-mvn install:install-file -Dfile=spring-cloud-dependencies-.pom -DgroupId=org.springframework.cloud -DartifactId=spring-cloud-dependencies -Dversion=Edgware.SR3 -Dpackaging=pom
+mvn install:install-file -Dfile=spring-cloud-dependencies.pom -DgroupId=org.springframework.cloud -DartifactId=spring-cloud-dependencies -Dversion=Edgware.SR3 -Dpackaging=pom
 
 mvn install:install-file -Dfile=spring-cloud-dependencies.pom -DgroupId=org.springframework.cloud -DartifactId=spring-cloud-dependencies -Dversion=Edgware.SR3 -Dpackaging=jar
 ```
