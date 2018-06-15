@@ -1014,9 +1014,9 @@ show processlist
 1. 进入jar所在路径
 2. 执行以下内容
 ```java
-mvn install:install-file -Dfile=spring-cloud-dependencies.pom -DgroupId=org.springframework.cloud -DartifactId=spring-cloud-dependencies -Dversion=Edgware.SR3 -Dpackaging=pom
+mvn install:install-file -Dfile=<完整的文件名，eg:spring-cloud-dependencies-Finchley.M8.pom> -DgroupId=org.springframework.cloud -DartifactId=spring-cloud-dependencies -Dversion=Edgware.SR3 -Dpackaging=pom
 
-mvn install:install-file -Dfile=spring-cloud-dependencies.pom -DgroupId=org.springframework.cloud -DartifactId=spring-cloud-dependencies -Dversion=Edgware.SR3 -Dpackaging=jar
+mvn install:install-file -Dfile=<完整的文件名> -DgroupId=org.springframework.cloud -DartifactId=spring-cloud-dependencies -Dversion=Edgware.SR3 -Dpackaging=jar
 ```
 
 ## 七、单元测试Junit
