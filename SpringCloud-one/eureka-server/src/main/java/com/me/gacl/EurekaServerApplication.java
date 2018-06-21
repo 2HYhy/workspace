@@ -33,7 +33,7 @@ public class EurekaServerApplication {
 	}
 
 	/**
-	 * eureka界面展示controller, TODO produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}
+	 * eureka界面展示controller
 	 * @param request
 	 * @param model
 	 * @return

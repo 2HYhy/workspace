@@ -1,6 +1,16 @@
+spring:
+  application:
+    name: cluster-eureka
+# 关闭安全验证,boot 1.5后默认是开启的
+management:
+  security:
+    enabled: false
+
+---
+spring:
+  profiles: peer1
 server:
   port: 9100
-
 eureka:
   instance:
     hostname: peer1
@@ -10,18 +20,12 @@ eureka:
     serviceUrl:
       defaultZone: http://peer2:9200/eureka/
 
-spring:
-  profiles: peer1
-  application:
-    name: cluster-eureka
-
-
 ---
 
-
+spring:
+  profiles: peer2
 server:
   port: 9200
-
 eureka:
   instance:
     hostname: peer2
@@ -31,20 +35,13 @@ eureka:
     serviceUrl:
       defaultZone: http://peer1:9100/eureka/
 
-spring:
-  profiles: peer2
-  application:
-    name: cluster-eureka
 
-
----
-
-# 关闭安全验证,boot 1.5后默认是开启的
-management:
-  security:
-    enabled: false
-
+# 共有3端配置，1为公共配置，2为两个eureka的配置，两者相互注册
 # 本地host解析添加： 127.0.0.1  peer1   127.0.0.1  peer2
+# 启动方式
+# jar包：
 # cd /Users/CH-yfy/myproject/SpringCloud-one/EurekaServer/target
 # java -jar EurekaServer-0.0.1-SNAPSHOT.jar  --spring.profiles.active=peer1
 # java -jar EurekaServer-0.0.1-SNAPSHOT.jar  --spring.profiles.active=peer2
+# idea：
+# ServerCluster9100, ServerCluster9200

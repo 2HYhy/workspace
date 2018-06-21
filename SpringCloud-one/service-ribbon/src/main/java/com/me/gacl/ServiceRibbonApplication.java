@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * @author CH-yfy
+ * Ribbo是一个基于HTTP和TCP的客户端负载均衡器
  * 服务消费者，基于ribbon+resTemplate的调度方式
  * 仪表盘监控流程:
  * 1. 访问http://localhost:9003/hystrix
