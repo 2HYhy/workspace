@@ -220,7 +220,7 @@ T content = in.nextLine() / in.next() / in.nextInt() / in.nextDouble();
 //读取可能包含空格的一行内容/读取一个单词/读取一个整数/读取一个双精度浮点数  
 ```    
 电脑上的数据有三种存储方法：外存，内存，缓存。存储量：外存>内存>缓存；数据读取速度：缓存>内存>外存。     
-将数据从外存读取到内存的成为输入流，将数据从内存写入外存的称为输出流。   
+将数据从外存读取到内存的称为输入流，将数据从内存写入外存的称为输出流。   
 **输入流抽象类:**   
 > InputStream(字节输入流)，Reader(字符输入流)   
 
@@ -1420,12 +1420,12 @@ chmod a-x mytest.sh
 //要删除其他用户的写权限时
 chmod o-w mytest.sh
 ```
-4. 修改文件的拥有者
+4. 修改文件的拥有者(只有root用户才有权限，因此有时需要加上sudo)
 chown <账号名称> <文件/目录>
 ```java
 //修改前
 drwxr-xr-x   2 root  wheel    68  4 10 14:20 data
-//CH-yfy@YuanFayangs-iMac opt$sudo chown CH-yfy data/ 
+执行 CH-yfy@YuanFayangs-iMac opt$sudo chown CH-yfy data/  
 //修改后
 drwxr-xr-x   2 CH-yfy  wheel    68  4 10 14:20 data
 ```
