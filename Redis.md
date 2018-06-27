@@ -1,4 +1,6 @@
-## redis 下载链接:[https://redis.io/download](https://redis.io/download),stable版。
+## redis   
+下载链接:[https://redis.io/download](https://redis.io/download),stable版。  
+
 1. 下载解压后，进入安装目录路径，依次执行`make`, `make test`, `make install`,编译安装redis。  
 2. mac启动redis服务端，运行`redis-server`。 
 3. mac启动redis客户端，运行`redis-cli`。
@@ -7,7 +9,7 @@
 6. 程序运行结果图: ![alt-text](/images/redis2.png) 
 7. 连接远程的redis服务器:`redis-cli -h host -p port -a password`
 
-#### docker启动redis服务:
+## docker启动redis服务:
 ```java
 docker run --name myredis -d -p 6500:6379 redis
 //重启一个页面
@@ -29,62 +31,11 @@ redis-cli -a redis -h 127.0.0.1 -p 6500
 > get key   
 >- String字符串赋值，取值 
 
-> hmset key field value  
->- hash哈希赋值,适用于存储对象
-
-> hget all key  
->- 获取对象所有信息  
-
-> hget key field  
->- 获取对象的某属性值  
-
-> hkeys key  
->- 获取对象的所有属性值  
-
-> hdel key field  
->- 删除对象的某属性值 
-
-> lpush key value / rpush key value  
->- 添加一个元素到列表的头(左)部或尾(右)部  
-
-> lrange key start end   
->- 获取指定范围内的元素  
-
-> llen key  
->- 获取key的长度  
-
-> lpop / rpop  key  
->- 取出并移除key中的第一个(最后一个)元素    
-
-> sadd key value  
->- 添加元素到集合中，成功返回1，元素已存在返回0，其余返回nil  
-
-> smembers key  
->- 取出集合中的元素
-
-> srem key value  
->- 从集合中移除元素
-
-> zadd key count value 
->- 添加元素到有序集合中  
-
-> zrangebyscore key start end  
->- 获取有序集合中指定范围的元素  
-
-> zcount key min max  
->- 获取有序集合中score在min和max之间的元素的个数  
-
-> zscore key member   
->- 获取该元素的score  
-
 > del key
 >- 删除key  
 
 > keys *  
 >- 查看所有key
-
-> dump key  
->- 序列化指定的key 
 
 > more key db  
 >- 当前db的key移到指定db中 
@@ -116,20 +67,11 @@ redis-cli -a redis -h 127.0.0.1 -p 6500
 > select 0/1/2    
 >- redisDeskManage选择要操作的数据库
 
-## 注解:   
+#### 注解:   
 启动类或者具体的DAO类中添加注解@EnableCaching:
 此注解会对每个bean中被@Cacheable, @CachePut, @CacheEvict修饰的public方法进行缓存操作。   
 
 #### @Cacheable用法(value属性是必须的)
-```java
-@Cacheable(value = "companyCache", key = "'myCompanyCache:'.concat(#root.methodName)")
-public void findByCompanyId(){ }
-```
-> redis中生成: `companyCache~keys` 和 `myCompanyCache: (文件夹)   
-myCompanyCache:findByCompanyId (key)
-`
-
-**正确应设置成**:  
 ```java
 @Cacheable(value = "companyCache:", key = "'companyCache:'.concat(#root.methodName)")
 ```
@@ -138,6 +80,8 @@ myCompanyCache:findByCompanyId (key)
 ```java
  @CacheEvict(value = "companyCache", key = "'myCompanyCache:'.concat('findByCompanyId')")
     public void updateCompanyId(){}
+ // allEntries = true, 清除缓存中所有元素
+ // beforeInvocation = true, 清除操作在对应方法成功执行后触发，即方法因为抛出异常未能成功返回不会触发该操作   
 ```
 > 可用在update类方法上，也可用在remove类方法上。
 
@@ -170,7 +114,6 @@ public class RedisConfig extends CachingConfigurerSupport {
             }
         };
     }
-
     @Bean
     public CacheManager cacheManager(@SuppressWarnings("rawtypes") RedisTemplate redisTemplate) {
         RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);

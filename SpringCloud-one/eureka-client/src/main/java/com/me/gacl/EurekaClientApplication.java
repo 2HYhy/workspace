@@ -30,7 +30,7 @@ public class EurekaClientApplication {
 
 	@RequestMapping("/client/hello")
 	public String sayHello() {
-		return "This is eureka-client from port=" + port + " registered to eureka-server !";
+		return "This is eureka-client from port = "+port;
 	}
 
 

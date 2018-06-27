@@ -15,6 +15,7 @@ import java.util.Map;
 /**
  * @author CH-yfy
  * @date 2018/6/1
+ * 获取写入influxdb的数据
  */
 @RestController
 public class TestInfluxController {

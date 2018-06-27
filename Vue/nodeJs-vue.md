@@ -10,6 +10,9 @@
 > 进入npm安装目录找到npmrc文件，清空其内容，编辑为`registry = https://registry.npm.taobao.org`，保存退出。  
 
 2. 通过config配置指定下载源  
+> npm config get registry 
+>- 获取配置的下载源，默认是`https://registry.npmjs.org/`
+
 > npm config set registry htttps://registry.npm.taobao.org  
 
 3. 通过npm命令指定下载源

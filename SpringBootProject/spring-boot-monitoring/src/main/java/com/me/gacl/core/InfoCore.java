@@ -5,7 +5,6 @@ import org.influxdb.dto.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.influxdb.InfluxDBTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -31,14 +30,14 @@ public class InfoCore {
     public InfoCore() throws Exception {
     }
 
-    //表示每20秒刷新一次
-    @Scheduled(cron = "*/20 * * * * *")
+    //每50秒刷新一次
+    //@Scheduled(cron = "*/50 * * * * *")
     public void run() {
-        Map<String, String> tags = new HashMap<>();
+        Map<String, String> tags = new HashMap<>(2);
         tags.put("tagOne", "first");
         tags.put("tagTwo", "second");
 
-        HashMap<String, Object> fields = new HashMap<>();
+        HashMap<String, Object> fields = new HashMap<>(10);
         try {
             HashMap<String, Object> results = healthClient.get("http://127.0.0.1:8899/actuator/info", HashMap.class);
             if (results != null && results.size() > 0) {

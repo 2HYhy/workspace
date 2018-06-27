@@ -27,6 +27,9 @@
 		<module>spring-boot-admin</module>
 		<module>admin-client</module>
 		<module>spring-boot-monitoring</module>
+		<module>spring-boot-logback</module>
+		<module>spring-boot-exception</module>
+		<module>spring-boot-redis</module>
 	</modules>
 
 	<dependencies>

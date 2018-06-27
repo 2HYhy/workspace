@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author CH-yfy
  * @date 2018/5/28
+ * TODO 表中数据为空
  */
 @RestController
 public class WrittenController {
@@ -49,7 +50,6 @@ public class WrittenController {
                 System.out.println("uri请求获取内容为空>>>>>>");
                 throw new Exception("request fail");
             }
-
             //数据写入influxDB
             influxDBTemplate.createDatabase();
             Point point = Point.measurement("actuator_prometheus")
