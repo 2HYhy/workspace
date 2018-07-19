@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
  * 仪表盘监控流程:
  * 1. 访问http://localhost:9003/hystrix
  * 2. 填入http://localhost:9003/hystrix.stream和title,点击monitor stream进入监控信息页面
- * 3. 访问http://localhost:9003//ribbon/hello 任一接口
+ * 3. 访问http://localhost:9003/ribbon/hello 任一接口
  * 4. 监控页面出现监控详情信息
  */
 @EnableHystrixDashboard

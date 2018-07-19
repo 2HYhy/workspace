@@ -19,6 +19,7 @@
         <module>feign-server-upload</module>
         <module>eureka-server-cluster</module>
         <module>hystrix-turbine</module>
+        <module>feign-service</module>
     </modules>
 
 </project>

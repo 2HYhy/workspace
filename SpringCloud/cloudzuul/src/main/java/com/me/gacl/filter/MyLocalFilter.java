@@ -24,7 +24,7 @@ public class MyLocalFilter extends ZuulFilter{
     }
 
     /**
-     * 过滤器顺序
+     * 过滤器的执行顺序，当过滤器很多时，这个方法会有意义
      * @return
      */
     @Override
@@ -33,7 +33,7 @@ public class MyLocalFilter extends ZuulFilter{
     }
 
     /**
-     * 是否要过滤
+     * 是否要执行过滤器，true是执行，false是不执行
      * @return
      */
     @Override

@@ -28,4 +28,17 @@ Spring Cloud 架构:
 
 ribbon负载均衡策略:轮循方式(默认), 随机方式
 
-Spring 提供两辆种服务调度方式：Ribbon+restful和Feign
+Spring 提供两种服务调度方式：Ribbon+restful和Feign
+
+zuul的路由规则使用的通配符:
+1. ?
+> 匹配单个字符，/app/?
+>- /app/a,  /app/b
+
+2. *
+> 匹配任意数量字符， /app/*
+>- /app/a,  /app/bb,  /app/ccc, 但是不匹配/app/a/b/c
+
+3. **
+> 匹配任意数量字符， /app/**
+>- /app/a,  /app/bb,  /app/ccc, /app/a/b/c

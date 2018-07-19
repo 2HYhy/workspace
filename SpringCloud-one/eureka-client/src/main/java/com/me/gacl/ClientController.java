@@ -3,11 +3,10 @@ package com.me.gacl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author CH-yfy
@@ -21,7 +20,8 @@ public class ClientController {
     private DiscoveryClient discoveryClient;
 
     @RequestMapping("/user")
-    public String getUser(@RequestParam("name")String name) {
+    public String getUser(@RequestParam("name")String name) throws InterruptedException {
+        //休眠5秒TimeUnit.MILLISECONDS.sleep(5000)
         return "service producer, the user's name = "+name;
     }
 
@@ -33,6 +33,16 @@ public class ClientController {
         }
         int size = instances.size();
         return "打印服务eureka-client的相关信息,instance.size="+size;
+    }
+
+    @RequestMapping(value = "/json", method = RequestMethod.POST)
+    public String json(@RequestBody Map<String, String> json){
+        return "json= "+ json;
+    }
+
+    @RequestMapping("/header")
+    public String header(@RequestHeader String name, @RequestHeader String password){
+        return "header contains "+ name+", "+ password;
     }
 
 }

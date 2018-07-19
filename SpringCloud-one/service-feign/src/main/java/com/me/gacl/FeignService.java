@@ -1,6 +1,7 @@
 package com.me.gacl;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,4 +29,12 @@ public interface FeignService {
      */
     @RequestMapping("/client/user")
     String getUser(@RequestParam("name") String name);
+
+    /**
+     *  此处调用eureka-client的/client/deleteIt接口
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/client/delete/{id}", method = RequestMethod.DELETE)
+    String deleteIt(@PathVariable("id") Integer id);
 }

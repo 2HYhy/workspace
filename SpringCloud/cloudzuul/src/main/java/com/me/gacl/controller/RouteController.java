@@ -38,4 +38,9 @@ public class RouteController {
         return "zuul watchRoute";
     }
 
+    @RequestMapping("/local")
+    public String local(){
+        return "zuul 本地跳转";
+    }
+
 }

@@ -18,6 +18,7 @@
 		<module>usercenter-eureka</module>
 		<module>zuul-ratelimit</module>
 		<module>spring-cloud-consul</module>
+		<module>feign-consumer</module>
     </modules>
 
 	<parent>

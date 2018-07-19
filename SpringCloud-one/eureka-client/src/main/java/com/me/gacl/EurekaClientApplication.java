@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -37,5 +39,11 @@ public class EurekaClientApplication {
 	@RequestMapping("/ribbon/test")
 	public String show() {
 		return "This is from 127.0.0.1:" + port;
+	}
+
+	@RequestMapping(value ="/client/delete/{id}", method = RequestMethod.DELETE)
+	public String deleteIt(@PathVariable("id") Integer id) {
+		return "This is method of delete, id = " + id;
+
 	}
 }

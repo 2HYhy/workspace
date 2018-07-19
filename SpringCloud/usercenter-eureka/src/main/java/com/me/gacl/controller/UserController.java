@@ -1,5 +1,6 @@
 package com.me.gacl.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,11 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
+    @Value("${server.port}")
+    private int port;
+
     @RequestMapping(value = "/getOne")
     public String available() {
-        return "user-center-eureka:8092,Access by Spring Cloud Zuul One";
-//        return "user-center-eureka:8093,Access by Spring Cloud Zuul One";
-//        return "user-center-eureka:8094,Access by Spring Cloud Zuul One";
+        return "user-center-eureka port = "+ port +", Access by Spring Cloud Zuul One";
     }
 
     @RequestMapping(value = "/getTwo")
