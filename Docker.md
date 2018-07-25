@@ -250,3 +250,43 @@ sh build.sh 1.5      //sh $0 $1
 4. grep 'XXX' info.log
 5. vi info.log
 ``` 
+
+6. Dockerfile示例
+```java 
+FROM java:8-jre
+ENV VERSION="0.0.1-SNAPSHOT"
+//指定容器中的工作目录为/local
+WORKDIR "/local"
+//复制本地的jar包到容器中的/local目录下
+ADD target/eureka-client-0.0.1-SNAPSHOT.jar /local/
+//复制本地的sh文件到容器中的/local/entrypoint.sh文件中，./表示相对路径
+ADD entrypoint.sh ./entrypoint.sh
+//为创建者授予可执行权限，运行容器中的entrypoint.sh文件
+RUN chmod u+x /local/entrypoint.sh
+//容器启动时执行sh文件
+ENTRYPOINT ./entrypoint.sh
+```
+**对应的entrypoint.sh文件**
+```java
+java -jar -Dspring.profiles.active=$APP_ENV -Dfile.encoding=UTF-8 eureka-client-0.0.1-SNAPSHOT.jar
+
+//容器创建与启动命令:
+docrun --name eureka-client -d -p 9001:9001 -e "APP_ENV=dev" eureka-client:v1.0
+```
+
+```java
+FROM java:8-jre
+WORKDIR /local
+//./表示相对路径,eureka-server.jar与entrypoint.sh中的jar包一致
+ADD target/eureka-server-0.0.1-SNAPSHOT.jar ./eureka-server.jar
+ADD entrypoint.sh ./entrypoint.sh
+//先进入指定工作目录再授权
+RUN cd /local/ && chmod u+x ./entrypoint.sh
+ENTRYPOINT ./entrypoint.sh
+```
+```java
+java -jar -Dfile.encoding=UTF-8 eureka-server.jar
+
+//容器创建与启动命令:
+docker run --name eureka-server -d -p 9000:9000 eureka-server:v1.0
+```

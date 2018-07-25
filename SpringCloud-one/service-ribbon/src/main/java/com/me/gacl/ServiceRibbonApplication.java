@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
  * 2. 填入http://localhost:9003/hystrix.stream和title,点击monitor stream进入监控信息页面
  * 3. 访问http://localhost:9003/ribbon/hello 任一接口
  * 4. 监控页面出现监控详情信息
+ * 在访问/hystrix.stream之前，应先访问被监控应用的任意接口，才能看到监控到的详情信息，否则看到的是一系列的ping,ping......
  */
 @EnableHystrixDashboard
 @EnableHystrix

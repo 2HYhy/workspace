@@ -16,7 +16,7 @@
 3. 按 i 键，输入文件内容  
 4. 按 `esc` 或 `：+ shift` 键，退出编辑  
 5. $ `: wq`  ，保存文件,`!q` 为不保存   
-```  
+```     
 
 > **配置环境变量：** 
 ```java 
@@ -35,10 +35,10 @@ Finder --> Commond+Shift+G 快捷键 --> 输入/private/etc --> 即可看到host
 > **启动可执行文件的命令**： 
 >- $`sh file` 或 `./file` 
 
-> **重新打开一个页面:** 
+> **iterm重新打开一个页面:** 
 > - `commond + N`
 
-> **在原来的页面里打开新的页面:**
+> **iterm在原来的页面里打开新的页面:**
 >-  `commond + T`
   
 > **查看本机ssh连接到的host:** 
@@ -47,8 +47,7 @@ Finder --> Commond+Shift+G 快捷键 --> 输入/private/etc --> 即可看到host
 > **Homebrew---mac的软件包管理工具:**
 ```java
 //安装brew
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"   
 brew install 软件名  
 brew uninstall/remove 软件名
 brew search 软件名
@@ -694,3 +693,8 @@ jar xvf test.jar
 > web服务器接受后发送302响应码和新的location给客户浏览器
 > 客户浏览器根据新的location，再自动发送一个新的http请求
 > 服务器根据此请求url寻找资源并返回给客户。客户浏览器路径栏显示的是重定向的地址，用户可以观察到地址的变化。
+
+
+
+
+

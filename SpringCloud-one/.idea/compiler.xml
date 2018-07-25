@@ -30,6 +30,7 @@
         <module name="EurekaServer" />
         <module name="feign-server-upload" />
         <module name="feign-service" />
+        <module name="hystrix-dashboard" />
         <module name="hystrix-turbine" />
         <module name="service-feign" />
         <module name="service-ribbon" />
@@ -44,6 +45,7 @@
       <module name="EurekaServer" target="1.8" />
       <module name="feign-server-upload" target="1.8" />
       <module name="feign-service" target="1.8" />
+      <module name="hystrix-dashboard" target="1.8" />
       <module name="hystrix-turbine" target="1.8" />
       <module name="service-feign" target="1.8" />
       <module name="service-ribbon" target="1.8" />
