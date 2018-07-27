@@ -36,7 +36,7 @@ eureka:
       defaultZone: http://peer1:9100/eureka/
 
 
-# 共有3端配置，1为公共配置，2为两个eureka的配置，两者相互注册
+# 共有3段配置，1为公共配置，2为两个eureka的配置，两者相互注册
 # 本地host解析添加： 127.0.0.1  peer1   127.0.0.1  peer2
 # 启动方式
 # jar包：

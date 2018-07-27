@@ -1,1 +1,1 @@
-java -jar -Dspring.profiles.active=$APP_ENV -Dfile.encoding=UTF-8 eureka-client-0.0.1-SNAPSHOT.jar
+java -jar -Dfile.encoding=UTF-8 eureka-client-0.0.1-SNAPSHOT.jar $ENV

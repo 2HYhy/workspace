@@ -112,7 +112,7 @@ public class EurekaServerApplication {
 		return apps;
 	}
 	private PeerAwareInstanceRegistry getRegistry() {
-		PeerAwareInstanceRegistry peer = getServerContext().getRegistry();
+		PeerAwareInstanceRegistry peer = getServerContext().getRegistry();  //获取到所有界面的信息和全部注册实例
 		System.out.println("Lease expiration enabled="+peer.isLeaseExpirationEnabled());
 		System.out.println("Renews (last min)="+peer.getNumOfRenewsInLastMin());
 		System.out.println("Renews threshold="+peer.getNumOfRenewsPerMinThreshold());

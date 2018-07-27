@@ -40,6 +40,7 @@
       <module name="config-client" target="1.8" />
       <module name="config-server" target="1.8" />
       <module name="eureka-client" target="1.8" />
+      <module name="eureka-metrics-test" target="1.8" />
       <module name="eureka-server" target="1.8" />
       <module name="eureka-server-cluster" target="1.8" />
       <module name="EurekaServer" target="1.8" />
