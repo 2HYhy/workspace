@@ -1,4 +1,14 @@
 ## redis   
+使用内存存储的非关系型数据库。
+优点:
+> 读写速度快，因为数据保存在内存中   
+> 支持丰富的数据类型(list,set,hash,string)
+> 支持事务，操作都是原子性的(对数据的更改要么全都执行，要么全不执行)
+
+缺点:
+> 不具备自动容错和恢复功能    
+> 较难支持在线扩容    
+
 下载链接:[https://redis.io/download](https://redis.io/download),stable版。  
 
 1. 下载解压后，进入安装目录路径，依次执行`make`, `make test`, `make install`,编译安装redis。  
@@ -16,7 +26,7 @@ docker run --name myredis -d -p 6500:6379 redis
 redis-cli -a redis -h 127.0.0.1 -p 6500   
 ```
   
-## 操作命令(redis是使用内存存储的非关系数据库):     
+## 操作命令:     
 > config get requirepass   
 >- 查看当前redis有没有设置密码     
 

@@ -53,6 +53,26 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!--使用docker-maven-plugin插件打包镜像-->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.11</version>
+				<configuration>
+					<imageName>feign-service:v1.0</imageName>
+					<!--Dockerfile所在路径-->
+					<dockerDirectory>${project.basedir}</dockerDirectory>
+					<resources>
+						<resource>
+							<!--target所在路径-->
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<!--打包后的jar包名-->
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

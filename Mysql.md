@@ -1,4 +1,15 @@
-### 基本语句  
+### mysql基本语句
+关系型数据库。    
+优点:
+> 体积小，速度快， 成本低   
+> 支持多种操作系统,多种语言(C,C++,Java,PHP)    
+> 开源高效    
+
+缺点:
+> 不支持热备份    
+> 安全系统复杂且不标准   
+
+分为DDL(数据定义语言)，DML(数据操作语言)，DCL(数据控制语言)，DQL(数据查询语言))四种。      
  1. select column from table where column = value
  2. select column from table where column = value1 and(or) column= value2
  3. select column from table where column in List
@@ -15,8 +26,8 @@ insert into user_login_log_test(uid，logintime) values
  8. create database / drop database
  9. 关于日期的函数：  
  > `DATE(xx)` 提取时间xx的日期部分  
- > `DATE_ADD(xx,INTERVAL num type)`  日期xx增加num个单位  
- > `DATE_SUB(xx,INTERVAL num type)`  日期xx减少num个单位   
+ > `DATE_ADD(xx,INTERVAL num type)`  日期xx增加num个以type为单位的值  
+ > `DATE_SUB(xx,INTERVAL num type)`  日期xx减少num个以type为单位的值   
       
 10. limit函数：  
 ```java
@@ -24,7 +35,8 @@ select * from table limit m , n
 //数据库中的记录下标是从0开始的，即从记录的第 m+1 条开始，共选择 n 条数据。    
 select * from table limit x
 //取出前x条记录 
-```           
+```      
+
 11. `alter table 表名 add  列名 数据类型`   在表中添加列  
 12. `alter table 列名 change 列名 新列名 数据类型`  修改表中的列      
 13. `truncate table xxxxxx`    清除某个表的全部数据 
@@ -34,14 +46,9 @@ select * from table limit x
 //将事件计划开启: 
 set global event_scheduler=1; 
 ```      
-14. 查看mysql版本:
-> mysql -V
-> status
-> select version(); 
 
-### 安装命令行连接mysql：     
-> 进入mysql/bin目录路径下（无环境变量时，需进入mysql的安装目录下）     
-> 连接远程:    
+### mysql相关操作命令：          
+> 连接远程数据库:    
 > mysql  -h <主机> -P <端口> -u <用户名> -p<密码>    p之后不加空格直接登录，也可不输入密码，待回车后单独输入密码      
 
 > exit;  退出数据库 
@@ -53,6 +60,11 @@ set global event_scheduler=1;
 > show databases;  每一条语句必须以分号结尾
 
 > use db_name;   选择数据库
+
+> mysql -V
+> status
+> select version(); 
+>- 查看mysql版本
 
 > autoReconnect=true&useUnicode=true&characterEncoding=utf-8
 >- 配置数据源时，添在数据库名后面用于解决中文乱码问题
@@ -127,7 +139,7 @@ set global event_scheduler=1;
 3. 内连接inner join   
 实质是两表先进行笛卡尔乘积运算(用第一个对象的每一项乘以第二个对象的每一项，即交叉乘积)，然后再根据on后面的限制条件对结果进行筛选。   
     
-### MySql语句集锦：  
+### mysql语句集锦：  
 > 两表联合，按分组进行更新  
 ```java
 UPDATE table1 A
@@ -186,9 +198,9 @@ select productName from products where productName regexp 'ford'      //包含�
 select productName from products where productName regexp '^.{10}$'   //有10个字符
 ```
 
-### mySql查询的整个执行过程：
+### mysql查询的整个执行过程：
 > 客户端向mysql服务器发送一条查询请求  
-> 服务器首先检查查询缓存，若命中缓存，则直接将存储在缓存中的结果返回给客户端，否则执行下一条  
+> 服务器首先检查缓存，若命中缓存，则直接将存储在缓存中的结果返回给客户端，否则执行下一条    
 > 服务器进行SQL解析，预处理，再由优化器生成执行计划  
 > mySql根据执行计划调用存储引擎的接口执行查询  
 > 将结果返回给客户端，同时缓存查询结果
@@ -208,7 +220,7 @@ select * from table where app_id = xx and uid = xx
 select count(distinct uid) / count(*) as uidSelecitivty, count(distinct app_id) / count(*) as appSelectivity from table
 //比较两个选择性值，若uidSelecitivty > appSelectivity, 则多列索引为{uid,app_id},而非{app_id,uid}
 ```
-> 查询条件避免多个范围条件，否则mysql只能人选一列的索引，而不能同时使用它们
+> 查询条件应避免多个范围条件，否则mysql只能任选一列的索引，而不能同时使用它们
 >- `select * from table where time > '2018-03-20' and age between 10 and 30`
 
 > 覆盖索引是指其包含了所有需要查询的字段，可以极大地提高性能   
@@ -222,14 +234,14 @@ select count(distinct uid) / count(*) as uidSelecitivty, count(distinct app_id) 
 （三）特定类型查询优化  
 > 优化count()查询
 ```java
-count(咧): 统计某一列值的数量，要求列值非空，不会统计NULL
+count(列): 统计某一列值的数量，要求列值非空，不会统计NULL
 count(*): 统计行数
 explain执行计划出来的rows行数就是count()的近似值，对数据精确性要求不高时可代替
 ```
 > 优化关联查询
 ```java
 1. ON子句中的列上最好有索引。 
-当关联顺序为 select * from A join B on A.uid = B.uid 时，整个关联查询只会用到B表的索引，不会使用A表的索引，因此，只需在B表的uid上创建索引，加速查询，而不用在A表的uid上创建索引，增加负担。
+当关联顺序为 select * from A join B on A.uid = B.uid 时，整个关联查询只会用到B表的索引，不会使用A表的索引，因此，只需在B表的uid上创建索引，加速查询，而不用在A表的uid上创建索引，增加负担
 2. GROUP BY 和 ORDER BY 中的表达式最好只涉及一个表，以便于mysql使用索引进行优化
 ```
 > 优化limit分页
@@ -245,7 +257,7 @@ select * from table t1 join (select id from table limit 50000, 5) t2 on t1.id = 
 尽量避免使用 UNION，除非一定要求结果去重，否则就用 UNION ALL
 ```
 
-### mySQL函数:
+### mysql函数:
 instr(): 返回子字符串在字符串中第一次出现的位置
 ```java
 select instr("MYSQL BACK","SQL")   //3
@@ -350,7 +362,7 @@ select date_add('2018-01-30', interval 1 month)   //2018-02-28   //超过了新�
 select '2018-04-03' + interval 1 day    //2018-04-04
 select '2018-04-03' + interval -2 month    //2018-02-03
 ```
-dayname(): 返回对应的日期
+dayname(): 返回对应的星期
 ```java
 select @@lc_time_names  //en_US
 select dayname('2018-04-01')   //Sunday
@@ -394,7 +406,7 @@ select isnull(null)   //1
 select isnull(100)   //0
 ```
 
-### mySQL用户账户管理:
+### mysql用户账户管理:
 > 创建用户(只是创建一个没有任何权限的新用户帐户)
 >- 用户帐号由用户名，以及使用@字符分隔的主机名组成
 ```java

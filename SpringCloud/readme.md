@@ -14,11 +14,8 @@ Spring Cloud 架构:
 > 一个zipkin,收集调用数据
 > 两个service,相互调用,只有调用了，才能收集到数据
 
-4. Spring Cloud Consul
-
-5. Spring Cloud Security
-
-6. Spring Cloud Zookeeper  
+4. Spring Cloud Security
+  
 
 ......
 

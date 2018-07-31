@@ -26,7 +26,7 @@ public class RemoteController {
     EurekaService eurekaService;
 
     /**
-     * 访问http://localhost:9006/test/http,9001和900交替出现
+     * 访问http://localhost:9006/test/http,9001和9002交替出现
      * @return
      */
     @RequestMapping("/test/http")
