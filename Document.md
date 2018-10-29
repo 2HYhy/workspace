@@ -228,33 +228,7 @@ T content = in.nextLine() / in.next() / in.nextInt() / in.nextDouble();
 
 **标注于类上，字段的值为空时，不参与序列化，不在返回结果中显示：`@JsonInclude(JsonInclude.Include.NON_NULL)`。**    
 **标注于类上，字段的值为空时，参与序列化，仍在返回结果中显示：`@JsonInclude(JsonInclude.Include.ALWAYS)`。**   
-  
-#### 关于"==",equals()和hashCode
-> "=="是判断两个变量或实例是不是指向同一个内存空间, "equals()"是判断两个变量或实例所指向的内存空间的值是不是相同
-> "=="是指对内存地址进行比较。 "equals()"是对字符串的内容进行比较
-> "equals()"在Object中与"=="是一样的，Object的子类一般需要重写该方法。即：Object的equal方法默认是两个对象的引用的比较，如果需利用对象里面的值来判断是否相等，就必须重载equals()方法
 
-```java
-public class Common {
-     public static void main(String [] args) {
-        String a = "123";
-        String b = "123";
-        String c = new String("123");
-        String d = new String("123");
-        System.out.println(a == b);
-        System.out.println(c == d);
-        System.out.println(a.equals(b));
-        System.out.println(c.equals(d));
-        System.out.println(42 == 42.0);
-
-        Object obj1 = new Object();
-        Object obj2 = new Object();
-        System.out.println(obj1.equals(obj2));
-        System.out.println(obj1 == obj2);
-     }
-}
-输出结果依次为:true,false,true,true,true,false,false
-```
 ```java
 public class Common {
     private int i;
@@ -420,7 +394,7 @@ View(视图)------>DispatcherServelt(前端控制器) 。
  > 运行`spring-boot:run` 直接启动项目。      
 
 ### maven构建多模块项目:
- 1. 构建system-parent项目，删除生成的src文件夹，修改pom.xml1`<packaging>jar</packaging>`为`<packaging>pom</packaging>` ,pom表示其为一个被继承的模块 ；  
+ 1. 构建system-parent项目，删除生成的src文件夹，修改pom.xml`<packaging>jar</packaging>`为`<packaging>pom</packaging>` ,pom表示其为一个被继承的模块 ；  
  2. 进入system-parent项目 , 构建system-domain项目，system-parent的pom文件中新增`<module>system-domain</module>` , 删除其pom文件的`<groupId>me.gacl</groupId>`和`<version>1.0-SNAPSHOT</version>` （因为会继承父母模块的）， 并加上`<packaging>jar</packaging>` ；
  3. 进入system-parent项目 , 构建system-dao项目，system-parent的pom文件中新增`<module>system-dao</module>` , 删除其pom文件的`<groupId>me.gacl</groupId>`和`<version>1.0-SNAPSHOT</version>` （因为会继承父母模块的）， 再加上`<packaging>jar</packaging>` , 并添加对system-domain的依赖   
  `<dependency>`  
@@ -431,10 +405,10 @@ View(视图)------>DispatcherServelt(前端控制器) 。
 4.  进入system-parent项目 , 构建system-service项目，system-parent的pom文件中新增`<module>system-service</module>` , 删除其pom文件的`<groupId>me.gacl</groupId>`和`<version>1.0-SNAPSHOT</version>` （因为会继承父母模块的）， 再加上`<packaging>jar</packaging>` , 并添加对system-dao的依赖   
  `<dependency>`  
 `<groupId>me.gacl</groupId>`  
-` <artifactId>system-daon</artifactId>`  
+` <artifactId>system-dao</artifactId>`  
  `<version>${project.version}</version>`   
 `</dependency> `    
-5. 进入system-parent项目 , 构建system-web项目，system-parent的pom文件中新增`<module>system-web</module>` , 删除其pom文件的`<groupId>me.gacl</groupId>`和`<version>1.0-SNAPSHOT</version>` （因为会继承父母模块的）， 再加上`<packaging>war</packaging>` , 并添加对system-dservice的依赖   
+5. 进入system-parent项目 , 构建system-web项目，system-parent的pom文件中新增`<module>system-web</module>` , 删除其pom文件的`<groupId>me.gacl</groupId>`和`<version>1.0-SNAPSHOT</version>` （因为会继承父母模块的）， 再加上`<packaging>war</packaging>` , 并添加对system-service的依赖   
  `<dependency>`  
 `<groupId>me.gacl</groupId>`  
 ` <artifactId>system-service</artifactId>`  

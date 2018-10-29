@@ -50,7 +50,7 @@
       }
     },
     methods: {
-      showMsg: function (data) {
+      showMsg: function (data) {  //接收子组件的值
         console.log('data: ', data)
         this.receiveData = data
         console.log(this.receiveData)
@@ -70,3 +70,4 @@
   }
 </style>
 <!--六个通信组件的父组件-->
+<!--总结即是：父传子用bind，子传父用on，=前面的都是子组件的属性，=后面的都是父组件的属性-->

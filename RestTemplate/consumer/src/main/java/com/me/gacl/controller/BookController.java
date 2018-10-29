@@ -1,21 +1,14 @@
 package com.me.gacl.controller;
 
-import com.me.gacl.dto.BookDTO;
-import com.me.gacl.hystrix.BookCommand;
-import com.netflix.hystrix.HystrixCommand;
-import com.netflix.hystrix.HystrixCommandGroupKey;
-import com.netflix.hystrix.HystrixCommandKey;
-import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
+import com.me.gacl.BookDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-
 /**
- * @author momo
+ * @author CH-yfy
  * @date 2018/6/19
  * 去消费provider中的接口
  */
@@ -40,6 +33,7 @@ public class BookController {
      * post请求，参数1表示调用的服务的地址，参数2表示上传的参数，参数3表示返回的数据类型
      * @return
      * 同样有postForObject方法
+     * 同样有postForLocation方法，返回的是新资源的uri,服务提供者只要返回一个uri
      */
     @RequestMapping(value = "/save")
     public BookDTO save() {
@@ -51,25 +45,13 @@ public class BookController {
     }
 
     /**
-     * post请求,提交新资源后返回的是新资源的uri,服务提供者只要返回一个uri
-     * @return
-     */
-    @RequestMapping(value = "/save2")
-    public URI save2() {
-        BookDTO bookDTO = new BookDTO();
-        bookDTO.setName("繁华外");
-        URI uri = restTemplate.postForLocation("http://PROVIDER/book_pro/xxx",bookDTO, BookDTO.class);
-        return uri;
-    }
-
-    /**
      * put请求，无返回值
      */
     @RequestMapping(value = "/put")
     public void put() {
         BookDTO bookDTO = new BookDTO();
         bookDTO.setName("云过天空");
-        restTemplate.put("http://PROVIDER/book_pro/put/{0}",bookDTO,999);
+        restTemplate.put("http://PROVIDER/book_pro/put/{0}",bookDTO, 9);
     }
 
     /**
@@ -77,28 +59,7 @@ public class BookController {
      */
     @RequestMapping(value = "/delete")
     public void delete() {
-        restTemplate.delete("http://PROVIDER/book_pro/delete/{0}",666);
-    }
-
-    /**
-     * 连着发起3个相同的请求，验证缓存是否生效
-     * @return
-     * 通console过日志，provider只执行了一次，其余两次都是缓存数据
-     */
-    @RequestMapping(value = "getById")
-    public BookDTO getById() {
-        HystrixCommandKey command = HystrixCommandKey.Factory.asKey("commandKey");
-        HystrixRequestContext.initializeContext();
-        BookCommand bcOne = new BookCommand(HystrixCommand.Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("")).andCommandKey(command), restTemplate, 1L);
-        BookDTO book1 = bcOne.execute();
-        BookCommand bcTwo = new BookCommand(HystrixCommand.Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("")).andCommandKey(command), restTemplate, 1L);
-        BookDTO book2 = bcTwo.execute();
-        BookCommand bcThree = new BookCommand(HystrixCommand.Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("")).andCommandKey(command), restTemplate, 1L);
-        BookDTO book3 = bcThree.execute();
-        System.out.println("book1= " +book1);
-        System.out.println("book2= " +book2);
-        System.out.println("book3= " +book3);
-        return book3;
+        restTemplate.delete("http://PROVIDER/book_pro/delete/{0}", 9);
     }
 
 }

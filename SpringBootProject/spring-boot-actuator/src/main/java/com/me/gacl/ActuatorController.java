@@ -14,7 +14,8 @@ public class ActuatorController implements HealthIndicator{
 
     @Override
     public Health health() {
-        return new Health.Builder().withDetail("projectName", "spring-boot-actuator")
+        return new Health.Builder()
+                .withDetail("projectName", "spring-boot-actuator")
                 .withDetail("createTime", "2018-04-23 10:30:06")
                 .withDetail("author", "Linda James").up().build();
     }

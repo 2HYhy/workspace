@@ -15,8 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author momo
+ * @author CH-yfy
  * @date 2018/6/19
+ * RestTemplate的四种请求方式,基于SpringCloud
  */
 @RestController
 public class RestTemplateController {
@@ -28,15 +29,13 @@ public class RestTemplateController {
      * 关于ResponseEntity的返回
      * @return
      */
-    @RequestMapping("/getRemote")
+    @RequestMapping("/getEntity")
     public String getRemote() {
-        ResponseEntity<String> response = restTemplate.getForEntity("http://EUREKA-CLIENT/client/user?name=apple",String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity("http://EUREKA-CLIENT/client/user/6",String.class);
         String body = response.getBody();
         HttpStatus statusCode = response.getStatusCode();
         HttpHeaders headers = response.getHeaders();
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(body).append("<br/>").append(statusCode).append("<br/>").append(headers);
-        return buffer.toString();
+        return body + "<br/>" + statusCode + "<br/>" + headers;
     }
 
     /**
@@ -45,11 +44,11 @@ public class RestTemplateController {
      */
     @RequestMapping("/withParam")
     public String withParam() {
-        ResponseEntity<String> response1 = restTemplate.getForEntity("http://EUREKA-CLIENT/client/user?name={1}",String.class, "apple");
-        Map<String, String> map = new HashMap<>(10);
-        map.put("my_name", "apple");
-        ResponseEntity<String> response2 = restTemplate.getForEntity("http://EUREKA-CLIENT/client/user?name={my_name}",String.class, map);
-        String code = response1.getStatusCodeValue() + "&" + response2.getStatusCodeValue();
+        ResponseEntity<String> response1 = restTemplate.getForEntity("http://EUREKA-CLIENT/client/hello?id={1}",String.class, 6);
+        Map<String, Object> map = new HashMap<String, Object>(10);
+        map.put("my_id", 6);
+        ResponseEntity<String> response2 = restTemplate.getForEntity("http://EUREKA-CLIENT/client/hello?id={my_id}",String.class, map);
+        String code = response1.getStatusCodeValue() + " & " + response2.getStatusCodeValue();
         return code;
     }
 
@@ -59,7 +58,7 @@ public class RestTemplateController {
      */
     @RequestMapping("/createUri")
     public String createUri() {
-        UriComponents components = UriComponentsBuilder.fromUriString("http://EUREKA-CLIENT/client/user?name={1}").build().expand("apple").encode();
+        UriComponents components = UriComponentsBuilder.fromUriString("http://EUREKA-CLIENT/client/hello?id={1}").build().expand(6).encode();
         URI uri = components.toUri();
         ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
         return response.getBody();

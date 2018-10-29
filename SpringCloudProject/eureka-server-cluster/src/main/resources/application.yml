@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: eureka-server-cluster
+  profiles:
+    active: peer1
+# 默认情况下server对客户端的健康检查方式是发送心跳，此处将健康检查交由/health端点来决定该服务是up/down
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+
+---
+
+spring:
+  profiles: peer1
+server:
+  port: 9003
+eureka:
+  instance:
+    hostname: peer1
+  client:
+  # 允许客户端注册行为
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://peer2:9004/eureka/
+
+---
+
+spring:
+  profiles: peer2
+server:
+  port: 9004
+eureka:
+  instance:
+    hostname: peer2
+  client:
+  # 允许客户端注册行为
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://peer1:9003/eureka/

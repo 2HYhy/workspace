@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: hystrix-turbine
+server:
+  port: 9010
+
+turbine:
+  # 要监控的服务名称(启动两个端口区分)
+  app-config: eureka-ribbon
+  # 统一主机上的服务通过host和port的组合来进行区分，默认情况下是使用host区分，这样会使本地调试有问题
+  combine-host-port: true
+  # 必须指定集群的名字
+  cluster-name-expression: new String('default')
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9000/eureka/

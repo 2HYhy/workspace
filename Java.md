@@ -1,4 +1,4 @@
-## 一. Java进程与线程
+### 一. Java进程与线程
 *转载自http://www.cnblogs.com/skywang12345/p/3479202.html*
 
 #### 进程
@@ -112,7 +112,7 @@
 > isInterrupted()只是返回中断标记  
 
 
-## 二、Java静态变量、方法、类
+### 二、Java静态变量、方法、类
 
 ####静态变量和方法
 1. 静态方法可以直接调用同类的静态变量，不能直接调用同类的非静态变量    
@@ -135,7 +135,7 @@ Outter out = new Outter();
 Inner in = out.new Inner();
 ```
 
-## 三、Java抽象类和方法，多态与重载和重写
+### 三、Java抽象类和方法，多态与重载和重写
 #### 抽象
 1. 抽象类中可以有抽象方法和非抽象方法
 2. 有抽象方法的一定是抽象类，但抽象类包含抽象方法+一般方法
@@ -164,10 +164,29 @@ Inner in = out.new Inner();
 3. 实现方式:
 > 同一类中进行方法重载，继承类中进行方法重写
 
-## 四、Java访问权限修饰符
+### 四、Java访问权限修饰符
 | 范围   | public | protected | default | private |
-|--------|--------|-----------|--------|----------|
-|  同一个类  |  yes    |   yes  |  yes  |    yes    |
+|--------|--------|-----------|--------|---------|
+| 同一个类 |  yes    |   yes  |  yes  |    yes    |
 | 同一个包 |   yes   |   yes   |   yes  |    no   |
 | 子父类   |   yes   |   yes   |   no   |  no     |
 | 不同包   |  yes    |   no    |  no    |   no    |
+
+### 五、Java的equals()和hashCode()方法
+#### equals()
+定义在JDK的Object.java中，作用是判断两个对象是否相等。
+使用默认的equals()方法，等价于“==”方法，实际上比较的是两个对象的地址是否相等
+通常都会重写equals()方法，用来比较两个对象的内容是否相同。
+
+#### hashCode()
+定义在JDK的Object.java中，作用是获取对象的散列码。只有在散列表HashMap，HashSet，HashTable中才有用。
+HashSet实现了Set接口，它不允许集合中出现重复元素,存储的是对象，使用add()添加元素。
+HashMap实现了Map接口，它不允许出现重复的键(key),存储的是键值对，使用put()添加元素。
+HashMap时无序的，TreeMap是按自然顺序或自定义顺序的，LinkedHashMap是输出顺序和输入顺序相同的。
+
+#### equals()和hashCode()
+1. 类中不会用到HashSet, HashTable, HashMap等这些本质是散列表的数据结构：
+equals()用来比较该类的两个对象是否相等。而hashCode()没有任何作用，可以忽略。
+2. 类中有用到了HashSet, HashTable, HashMap等这些本质是散列表的数据结构：
+如果两个对象相等(即equals比较两个对象时，返回true)，那么它们的hashCode一定相等；如果两个对象的hashCode相等，它们并不一定相等。
+3.总而言之:当需要对比时，首先用hashCode()比，如果hashCode()不一样，那这两个对象肯定不相等(也就是不必再用equal()比了),如果hashCode()相同，再用equal()比，如果equal()也相同，那这两个对象就真的相同了。

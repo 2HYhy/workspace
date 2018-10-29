@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h2 style="color: brown">vue前后端分离</h2>
-    <router-view></router-view>    <!--用于渲染匹配的组件Home，如果去掉该标签，就无法跳转至index.js中"/"对应的页面-->
+    <router-view></router-view>    <!--用于渲染匹配的组件Login，如果去掉该标签，就无法跳转至index.js中"/"对应的页面-->
   </div>
 </template>
 
@@ -22,4 +22,4 @@ export default {
 }
 </style>
 
-<!--总的父组件，只渲染了一张图片-->
+<!--入口组件-->

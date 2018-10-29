@@ -15,8 +15,6 @@ endpoints:
 
 # http://localhost:8080/hyh/admin 出现可视化界面
 
-
-
 eureka:
   client:
     registryFetchIntervalSeconds: 5
@@ -25,4 +23,4 @@ eureka:
   instance:
     leaseRenewalIntervalInSeconds: 10
 
-# eureka-cient添加eureka后，访问admin-server时，server，admin，eureka三者都会在监控列表中，eureka实例被监控的前提是允许本身被当做注册
+# eureka-cient添加eureka后，访问admin-server时，server，admin，eureka三者都会在监控列表中，eureka实例被监控的前提是允许本身的注册行为

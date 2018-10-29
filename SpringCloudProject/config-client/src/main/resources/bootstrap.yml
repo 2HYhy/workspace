@@ -1,0 +1,44 @@
+server:
+  port: 9018
+
+spring:
+  application:
+      name: config-client
+  cloud:
+    config:
+      name: config   # 与git仓库的文件名保持一致
+      label: master
+      profile: dev
+      discovery:
+        enabled: true
+        serviceId: config-server
+    bus:
+      trace:
+        enabled: true  # 开启消息追踪服务
+  rabbitmq:
+     host: 127.0.0.1
+     port: 5672
+     username: guest
+     password: guest
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+
+#一旦注释，发送/bus/reresh请求时会出现401
+management:
+  security:
+    enabled: false
+
+
+# 不注册到服务中心时，通过client获取git文件
+#spring:
+#  application:
+#    name: config-server
+#  cloud:
+#    config:
+#      name: config
+#      uri: http://localhost:9017
+#  profiles:
+#    active: dev

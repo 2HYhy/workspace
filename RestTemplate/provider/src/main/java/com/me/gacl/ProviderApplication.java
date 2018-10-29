@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * @author CH-yfy
+ * 作为服务提供者
  */
 @EnableEurekaClient
 @SpringBootApplication
