@@ -31,7 +31,6 @@ mac系统:
 仓库:    
 仓库是用来统一存储所有Maven共享构建的位置，有本地仓库和远程仓库(中央仓库+私服)之分。           
 maven加载依赖时，先在本地仓库进行搜索，如果没找到，再去maven的配置文件setting.xml中指定的远程仓库进行搜索，而搜索的依据就是maven的坐标。     
-
 2. maven生命周期    
 一个完整的maven项目包含三个彼此之间相互独立的生命周期。每个生命周期包含多个阶段，每个阶段是按顺序执行的，运行后一个阶段时，前阶段会自动被执行。     
 (1) clean: 清理项目，使用的构建命令是`mvn clean`。   
@@ -169,10 +168,10 @@ mvn archetype:generate -DgroupId=<项目包名> -DartifactId=<项目名称>  -Da
 - - 4.5.1 ( Java Project )        
 进入maven项目的target目录下，通过运行jar包的方式。    
 若打包时指定了主类，执行命令`java -jar xxx.jar`;   
-若打包时没有指定主类，执行命令`java -cp xxx.jar <完整的主类名>` 。       
-
+若打包时没有指定主类，执行命令`java -cp xxx.jar <完整的主类名>` 。      
 - - 4.5.2 ( Web Project )       
 将项目的war包放在tomcat目录的webapps下, tomcat服务器会自动管理webapps目录下的所有web应用, 通过启动tomcat服务器的方式。
+
 
 
 

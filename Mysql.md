@@ -87,8 +87,6 @@ set global event_scheduler=1;
 > INET_NTOA()函数：将数值类型转换为IP。   
 >- `select INET_NTOA(2130706433)`
 
-> IPV4的最大地址(255.255.255.255)转换后即为unsigned int的最大值(4294967295), 而int的范围为-2147483648-21474833647, 所以要用unsigned int 存储IP地址。  
-
 2. decimal(M,D)
 > 其中，M代表正数和小数部分的总位数，D代表小数部分的位数。  
 

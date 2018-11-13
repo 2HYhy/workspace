@@ -1,5 +1,5 @@
 ## mongodb 
-基于分布式文件存储的非关系型数据库。
+基于分布式文件存储的非关系型数据库。   
 优点:
 > 文档结构的存储方式，获取数据便捷             
 > 支持大容量存储 
@@ -129,18 +129,10 @@
 > db.CollectName.find({}).explain()
 >- 获取执行计划，性能分析
 ### MongoDB聚合查询
-> $project：修改输入文档的结构。可以用来重命名、增加或删除域，也可以用于创建计算结果以及嵌套文档。  
-> $match：用于过滤数据，只输出符合条件的文档。$match使用MongoDB的标准查询操作。  
-> $limit：用来限制MongoDB聚合管道返回的文档数。  
-> $skip：在聚合管道中跳过指定数量的文档，并返回余下的文档。   
-> $group：将集合中的文档分组，可用于统计结果。  
-> $sort：将输入文档排序后输出。 
-
 ```java
 //返回结果字段名称：returnName， 表中属性字段名称：fieldName
 
 db.CollectionName.count() 
-db.runCommand({"distinct" : "CollectName", "key" : "fieldName"})  // 必须指定集合名和要区分的字段
 
 db.CollectionName.aggregate([{"$group" : {"_id": null, "returnName":{"$sum" : 1}}}])  //不分组
 db.CollectionName.aggregate([{"$group" : {"_id" : null, "total" :{"$sum" : "$quantity"}}}])  
@@ -189,8 +181,7 @@ db.CollectName.find({"fieldName" : { "$gte" : ISODate("2017-11-02 06:09:00.000Z"
 
 db.CollectName.find({"fieldName" : {"$gte" : new Date("2017-11-02"), "$lte" : new Date("2017-11-06")}})
 
-db.CollectName.aggregate([{"$match" : {"fieldName" : {"$gte" : new Date("2017-11-02"), "$lte" : new Date("2017-11-10")}}},
-                                             {"$group" : {"_id" : "$fieldName", "returnName" : {"$sum" : 1}}}])  
+db.CollectName.aggregate([{"$match" : {"fieldName" : {"$gte" : new Date("2017-11-02"), "$lte" : new Date("2017-11-10")}}},{"$group" : {"_id" : "$fieldName", "returnName" : {"$sum" : 1}}}])  
                                             
 db.CollectName.find({"loginTime":{"$gte":new Date("2018-01-18"),"$lte": new Date("2018-01-21")}}).count()
 

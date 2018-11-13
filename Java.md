@@ -190,3 +190,148 @@ equals()用来比较该类的两个对象是否相等。而hashCode()没有任�
 2. 类中有用到了HashSet, HashTable, HashMap等这些本质是散列表的数据结构：
 如果两个对象相等(即equals比较两个对象时，返回true)，那么它们的hashCode一定相等；如果两个对象的hashCode相等，它们并不一定相等。
 3.总而言之:当需要对比时，首先用hashCode()比，如果hashCode()不一样，那这两个对象肯定不相等(也就是不必再用equal()比了),如果hashCode()相同，再用equal()比，如果equal()也相同，那这两个对象就真的相同了。
+
+
+### Java中HashMap遍历的两种方式:
+```java
+第一种:
+　　Map map = new HashMap();
+　　Iterator iter = map.entrySet().iterator();
+　　while (iter.hasNext()) {
+　　Map.Entry entry = (Map.Entry) iter.next();
+　　Object key = entry.getKey();
+　　Object val = entry.getValue();
+　　}
+　　效率高,以后一定要使用此种方式！
+第二种:
+　　Map map = new HashMap();
+　　Iterator iter = map.keySet().iterator();
+　　while (iter.hasNext()) {
+　　Object key = iter.next();
+　　Object val = map.get(key);
+　　}
+　　效率低,以后尽量少使用！
+```
+
+
+##### 日期相关函数：  
+ > `Date date = new Date();`    获取系统当前日期和时间  
+ > `System.currentMillis();` 获取当前毫秒级时间   
+ > `SimpleDateFormat sdf = new SimpleFormat("yyyy-MM-dd HH:mm:ss);` 时间格式化  
+ > `Date date = sdf.parse(stringtime);` 字符串转日期格式   
+ > `String time = sdf.format(date);` 日期转字符串格式       
+ ``` java 
+ Calendar cal = Calendar.getInstance(); //获取当前日历 
+ cal.setTime(date); //把日期赋给日历
+ long bucket = date2.getTime() - date1.getTime(); //日期相差毫秒数
+ int days =  bucket / (1000*60*60*24);   // 换算成天数
+ ```    
+##### 命令运行Java程序：  
+1. 进入Java类所在目录  
+2. 编译:  `javac 类名.java`
+3. 运行:  `java 类名 输出结果`      
+
+##### 数据类型转换： 
+`int intdate = Integer.parseInt(stringdata);`  
+
+`String stringdata = String.valueOf(intdata);`
+
+`String stringdata = JSONObject.toJSONString(jsonObject);`  
+
+`JSONObject json = JSONObject.parseObject(stringdata);`   
+
+`ClassDO classDO = JSON.parseObject(stringdata,ClassDO.class);`  
+
+`ClassDO classDO = JSONObject.parseObject(String.valueOf(jsonObject),ClassDO.class);`       
+
+`String stringdata = JSON.toJSONString(classDO);`   
+
+`List<ClassDo> list = JSONArray.parseArray(jsonArray.toJSONString());`  
+
+##### 时间类型转换:
+ String-->Date    
+```java 
+String time = "2017-07-26 10:06:09";
+Date date = new Date();
+SimpleDateFormat df= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+date = df.parse(time);
+System.ou.println("date="+date);  
+```
+Date-->String    
+```java
+String time = "";
+Date date = new Date();
+DateFormat df = new DateFormat("yyyy-mm-dd HH:mm:ss");
+time = df.format(date);
+System.ou.println("time="+time);  
+```
+String-->Timestamp   
+```java
+Timestamp ts = new Timestamp(System.currentTimeMillis());
+String time = "2011-05-09 11:49:45";
+ts = Timestamp.valueOf(time);
+System.out.println(“ts="+ts);   
+```
+Timestamp-->String  
+```java
+Timestamp ts = new Timestamp(System.currentTimeMillis());
+String time = "";
+//两种方式，一种借助format,一种借助toString
+DateFormat df = new DateFormat("yyyy-mm-dd HH:mm:ss");
+time = df.format(ts);
+time = ts.toString();
+System.ou.println("time="+time);  
+```
+Timestamp-->Date   
+```java
+//Date是Timestamp的父类,子类可直接向父类转换，父类不能直接向子类转换
+Timestamp ts = new Timestamp(System.currentTimeMillis());   
+Date date = new Date();  
+date = ts;   
+```
+##### 数据类型所占字节：    
+> 整型数所占字节：
+>- int 4字节， short 2字节，long 8字节，byte 1字节。    
+
+> 浮点数所占字节：  
+>- float 4字节，double 8字节。            
+
+### 六、字符串相关函数： 
+> `char charAt(int index)` :  
+> - 返回给定位置的代码单元   
+
+> `int compareTo(String onestring)` :     
+> - 按照字典顺序，若字符串位于onestring之前，返回负数，之后返回正数，相等，返回0。 
+ 
+> `int indexOf / lastindexOf(String twostring)` : 
+> - 返回与给定代码单元匹配的第一个/最后一个子串的位置。       
+
+> `boolean startsWith(String prefix) / endWith(String suffix)` : 
+> - 如果字符串以prefix开始/以suffix结尾，返回true,否则返回false。    
+
+> `String trim()`  : 
+> - 返回删除了原字符串头部和尾部空格的子字符串。    
+   
+> `StringBuilder append(String something)` : 
+> - 在字符串后拼接给定字符串。  
+     
+> `void charAt(int x , char y)`: 
+> - 将第x个代码单元设置为y。  
+
+> `StringBuilder insert(int offset , String one/char two)` : 
+> - 在offset位置插入一个字符串或代码单元。  
+
+> `StringBuilder delete(int start , int end)` : 
+> - 删除从start到end-1的字符串。     
+
+##### Java输入输出流：  
+```java
+Scanner in = new Scanner(System.in);   
+T content = in.nextLine() / in.next() / in.nextInt() / in.nextDouble();     
+//读取可能包含空格的一行内容/读取一个单词/读取一个整数/读取一个双精度浮点数 
+
+// 输入流抽象类
+InputStream(字节输入流)，Reader(字符输入流)
+// 输出流抽象类
+OutputStream(字节输出流)，Writer(字符输出流)  
+``` 

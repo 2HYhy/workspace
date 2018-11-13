@@ -1,5 +1,7 @@
-docker是一个开源的容器引擎，基于go语言，可以让开发者打包他们的应用及依赖包到一个轻量级、可移植的容器中。          
-容器与镜像的关系：前者相当于对象实例是可以读写的，后者相当于类，只能读。先声明镜像，在创建容器。一个镜像可以有多个容器。
+docker的定义:    
+是一个开源的容器引擎，基于go语言，可以让开发者打包他们的应用及依赖包到一个轻量级、可移植的容器中。          
+容器与镜像的关系:    
+前者相当于对象实例，是可以读写的。后者相当于类，只能读。先声明镜像，再创建容器。一个镜像可以有多个容器。
 
 1. docker命令
 > docker info 
@@ -87,15 +89,13 @@ docker是一个开源的容器引擎，基于go语言，可以让开发者打包
 > docker inspect -f '{{.Name}} {{.NetworkSettings.IPAddress}}' ContainerName/Id
 >- 查看指定容器的某项属性
 
-> docker tag ImageName:tag <打完标签的完整镜像名>
+> docker tag <镜像名> <带有标签的完整镜像名>
+>- 给指定镜像打标签
   
 > docker run -p <主机端口>:<容器端口>     
-> docker run -p <指定映射地址>：<主机端口>:<容器端口>   
->- 外部应用访问容器需要的ip和端口，默认是tcp,127.0.0.1     
-     
-> docker run -p <主机端口>:<容器端口/udp>         
->-  -p是容器内部接口绑定到指定的主机端口，-P是容器内部端口随机映射到主机的端口  
-
+> docker run -p <指定映射地址>:<主机端口>:<容器端口>   
+>- 外部应用访问容器需要的ip和端口，默认是tcp,127.0.0.1。要用不同端口启动容器时，修改主机端口即可。     
+    
 > docker port <容器> <端口>        
 >- 查看映射端口配置  
 
@@ -123,7 +123,10 @@ docker是一个开源的容器引擎，基于go语言，可以让开发者打包
 > docker history <ImageId/Name>   
 >- 从后向前查看某个镜像的构建过程和层级
 
-> docker run -it <镜像> /bin/bash **或者** docker exec it <镜像> /bin/bash 打开交互式shell窗口后，就可对容器进行操作管理：  
+> docker run -it <镜像> /bin/bash    
+> docker exec it <镜像> /bin/bash    
+>- 打开交互式shell窗口后，就可对容器进行以下操作管理:   
+
 >- root@xxxxxx:/# hostname    
 >-- 获取容器主机名   
 
@@ -243,12 +246,19 @@ sh build.sh 1.5      //sh $0 $1
 ```
 5. docker查看日志
 ```java
-1. docker inspect <容器>
-//找到logPath
-2. sudo sl -l logPath  //查看总日志数量
-3. sudo grep 'XXX' logPath
-4. grep 'XXX' info.log
-5. vi info.log
+// 1
+docker inspect <容器>  //找到logPath
+sudo sl -l logPath  //查看总日志数量
+sudo grep 'XXX' logPath
+
+// 2
+grep 'XXX' info.log
+
+// 3
+vi error.log  (vi表示只是查看文件内容，vim 表示要编辑文件内容)
+进入后输入`/<查找内容>` (有时需要进入后先按<shift 加上 :>)
+按n键，可以转到下一个匹配
+不保存退出vi编辑器是输入:q或者:quit,按回车,有时需要先按esc。
 ``` 
 
 6. Dockerfile示例

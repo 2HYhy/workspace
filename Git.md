@@ -73,6 +73,9 @@
  > 删除分支：
  >- git branch -d Branch 
 
+ > git remote -v 
+ >- 查看当前目录所连接的github库地址
+
 ### git上传代码及ssh-key生成  
 #### ssh key： 
 1. 先查看ssh key 是否已经存在： 
@@ -88,18 +91,6 @@
 3. 通过`git add 文件/文件夹`将文件添加到暂存区 ， 通过`git commit -m "备注"`将文件提交到本地仓库 ；
 4. 通过`git push -u origin master`将本地master分支内容推送至远程master分支， -u只有第一次推送时添加，目的是将两处的master分支关联。
 
-#### idea关于git操作：
-```java
-//1. 可以进行git的pull和push
-VCS -> Git -> Enable Version Control Integration -> Git
-//2. 查看默认的远程库地址
-VCS -> Git -> Pull 
-//3. 如果不对，进行修改
-//4. Push的远程库地址也是和Pull一样的
-
-当用idea导入从git上clone，或者push上git的项目时，打开VCS-Git-Pull时，就能看到远程库地址了。(自己首次push的需要先添加版本分布控制策略)。
-```
-
 #### 同一台机器使用两个GIT账号
 1. 两个账号对应生成两个公钥，并保存在不同的文件里：id_rsa.pub 和id_rsa_tem.pub
 2. 打开名为ssh目录下,名为config无后缀的文件(没有就vim新建),修改其内容为:
@@ -114,13 +105,11 @@ Host tem.github.com
     PreferredAuthentications publickey  
     IdentityFile ~/.ssh/id_rsa_tem  
 ```
-3. 测试配置是否正常：
+3. 测试配置是否正常：  
 `ssh -T git@github.com `  和 `ssh -T git@tem.github.com `     
  下图表示配置成功:     
  ![alt-text](/images/git.png)      
- 
- `git remote -v`  可以查看当前目录所连接的github库地址
- 
+  
 4. 可以按正常流程提交代码，只不过另一个账号关联远程库时要用 `git@tem.github.com`。
 
 ### 工作区，暂存区储藏
@@ -140,9 +129,8 @@ public class Java {
   }
 }
 ```
-
 ```java
-git stash
+git stash  //当前分支的修改内容进行储藏
 git stash list   //查看储藏列表
 git status //工作区就变成干净的了
 ```
@@ -155,9 +143,7 @@ public class Java {
     return "Hello ,it is original text";
   }
 }
-/**
-   修改内容的内容并没有同步过来
-  */
+// 修改的内容并没有同步过来
 ```
 切换develop分支:
 ```java
@@ -168,20 +154,12 @@ public class Java {
     return "Hello ,it is original text";
   }
 }
-/**
-   修改内容的内容已经被隐藏
-  */
+// 修改的内容已经被隐藏
 ```
- 
 ```java
-git stash apply    
-//或者 
-git stash apply —index  //不仅恢复工作区，也会恢复暂存区
-//或者 
-git stash pop  //重新应用储藏，同时立刻将其从堆栈中移走
+git stash apply   //应用储藏 
+git stash pop    //重新应用储藏，同时立刻将其从堆栈中移走
 git stash drop  //删除储藏
 
-/**
-如果再次直接切回master，修改会同步，需要重新进行储藏
-*/
+// 如果再次直接切回master，修改会同步，需要重新进行储藏
 ```  

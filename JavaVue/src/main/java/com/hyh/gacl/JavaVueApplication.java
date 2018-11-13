@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author CH-yfy
+ * 前后端分离,对应VueProject工程的后端接口
  */
 @SpringBootApplication
 public class JavaVueApplication {

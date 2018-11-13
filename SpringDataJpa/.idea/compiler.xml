@@ -22,14 +22,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="Spring" />
-        <module name="SpringAop" />
         <module name="SpringDataJpa" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
-      <module name="Spring" target="1.8" />
-      <module name="SpringAop" target="1.8" />
       <module name="SpringDataJpa" target="1.8" />
     </bytecodeTargetLevel>
   </component>
