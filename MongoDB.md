@@ -110,6 +110,9 @@
 > db.CollectionName.remove() 
 >- 清空集合
 
+> db.CollectionName.count()
+>- 返回集合的数据总行数
+
 ### MongoDB的索引
 > db.CollectName.ensureIndex( {key : 1} )
 >- 按升序为指定字段创建单个索引   
@@ -128,66 +131,83 @@
 
 > db.CollectName.find({}).explain()
 >- 获取执行计划，性能分析
+
 ### MongoDB聚合查询
 ```java
-//返回结果字段名称：returnName， 表中属性字段名称：fieldName
+//以appId分组，去掉重复的uid
+db.getCollection('ucopUserLogDO').aggregate([ 
+{ $group: {"_id": { "appId" : "$appId", "uid": "$uid"}}},
+{ $group: {"_id": { "appId" : "$_id.appId"}, counts : { $sum : 1 }}}
+])
 
-db.CollectionName.count() 
+//以appId分组，未去掉重复的uid(以下2种方式的返回形式略有不同)
+db.getCollection('ucopUserLogDO').aggregate([
+{"$group": {"_id": {"appId": "$appId"},counts : {"$sum": 1}}}
+])
+db.getCollection('ucopUserLogDO').aggregate([
+{"$group": {"_id": "$appId",counts : {"$sum": 1}}}
+])
 
-db.CollectionName.aggregate([{"$group" : {"_id": null, "returnName":{"$sum" : 1}}}])  //不分组
-db.CollectionName.aggregate([{"$group" : {"_id" : null, "total" :{"$sum" : "$quantity"}}}])  
-//select sum(quantity) as total from tableName
+//以appId+uid分组
+db.getCollection('ucopUserLogDO').aggregate([
+{"$group": {"_id": {"appId": "$appId","uid": "$uid"},counts : {"$sum": 1}}}
+])
 
-db.CollectionName.aggregate([{"$group" : {"_id" : "$fieldName", "returnName": {"$sum" : 1}}}])  //分组
+//以uid分组，返回每组中createTime最大的记录
+db.getCollection('ucopUserLogDO').aggregate([{$group : {_id : "$uid", createTime : {$max : "$createTime"}}}])
 
-db.CollectionName.aggregate([{$group : {_id : "$fieldName", returnName : {$max : "$fieldName"}}}])
-db.CollectionName.aggregate([{$group: {_id: "$fieldName", returnName1: {$max : "$fieldName"}}}, {$group: {_id: null, returnName: {$max: "$returnName1"}}}])
+//fieldName为表中的字段，returnName为返回结果中展示的字段名
+db.CollectionName.aggregate([{$group: {_id: "$fieldName", returnName1: {$max : "$fieldName"}}}, {$group: {_id: null, returnName2: {$max: "$returnName1"}}}])
 
-db.CollectionName.aggregate([{$group: {_id: "$fieldName", returnName: {$push: "$fieldName"}}}])   
+//指定只返回appId和uid两列，_id若不设为0，是默认会返回的
+db.getCollection('ucopUserLogDO').aggregate({"$project": {"appId": 1, "uid": 1, "_id": 0}})
+db.getCollection('ucopUserLogDO').find({}, {appId: 1, uid: 1, _id: 0})
 
-db.CollectionName.aggregate({"$project" : {"key1" : 1, "key2" : 1, "_id" : 0}})
-//结果中只返回指定的列
-db.CollectionName.find({}, {key1: 1, key2:1, _id:0})
+//以appId分组，返回没每组下的所有uid集合
+db.getCollection('ucopUserLogDO').aggregate([{$group: {_id: {"appId": "$appId"}, uids: {$addToSet: "$uid"}}}]) 
 
-db.CollectionName.aggregate([{$group: {_id: "$fieldName", returnName: {$push: {time: "$fieldName", returnName: "$fieldName"}}}}])
-//将指定字段的值添加到数组中
+//先满足时间段的条件，再进行分组
+db.getCollection('ucopUserLogDO').aggregate([{"$match": {"createTime": {"$gte": new Date("2018-11-14"), "$lte": new Date("2018-11-16")}}},{"$group": {"_id": "$appId", "counts": {"$sum" : 1}}}])  
 
-db.collectName.aggregate([{$group: {_id: "$uid", sets: {$addToSet: "$loginTime"}}}])  
-//将指定字段的值添加到数组中，不允许重复值
-
-db.collectName.aggregate([{$group: {_id: "$uid", results: {$first: "$loginTime"}}}]) 
 //返回每组第一个文档
-db.collectName.aggregate([{$group: {_id: "$uid", results: {$last: "$loginTime"}}}])  
+db.getCollection('ucopUserLogDO').aggregate([{$group: {_id: "$uid", results: {$first: "$createTime"}}}]) 
+
 //返回每组最后一个文档
+db.getCollection('ucopUserLogDO').aggregate([{$group: {_id: "$uid", results: {$last: "$loginTime"}}}])  
 
-db.CollectName.find({"uid": {"$in" : ["c7d6ad0c2ea34719", "6817f364aeb44ab1", "f020cbf41d7b4e51"] }})
-select * from user_login_log where uid in [xxx, xxx, xxx]
+//select * from user_login_log where uid in [xxx, xxx, xxx]
 // "$nin"  =  no in ,  "$ne"  =   !=
+db.CollectName.find({"uid": {"$in" : ["c7d6ad0c2ea34719", "6817f364aeb44ab1", "f020cbf41d7b4e51"] }})
 
+//select * from table where uid like concat("%", "6817", "%")
 db.CollectName.find({"uid"  :  /6817/})
 db.CollectName.find({"uid" : {"$regex" : "6817"}})
-select * from tableName where uid like concat("%", "6817", "%")  //正则表达式
 
-db.ConnectNam.find({"uid"  :  {"$all" : ["6817f364aeb44ab1", "c7d6ad0c2ea34719"]}})  
 //必须满足all中的所有值，而in是满足其中一个即可
+db.ConnectNam.find({"uid":  {"$all": ["6817f364aeb44ab1", "c7d6ad0c2ea34719"]}})  
 
-db.CollectName.find({"uid"  :  {"$exists" : true}})  //判断某个字段是否存在
+ //判断某个字段是否存在
+db.CollectName.find({"uid": {"$exists" : true}}) 
+
+//返回去重的所有uid
+db.getCollection('ucopUserLogDO').distinct("uid")
+
+//返回所有去重，且满足时间段条件的uid
+db.getCollection('ucopUserLogDO').distinct("uid", {"createTime": {$gte: new Date('2018-11-15')}})
+
+//分页返回
+db.getCollection('ucopUserLogDO').find({"uid": '494a79a64aad4823'}).skip(0).limit(2)
 ```
 
 ### MongoDB与日期时间相关查询
 ```java
-db.CollectName.find({"fieldName" : { "$gte" : ISODate("2017-11-02 06:09:00.000Z")  
-, "$lte" : ISODate("2017-11-02 06:09:00.000Z") }})    
+db.CollectName.find({"createTime": { "$gte": ISODate("2017-11-02 06:09:00.000Z"), "$lte": ISODate("2017-11-02 06:09:00.000Z") }})    
 
-db.CollectName.find({"fieldName" : {"$gte" : new Date("2017-11-02"), "$lte" : new Date("2017-11-06")}})
-
-db.CollectName.aggregate([{"$match" : {"fieldName" : {"$gte" : new Date("2017-11-02"), "$lte" : new Date("2017-11-10")}}},{"$group" : {"_id" : "$fieldName", "returnName" : {"$sum" : 1}}}])  
+db.CollectName.find({"createTime": {"$gte": new Date("2018-11-15"), "$lte": new Date("2018-11-17")}})
                                             
-db.CollectName.find({"loginTime":{"$gte":new Date("2018-01-18"),"$lte": new Date("2018-01-21")}}).count()
+db.CollectName.find({"loginTime": {"$gte": new Date("2018-01-18"), "$lte": new Date("2018-01-21")}}).count()
 
-db.CollectName.find({"loginTime":{"$gte":new Date(2018,00,18),"$lte": new Date(2018,00,21)}}).count()
-
-db.getCollection('CollectName').find({"loginTime":{"$gte":ISODate("2018-01-17T16:00:00.000Z"),"$lte": ISODate("2018-01-21T15:59:59.000Z")}}).count()                                            
+db.CollectName.find({"loginTime":{"$gte": new Date(2018,00,18), "$lte": new Date(2018,00,21)}}).count()                                        
 ```   
 
 ### mongoTemplate, java版：

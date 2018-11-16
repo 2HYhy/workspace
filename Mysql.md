@@ -37,9 +37,10 @@ select * from table limit x
 //取出前x条记录 
 ```      
 
-11. `alter table 表名 add  列名 数据类型`   在表中添加列  
-12. `alter table 列名 change 列名 新列名 数据类型`  修改表中的列      
-13. `truncate table xxxxxx`    清除某个表的全部数据 
+11. `alter table 表名 add  column 列名 数据类型`   在表中添加列  
+12. `alter table 表名 change 列名 新列名 数据类型`  修改表中的列 
+13. `alter table 表名 drop column 列名`   删除某一列     
+14. `truncate table xxxxxx`    清除某个表的全部数据 
 ```java
 //查看event是否开启:
  show variables like 'event_scheduler'; 
