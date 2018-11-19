@@ -1,4 +1,4 @@
-### 一. Java进程与线程
+ ### 一. Java进程与线程
 *转载自http://www.cnblogs.com/skywang12345/p/3479202.html*
 
 #### 进程
@@ -114,7 +114,7 @@
 
 ### 二、Java静态变量、方法、类
 
-####静态变量和方法
+#### 静态变量和方法
 1. 静态方法可以直接调用同类的静态变量，不能直接调用同类的非静态变量    
 2. 静态方法调用同类的非静态变量，要先创建对象，再通过对象调用同类的非静态变量   
 3. 普通成员方法可以直接调用同类的静态和非静态成员    
@@ -123,7 +123,7 @@
 #### 静态类
 1. 一个类要被声明为static，只能是静态内部类   
 2. 静态内部类只能访问外部类的静态成员变量和方法，不能访问非静态成员变量和方法   
-3. 普通内部类可以方法外部类的任意成员变量和方法   
+3. 普通内部类可以访问外部类的任意成员变量和方法   
 4. 静态内部类可以声明普通成员变量和方法，普通内部类不能声明静态成员变量和方法   
 5. 静态内部类的初始化不需要外部类的实例
 ```java
@@ -182,14 +182,14 @@ Inner in = out.new Inner();
 定义在JDK的Object.java中，作用是获取对象的散列码。只有在散列表HashMap，HashSet，HashTable中才有用。
 HashSet实现了Set接口，它不允许集合中出现重复元素,存储的是对象，使用add()添加元素。
 HashMap实现了Map接口，它不允许出现重复的键(key),存储的是键值对，使用put()添加元素。
-HashMap时无序的，TreeMap是按自然顺序或自定义顺序的，LinkedHashMap是输出顺序和输入顺序相同的。
+HashMap是无序的，TreeMap是按自然顺序或自定义顺序的，LinkedHashMap是输出顺序和输入顺序相同的。
 
 #### equals()和hashCode()
-1. 类中不会用到HashSet, HashTable, HashMap等这些本质是散列表的数据结构：
+1. 类中没用到HashSet, HashTable, HashMap等这些本质是散列表的数据结构: 
 equals()用来比较该类的两个对象是否相等。而hashCode()没有任何作用，可以忽略。
-2. 类中有用到了HashSet, HashTable, HashMap等这些本质是散列表的数据结构：
-如果两个对象相等(即equals比较两个对象时，返回true)，那么它们的hashCode一定相等；如果两个对象的hashCode相等，它们并不一定相等。
-3.总而言之:当需要对比时，首先用hashCode()比，如果hashCode()不一样，那这两个对象肯定不相等(也就是不必再用equal()比了),如果hashCode()相同，再用equal()比，如果equal()也相同，那这两个对象就真的相同了。
+2. 类中有用到HashSet, HashTable, HashMap等这些本质是散列表的数据结构: 
+如果两个对象相等(即equals比较两个对象时，返回true)，那么它们的hashCode一定相等；如果两个对象的hashCode相等，它们并不一定相等。   
+3. 总而言之: 当需要对比时，首先用hashCode()比，如果hashCode()不一样，那这两个对象肯定不相等(也就是不必再用equal()比了),如果hashCode()相同，再用equal()比，如果equal()也相同，那这两个对象就真的相同了。
 
 
 ### Java中HashMap遍历的两种方式:
@@ -229,7 +229,8 @@ equals()用来比较该类的两个对象是否相等。而hashCode()没有任�
 ##### 命令运行Java程序：  
 1. 进入Java类所在目录  
 2. 编译:  `javac 类名.java`
-3. 运行:  `java 类名 输出结果`      
+3. 运行:  `java 类名`
+4. 输出结果`      
 
 ##### 数据类型转换： 
 `int intdate = Integer.parseInt(stringdata);`  
@@ -335,3 +336,8 @@ InputStream(字节输入流)，Reader(字符输入流)
 // 输出流抽象类
 OutputStream(字节输出流)，Writer(字符输出流)  
 ``` 
+
+##### Java集合
+> java集合类存放于java.util包中，只能存放对象，存放的是对象的引用，对象本身还是放在堆内存中。       
+
+> Collection是List和Set接口的父接口。 List有序可以重复，Set无序不能重复。
