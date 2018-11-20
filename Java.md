@@ -326,16 +326,20 @@ date = ts;
 > - 删除从start到end-1的字符串。     
 
 ##### Java输入输出流：  
-```java
-Scanner in = new Scanner(System.in);   
-T content = in.nextLine() / in.next() / in.nextInt() / in.nextDouble();     
-//读取可能包含空格的一行内容/读取一个单词/读取一个整数/读取一个双精度浮点数 
+(1）字节流: 流中的数据是以8位字节为单位进行读写，以InputStream和OutputStream为基础类。
 
+(2) 字符流: 流中的数据是以16为字符为单位进行读写，以Reader和Writer为基础类。
+
+```java
 // 输入流抽象类
 InputStream(字节输入流)，Reader(字符输入流)
 // 输出流抽象类
 OutputStream(字节输出流)，Writer(字符输出流)  
-``` 
+```      
+
+在java程序中，要想从数据源(文件，键盘，网络)中读取数据，需要在java程序和数据源之间建立一条数据输入的通道；要想在java程序中把数据写入数据源，需要在java程序和数据源之间建立一条数据输出的通道。即:输入流是从文件读取数据，是一个拉取数据的过程；输出流是将数据写入到文件，是一个推送数据的过程。 
+
+![Alt-text](/images/javaio.png) 
 
 ##### Java集合
 > java集合类存放于java.util包中，只能存放对象，存放的是对象的引用，对象本身还是放在堆内存中。       
