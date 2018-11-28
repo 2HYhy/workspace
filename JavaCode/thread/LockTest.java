@@ -1,7 +1,7 @@
 package com.me.gacl.thread;
 
 /**
- * @author yunhua.he
+ * @author momo
  * @date 2018/7/24
  */
 class Something {
@@ -97,3 +97,4 @@ public class LockTest {
 //        System.out.println("-------");
     }
 }
+//关于是否能同时访问，同步锁所属问题

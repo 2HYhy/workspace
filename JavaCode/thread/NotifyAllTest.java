@@ -1,7 +1,7 @@
 package com.me.gacl.thread;
 
 /**
- * @author yunhua.he
+ * @author momo
  * @date 2018/7/18
  */
 public class NotifyAllTest {
@@ -25,7 +25,6 @@ public class NotifyAllTest {
             obj.notifyAll();
         }
     }
-
 
     static class ThreadC extends Thread {
 

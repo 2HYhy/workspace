@@ -1,7 +1,7 @@
 package com.me.gacl.thread;
 
 /**
- * @author yunhua.he
+ * @author momo
  * @date 2018/7/18
  */
 class ThreadB extends Thread {
@@ -38,8 +38,8 @@ public class WaitTimeTest {
     }
 }
 /**
- * 1. 主线程main执行tb.start()，启动线程ta
+ * 1. 主线程main执行tb.start()，启动线程tb
  * 2. 主线程执行tb.wait(3000)，本身进入阻塞状态，并释放对象锁，需要线程tb调用notify()/notifyAll()方法，或者超过3000ms之后才能重新被唤醒
  * 3. 线程tb运行后，进入死循环，不断地运行
- * 4. 超过3s后，主线程main新进入就绪状态，接着进入运行状态
+ * 4. 超过3s后，主线程main再次进入就绪状态，接着进入运行状态
  */

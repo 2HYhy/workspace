@@ -1,7 +1,7 @@
 package com.me.gacl.thread;
 
 /**
- * @author yunhua.he
+ * @author momo
  * @date 2018/7/19
  */
 public class InterruptTest {
@@ -9,7 +9,7 @@ public class InterruptTest {
     public static void main(String [] args) {
         ThreadE the = new ThreadE("the");
         System.out.println(the.getName()+" is "+the.getState()+", created");
-        the.start();
+        the.start(); 
         System.out.println(the.getName()+" is "+the.getState()+", started");
         try {
             //主线程休眠

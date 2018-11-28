@@ -1,7 +1,7 @@
 package com.me.gacl.thread;
 
 /**
- * @author yunhua.he
+ * @author momo
  * @date 2018/7/23
  */
 public class RunStartTest {
@@ -28,6 +28,6 @@ class RunStart extends Thread {
 }
 
 /**
- * rs.run()运行在主线程main上
- *  rs.start()启动子线程，调用run(),它运行在子线程rs上
+ * rs.run()等同于调用普通的方法,运行在主线程main上
+ * rs.start()启动子线程,调用run(),它运行在子线程rs上
  */
