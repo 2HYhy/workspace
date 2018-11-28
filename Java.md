@@ -9,11 +9,11 @@
 > java中主线程main是由Java虚拟机创建的，程序一启动就会自动运行。
 
 #### 用户线程和守护线程
-1. Thread.isDaemon(fale)是用户线程，Thread.isDaemon(true)是守护线程    
+1. Thread.isDaemon(false)是用户线程，Thread.isDaemon(true)是守护线程    
 2. 默认是用户线程
 3. Java虚拟机一旦启动，就会一直运行，直到:
 > exit()方法被调用执行   
-> 只有搜狐户线程在运行  
+> 只有用户线程在运行  
 
 #### 线程的5种状态
 1. 新建状态:
@@ -23,7 +23,7 @@
 > 线程对象被调用了start()方法后，就处于就绪状态，也叫可执行状态，随时可以被CPU调度执行
 
 3. 运行状态:
-> 线程获取CPU权限进行执行，线程只能从就绪状态进入运行状态
+> 线程获取CPU权限进行运行，线程只能从就绪状态进入运行状态
 
 4. 阻塞状态:
 > 线程因为某种原因放弃CPU使用权，暂时停止运行。阻塞状态分为3种:
@@ -39,7 +39,7 @@
 2. 实现Runnable接口(各子线程资源共享)
 
 #### start()和run()区别
-1. start()用于启动一个新线程，会调用响应的run方法，不能重复被调用       
+1. start()用于启动一个新线程，会调用相应的run方法，不能重复被调用       
 2. run()和普通成员方法一样，可以重复被调用，当单独调用时，会在当前线程中执行，不会启动新线程   
 
 #### synchronized关键字
@@ -54,9 +54,20 @@
 > 当一个线程访问“某对象”的“synchronized方法”或者“synchronized代码块”时，其他线程对"该对象"的其他的"synchronized方法"或"synchronized代码块"的访问将被阻塞
 
 3. “synchronized方法”是用synchronized修饰方法，而 “synchronized代码块”则是用synchronized修饰代码块。  
+```java
+public synchronized void func() {
+    //
+}
+public void func() {
+    synchronized (this) {
+        //
+    }
+}
+```
 4. 实例锁和全局锁
 > 实例锁指的锁在一个实例对象上，对应的就是synchronized关键字       
 > 全局锁指的锁在一个类上，对应的就是static synchronized关键字
+
 > eg: Something有两个实例x 和 y, 以及四个方法
 ```java
 01) x.isSyncA() 与 x.isSyncB() 
@@ -76,7 +87,7 @@
 ```
 
 #### 等待与唤醒
-*当前线程”是指正在cpu上运行的线程* 
+*当前线程是指正在cpu上运行的线程* 
 
 1. wait()
 > 让当前线程处于等待(阻塞)状态，直到其他线程调用此对象的notify()或notifyAll()方法，方可被唤醒进入就绪状态
@@ -326,9 +337,9 @@ date = ts;
 > - 删除从start到end-1的字符串。     
 
 ##### Java输入输出流：  
-(1）字节流: 流中的数据是以8位字节为单位进行读写，以InputStream和OutputStream为基础类。
+(1) 字节流: 流中的数据是以8位字节为单位进行读写，以InputStream和OutputStream为基础类。
 
-(2) 字符流: 流中的数据是以16为字符为单位进行读写，以Reader和Writer为基础类。
+(2) 字符流: 流中的数据是以16位字符为单位进行读写，以Reader和Writer为基础类。
 
 ```java
 // 输入流抽象类
@@ -345,3 +356,75 @@ OutputStream(字节输出流)，Writer(字符输出流)
 > java集合类存放于java.util包中，只能存放对象，存放的是对象的引用，对象本身还是放在堆内存中。       
 
 > Collection是List和Set接口的父接口。 List有序可以重复，Set无序不能重复。
+
+##### Java的三种调用方式
+> 同步调用: 是指按照先后顺序一个一个的执行。必须等到前一个方法运行结束，返回结果后，后一个方法才能运行。
+
+> 异步调用: 是指不用等到前一个方法完全执行完毕并返回结果，就可以运行, 一般用作异步多线程。
+
+> 回调: 是指调用玩完其他类的方法后再回过头来调用自己的方法(不能在自己类中直接调用，而要在其他类中调用)。
+
+### 七、java并发编程之线程池
+*转载自http://www.cnblogs.com/dolphin0520/p/3932921.html*
+1. 线程池核心类TheadPoolExecutor的介绍      
+四种构造方法中各个参数的含义:      
+> corePoolSize
+>- 核心池的大小。默认情况下，除非调用了prestartAllCoreThreads()或者prestartCoreThread()方法，即在任务到来之前就创建corePoolSize个或一个线程。否则的话，在创建了线程池之后，线程池中的线程数为0，当有任务到来之后，就会创建一个线程去执行任务。当线程池中的线程数达到corePoolSize之后，就会把到达的任务放入缓存队列中。
+
+> maximumPoolSize
+>- 线程池最大线程数，表示在线程池中最多能创建多少个线程。线程池中的当前线程数(poolSize)不会超过该值。
+
+> keepAliveTime
+>- 线程没有任务执行时最多保持多长时间会终止。默认情况下，只有当线程池中的线程数大于corePoolSize时，keepAliveTime才会起作用。
+
+> unit
+>- 参数keepAliveTime的时间单位。
+
+> workQueue
+>- 阻塞队列，用来存储等待执行的任务。一般使用LinkedBlockingQueue和Synchronous。
+
+> threadFactory
+>- 线程工厂，主要用来创建线程。
+
+> handler
+>- 当拒绝处理任务是时的策略，有ThreadPoolExecutor.AbortPolicy等4种取值。
+
+类ThreadPoolExecutor 继承自 抽象类AbstractExecutorService 继承自 接口ExecutorService  继承自  接口Executor。
+
+ThreadPoolExecutor中的重要方法:
+> execute(): 向线程池提交一个任务，交由线程池去执行。
+
+> submit(): 也是用来向线程池提交任务的，与execute的不同在于利用了Futute获取任务执行结果并返回。
+
+> shutdown(): 用来关闭线程池但不会立即终止线程池，而是要等所有任务缓存队列中的任务都执行完后才终止，但再也不会接受新的任务。
+
+> shutdownNow(): 立即终止线程池，并尝试打断正在执行的任务，并且清空任务缓存队列，返回尚未执行的任务。
+
+2. 线程池的状态
+runState表示当前线程池的状态，有以下取值:
+> RUNNING:创建线程池后的初始状态         
+> STOPED:调用了shutdown()方法，此时线程池不能够接受新的任务，它会等待所有任务执行完毕      
+> SHUTDOWN:调用了shutdownNow()方法，此时线程池不能接受新的任务，并且会去尝试终止正在执行的任务
+> TERMINATED:线程池处于SHUTDOWN或STOP状态，并且所有工作线程已经销毁，任务缓存队列已经清空或执行结束后
+
+3. 任务的执行
+任务提交给线程池后的处理策略分为四种:
+> 1. 若当前线程池中的线程数目小于corePoolSize，则每来一个任务，就会创建一个线程去执行这个任务
+
+> 2. 若当前线程池中的线程数目>=corePoolSize，则每来一个任务，会尝试将其添加到任务缓存队列当中，若添加成功，则该任务会等待空闲线程将其取出去执行；若添加失败（一般来说是任务缓存队列已满），则会尝试创建新的线程去执行这个任务
+
+> 3. 若当前线程池中的线程数目达到maximumPoolSize，则会采取任务拒绝策略进行处理
+
+> 4. 若线程池中的线程数量大于corePoolSize，若某线程空闲时间超过keepAliveTime，线程将被终止，直至线程池中的线程数目不大于corePoolSize
+
+在实际的java代码应用中，不提倡使用`ThreadPoolExecutor executor = new ThreadPoolExecutor(6, 10, 200, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(5));`, 而是使用Executors类中提供的几个静态方法来创建线程池。`ExecutorService es = Executors.newCachedThreadPool()/newSingleThreadExecutor/newFixedThreadPool(6)`。
+
+4. 提交一个线程到线程池中，线程池的处理流程
+>1. 判断线程池里的核心线程是否都在执行任务，如果不是（核心线程空闲或者还有核心线程没有被创建）则创建一个新的工作线程来执行任务。如果核心线程都在执行任务，则进入下个流程。
+
+>2. 线程池判断缓存队列是否已满，如果缓存队列没有满，则将新提交的任务存储在这个缓存队列里。如果缓存队列满了，则进入下个流程。
+
+>3. 判断线程池里的线程是否都处于工作状态，如果没有，则创建一个新的工作线程来执行任务。如果已经满了，则交给饱和(拒绝)策略来处理这个任务。
+
+
+

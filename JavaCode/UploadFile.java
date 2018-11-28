@@ -1,4 +1,3 @@
-```java
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -106,14 +105,11 @@ public class FileUploadServlet extends HttpServlet{
     }
 }
 } 
-```
 
-**upload.jsp**:
-```java
+//upload.jsp
 <form method = "post" action="http://localhost:8080/uploadFile" enctype="multipart/form-data">
         选择一个文件：
 <input type = "file" name = "uploadFile"/>
 <br/><br/>
 <input type = "submit" value = "上传"/>
 </form>
-```
