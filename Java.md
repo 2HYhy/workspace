@@ -11,29 +11,27 @@
 进程让操作系统的并发性成为可能，线程让进程的内部并发成为可能。进程是操作系统进行资源分配的基本单位，线程是操作系统进行调度的基本单位。
 
 #### 用户线程和守护线程
-1. Thread.isDaemon(false)是用户线程，Thread.isDaemon(true)是守护线程    
+1. Thread.isDaemon(false)是用户线程，Thread.isDaemon(true)是守护线程(依赖于创建它的线程)    
 2. 默认是用户线程
-3. Java虚拟机一旦启动，就会一直运行，直到:
-> exit()方法被调用执行   
-> 只有用户线程在运行  
+3. Java虚拟机一旦启动，就会一直运行，直到exit()方法被执行或者只有用户线程在运行。  
 
 #### 线程的5种状态
-1. 新建状态:
+1. 新建状态(New):
 > 线程对象被新建后，就进入了新建状态，此时由java虚拟机分配了内存         
 
-2. 就绪状态:
+2. 就绪状态(Runnable):
 > 线程对象被调用了start()方法后，就处于就绪状态，也叫可执行状态，随时可以被CPU调度执行
 
-3. 运行状态:
+3. 运行状态(Running):
 > 线程获取CPU权限进行运行，线程只能从就绪状态进入运行状态
 
-4. 阻塞状态:
+4. 阻塞状态(Blocked/Waiting):
 > 线程因为某种原因放弃CPU使用权，暂时停止运行。阻塞状态分为3种:
 >- 等待阻塞：调用wait方法，让线程等待某工作的完成    
 >- 同步阻塞：线程在调用synchronized获取同步锁时失败，因为锁被其他线程占用      
 >- 其他阻塞：调用了线程的sleep()，join()或发出了I/O请求
 
-5. 死亡状态:
+5. 死亡状态(Dead):
 > 线程执行完了或异常退出run方法，结束了生命周期
 
 #### 实现多线程的两种方式
@@ -63,7 +61,7 @@
 > 当一个线程访问“某对象”的“synchronized方法”或者“synchronized代码块”时，其他线程仍然可以访问"该对象"的非同步代码块      
 > 当一个线程访问“某对象”的“synchronized方法”或者“synchronized代码块”时，其他线程对"该对象"的其他的"synchronized方法"或"synchronized代码块"的访问将被阻塞
 
-3. “synchronized方法”是用synchronized修饰方法，而 “synchronized代码块”则是用synchronized修饰代码块。  
+3. “synchronized方法”是用synchronized修饰方法，而“synchronized代码块”则是用synchronized修饰代码块。  
 ```java
 public synchronized void func() {
     //
@@ -72,11 +70,12 @@ public void func() {
     synchronized (this) {
         //
     }
+ //当访问两者出现异常时，JVM会自动释放当前线程占用的锁，不会导致死锁的现象
 }
 ```
 4. 实例锁和全局锁
-> 实例锁指的锁在一个实例对象上，对应的就是synchronized关键字       
-> 全局锁指的锁在一个类上，对应的就是static synchronized关键字
+> 实例锁指锁在一个实例对象上，对应的就是synchronized关键字       
+> 全局锁指锁在一个类上，对应的就是static synchronized关键字
 
 > eg: Something有两个实例x 和 y, 以及四个方法
 ```java
@@ -95,6 +94,9 @@ public void func() {
 04: 可以同时被访问，因为x.isSyncA()使用的是对象x的同步锁，而后者使用的是Something类的锁
 */
 ```
+#### Lock接口类
+> 必须要用户手动释放锁，如果没有主动释放锁，就有可能出现死锁(两个以上的线程永远阻塞的情况)现象。       
+> ReentrantLock是唯一实现了Lock接口的类。 
 
 #### 等待与唤醒
 *当前线程是指正在cpu上运行的线程* 
@@ -129,11 +131,109 @@ public void func() {
 > 定义在Thread中
 
 #### interrupt中断终止线程
-> interrupt()除了返回中断标记外，还会清除中断标记   
-> isInterrupted()只是返回中断标记  
+> interrupt()既能返回中断标记也能清除中断标记。可以中断处于阻塞状态的线程，不能中断正在运行中的线程。调用此方法相当于将中断标记置为true。   
+> isInterrupted()返回中断标记，通过判断终端标记是否为true来中断线程的运行。 
+
+#### 关于多线程的一些理解
+1. 从一个线程转去运行另一个线程的过程中，需要记录程序计数器的值以及CPU寄存器的状态，以便切回来时能接着之前的状态进行。
+2. 多个线程同时访问同一个资源时，就会产生线程安全问题。(解决方法就是使用sychronized关键字或者Lock接口类实现同步互斥访问)。
+3. 多个线程同时访问同一个方法时，不会弧线线程安全问题，因为方法是在栈上运行的，而栈是线程私有的。
+4. 并发程序要正确执行，就得保证原子性、可见性以及有序性。三者缺一就有可能会导致程序运行不正确。
+> 原子性是指:一个操作要么全部执行并且执行的过程不被任何因素打断，要么全都不执行。
+> 可见性是指:多个线程访问同一个变量时，若其中一个线程修改了该变量的值，其他线程能够立即看得到修改后的值。
+> 有序性是指:程序执行的顺序按照代码的先后顺序执行。
+5. 在java中，只有简单的读取、赋值操作(将数字赋值给某个变量)才是原子性操作。变量之间的相互赋值不是原子性操作;提供了关键字volatile来保证可见性和有序性。synchronized和Lock也能够保证可见性和有序性。         
+6. 线程调度器用来为Running状态的线程分配CPU时间,当创建并启动一个线程之后,它的执行便依赖于线程调度器的实现。    
+7. 时间分片是指将可用的CPU时间分配给可用的Runnable状态的线程。   
+8. 当不想使用同步时，可以用ThreadLocal来创建线程的本地变量，该变量的作用域仅限于本线程内。      
 
 
-### 二、Java静态变量、方法、类
+*转自:http://www.cnblogs.com/dolphin0520/p/3923167.html*
+#### 关于锁的分类
+1. 可重入锁:  
+> synchronized和ReentrantLock都是可重入锁。eg:当一个线程执行到synchronized方法method1时，在method1中会调用另外一个synchronized方法method2，此时线程不必重新去申请锁，而是可以直接执行方法method2。
+
+2. 可中断锁:   
+> synchronized不是可中断锁，而Lock是可中断锁。eg:如果某一线程A正在执行锁中的代码，另一线程B正在等待获取该锁，突然线程B不想等了，想先处理其他事情，可以让它中断自己或者在别的线程中中断它。
+
+3. 公平锁:    
+> 指的是有多个线程在等待一个锁，当这个锁被释放时，等待时间最久的线程（最先请求的线程）会获得该锁。synchronized就是非公平锁，ReentrantLock默认情况下是非公平锁，但是可以设置为公平锁。
+
+#### Condition接口类
+1. 依赖于Lock接口，基本方法是await()和signal()         
+2. 上面2个方法必须在lock.lock()和lock.unlock之间才可以使用       
+3. await()对应Object的wait(), signal()对应Object的notify(), signalAll()对应Object的notifyAll()
+
+##### Java的三种调用方式
+> 同步调用: 是指按照先后顺序一个一个的执行。必须等到前一个方法运行结束，返回结果后，后一个方法才能运行。
+
+> 异步调用: 是指不用等到前一个方法完全执行完毕并返回结果，就可以运行, 一般用作异步多线程。
+
+> 回调: 是指调用玩完其他类的方法后再回过头来调用自己的方法(不能在自己类中直接调用，而要在其他类中调用)。
+
+### 二、java并发编程之线程池
+*转载自http://www.cnblogs.com/dolphin0520/p/3932921.html*
+1. 线程池核心类TheadPoolExecutor的介绍      
+四种构造方法中各个参数的含义:      
+> corePoolSize
+>- 核心池的大小。默认情况下，除非调用了prestartAllCoreThreads()或者prestartCoreThread()方法，即在任务到来之前就创建corePoolSize个或一个线程。否则的话，在创建了线程池之后，线程池中的线程数为0，当有任务到来之后，就会创建一个线程去执行任务。当线程池中的线程数达到corePoolSize之后，就会把到达的任务放入缓存队列中。
+
+> maximumPoolSize
+>- 线程池最大线程数，表示在线程池中最多能创建多少个线程。线程池中的当前线程数(poolSize)不会超过该值。
+
+> keepAliveTime
+>- 线程没有任务执行时最多保持多长时间会终止。默认情况下，只有当线程池中的线程数大于corePoolSize时，keepAliveTime才会起作用。
+
+> unit
+>- 参数keepAliveTime的时间单位。
+
+> workQueue
+>- 阻塞队列，用来存储等待执行的任务。一般使用LinkedBlockingQueue和Synchronous。
+
+> threadFactory
+>- 线程工厂，主要用来创建线程。
+
+> handler
+>- 当拒绝处理任务是时的策略，有ThreadPoolExecutor.AbortPolicy等4种取值。
+
+类ThreadPoolExecutor 继承自 抽象类AbstractExecutorService 继承自 接口ExecutorService  继承自  接口Executor。
+
+ThreadPoolExecutor中的重要方法:
+> execute(): 向线程池提交一个任务，交由线程池去执行。
+
+> submit(): 也是用来向线程池提交任务的，与execute的不同在于利用了Futute获取任务执行结果并返回。
+
+> shutdown(): 用来关闭线程池但不会立即终止线程池，而是要等所有任务缓存队列中的任务都执行完后才终止，但再也不会接受新的任务。
+
+> shutdownNow(): 立即终止线程池，并尝试打断正在执行的任务，并且清空任务缓存队列，返回尚未执行的任务。
+
+2. 线程池的状态
+runState表示当前线程池的状态，有以下取值:
+> RUNNING:创建线程池后的初始状态         
+> STOPED:调用了shutdown()方法，此时线程池不能够接受新的任务，它会等待所有任务执行完毕      
+> SHUTDOWN:调用了shutdownNow()方法，此时线程池不能接受新的任务，并且会去尝试终止正在执行的任务
+> TERMINATED:线程池处于SHUTDOWN或STOP状态，并且所有工作线程已经销毁，任务缓存队列已经清空或执行结束后
+
+3. 任务的执行
+任务提交给线程池后的处理策略分为四种:
+> 1. 若当前线程池中的线程数目小于corePoolSize，则每来一个任务，就会创建一个线程去执行这个任务
+
+> 2. 若当前线程池中的线程数目>=corePoolSize，则每来一个任务，会尝试将其添加到任务缓存队列当中，若添加成功，则该任务会等待空闲线程将其取出去执行；若添加失败（一般来说是任务缓存队列已满），则会尝试创建新的线程去执行这个任务
+
+> 3. 若当前线程池中的线程数目达到maximumPoolSize，则会采取任务拒绝策略进行处理
+
+> 4. 若线程池中的线程数量大于corePoolSize，若某线程空闲时间超过keepAliveTime，线程将被终止，直至线程池中的线程数目不大于corePoolSize
+
+在实际的java代码应用中，不提倡使用`ThreadPoolExecutor executor = new ThreadPoolExecutor(6, 10, 200, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(5));`, 而是使用Executors类中提供的几个静态方法来创建线程池。`ExecutorService es = Executors.newCachedThreadPool()/newSingleThreadExecutor/newFixedThreadPool(6)`。
+
+4. 提交一个线程到线程池中，线程池的处理流程
+>1. 判断线程池里的核心线程是否都在执行任务，如果不是（核心线程空闲或者还有核心线程没有被创建）则创建一个新的工作线程来执行任务。如果核心线程都在执行任务，则进入下个流程。
+
+>2. 线程池判断缓存队列是否已满，如果缓存队列没有满，则将新提交的任务存储在这个缓存队列里。如果缓存队列满了，则进入下个流程。
+
+>3. 判断线程池里的线程是否都处于工作状态，如果没有，则创建一个新的工作线程来执行任务。如果已经满了，则交给饱和(拒绝)策略来处理这个任务。
+
+### 三、Java静态变量、方法、类
 
 #### 静态变量和方法
 1. 静态方法可以直接调用同类的静态变量，不能直接调用同类的非静态变量    
@@ -156,7 +256,7 @@ Outter out = new Outter();
 Inner in = out.new Inner();
 ```
 
-### 三、Java抽象类和方法，多态与重载和重写
+### 四、Java抽象类和方法，多态与重载和重写
 #### 抽象
 1. 抽象类中可以有抽象方法和非抽象方法
 2. 有抽象方法的一定是抽象类，但抽象类包含抽象方法+一般方法
@@ -185,7 +285,7 @@ Inner in = out.new Inner();
 3. 实现方式:
 > 同一类中进行方法重载，继承类中进行方法重写
 
-### 四、Java访问权限修饰符
+### 五、Java访问权限修饰符
 | 范围   | public | protected | default | private |
 |--------|--------|-----------|--------|---------|
 | 同一个类 |  yes    |   yes  |  yes  |    yes    |
@@ -193,7 +293,7 @@ Inner in = out.new Inner();
 | 子父类   |   yes   |   yes   |   no   |  no     |
 | 不同包   |  yes    |   no    |  no    |   no    |
 
-### 五、Java的equals()和hashCode()方法
+### 六、Java的equals()和hashCode()方法
 #### equals()
 定义在JDK的Object.java中，作用是判断两个对象是否相等。
 使用默认的equals()方法，等价于“==”方法，实际上比较的是两个对象的地址是否相等
@@ -233,7 +333,6 @@ equals()用来比较该类的两个对象是否相等。而hashCode()没有任�
 　　}
 　　效率低,以后尽量少使用！
 ```
-
 
 ##### 日期相关函数：  
  > `Date date = new Date();`    获取系统当前日期和时间  
@@ -318,7 +417,7 @@ date = ts;
 > 浮点数所占字节：  
 >- float 4字节，double 8字节。            
 
-### 六、字符串相关函数： 
+### 七、字符串相关函数： 
 > `char charAt(int index)` :  
 > - 返回给定位置的代码单元   
 
@@ -366,75 +465,6 @@ OutputStream(字节输出流)，Writer(字符输出流)
 > java集合类存放于java.util包中，只能存放对象，存放的是对象的引用，对象本身还是放在堆内存中。       
 
 > Collection是List和Set接口的父接口。 List有序可以重复，Set无序不能重复。
-
-##### Java的三种调用方式
-> 同步调用: 是指按照先后顺序一个一个的执行。必须等到前一个方法运行结束，返回结果后，后一个方法才能运行。
-
-> 异步调用: 是指不用等到前一个方法完全执行完毕并返回结果，就可以运行, 一般用作异步多线程。
-
-> 回调: 是指调用玩完其他类的方法后再回过头来调用自己的方法(不能在自己类中直接调用，而要在其他类中调用)。
-
-### 七、java并发编程之线程池
-*转载自http://www.cnblogs.com/dolphin0520/p/3932921.html*
-1. 线程池核心类TheadPoolExecutor的介绍      
-四种构造方法中各个参数的含义:      
-> corePoolSize
->- 核心池的大小。默认情况下，除非调用了prestartAllCoreThreads()或者prestartCoreThread()方法，即在任务到来之前就创建corePoolSize个或一个线程。否则的话，在创建了线程池之后，线程池中的线程数为0，当有任务到来之后，就会创建一个线程去执行任务。当线程池中的线程数达到corePoolSize之后，就会把到达的任务放入缓存队列中。
-
-> maximumPoolSize
->- 线程池最大线程数，表示在线程池中最多能创建多少个线程。线程池中的当前线程数(poolSize)不会超过该值。
-
-> keepAliveTime
->- 线程没有任务执行时最多保持多长时间会终止。默认情况下，只有当线程池中的线程数大于corePoolSize时，keepAliveTime才会起作用。
-
-> unit
->- 参数keepAliveTime的时间单位。
-
-> workQueue
->- 阻塞队列，用来存储等待执行的任务。一般使用LinkedBlockingQueue和Synchronous。
-
-> threadFactory
->- 线程工厂，主要用来创建线程。
-
-> handler
->- 当拒绝处理任务是时的策略，有ThreadPoolExecutor.AbortPolicy等4种取值。
-
-类ThreadPoolExecutor 继承自 抽象类AbstractExecutorService 继承自 接口ExecutorService  继承自  接口Executor。
-
-ThreadPoolExecutor中的重要方法:
-> execute(): 向线程池提交一个任务，交由线程池去执行。
-
-> submit(): 也是用来向线程池提交任务的，与execute的不同在于利用了Futute获取任务执行结果并返回。
-
-> shutdown(): 用来关闭线程池但不会立即终止线程池，而是要等所有任务缓存队列中的任务都执行完后才终止，但再也不会接受新的任务。
-
-> shutdownNow(): 立即终止线程池，并尝试打断正在执行的任务，并且清空任务缓存队列，返回尚未执行的任务。
-
-2. 线程池的状态
-runState表示当前线程池的状态，有以下取值:
-> RUNNING:创建线程池后的初始状态         
-> STOPED:调用了shutdown()方法，此时线程池不能够接受新的任务，它会等待所有任务执行完毕      
-> SHUTDOWN:调用了shutdownNow()方法，此时线程池不能接受新的任务，并且会去尝试终止正在执行的任务
-> TERMINATED:线程池处于SHUTDOWN或STOP状态，并且所有工作线程已经销毁，任务缓存队列已经清空或执行结束后
-
-3. 任务的执行
-任务提交给线程池后的处理策略分为四种:
-> 1. 若当前线程池中的线程数目小于corePoolSize，则每来一个任务，就会创建一个线程去执行这个任务
-
-> 2. 若当前线程池中的线程数目>=corePoolSize，则每来一个任务，会尝试将其添加到任务缓存队列当中，若添加成功，则该任务会等待空闲线程将其取出去执行；若添加失败（一般来说是任务缓存队列已满），则会尝试创建新的线程去执行这个任务
-
-> 3. 若当前线程池中的线程数目达到maximumPoolSize，则会采取任务拒绝策略进行处理
-
-> 4. 若线程池中的线程数量大于corePoolSize，若某线程空闲时间超过keepAliveTime，线程将被终止，直至线程池中的线程数目不大于corePoolSize
-
-在实际的java代码应用中，不提倡使用`ThreadPoolExecutor executor = new ThreadPoolExecutor(6, 10, 200, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(5));`, 而是使用Executors类中提供的几个静态方法来创建线程池。`ExecutorService es = Executors.newCachedThreadPool()/newSingleThreadExecutor/newFixedThreadPool(6)`。
-
-4. 提交一个线程到线程池中，线程池的处理流程
->1. 判断线程池里的核心线程是否都在执行任务，如果不是（核心线程空闲或者还有核心线程没有被创建）则创建一个新的工作线程来执行任务。如果核心线程都在执行任务，则进入下个流程。
-
->2. 线程池判断缓存队列是否已满，如果缓存队列没有满，则将新提交的任务存储在这个缓存队列里。如果缓存队列满了，则进入下个流程。
-
->3. 判断线程池里的线程是否都处于工作状态，如果没有，则创建一个新的工作线程来执行任务。如果已经满了，则交给饱和(拒绝)策略来处理这个任务。
 
 
 
