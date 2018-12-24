@@ -15,4 +15,8 @@ public interface UserSmsService {
     List<UserSms> get(String pkgName);
 
     int update(String content, String sendTime);
+
+    default String delete(int id) {
+        return "";
+    }
 }

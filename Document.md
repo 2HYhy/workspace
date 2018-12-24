@@ -115,18 +115,76 @@ brew info 软件名
 ```java
 // 方法一
 public class TestUrl {
-        public static void main(String [] args) throws URISyntaxException, IOException {
-            java.net.URI uri = new java.net.URI("http://www.baidu.com");
-            java.awt.Desktop.getDesktop().browse(uri);
-    }
+  public static void main(String [] args) throws URISyntaxException, IOException {
+    java.net.URI uri = new java.net.URI("http://www.baidu.com");
+    java.awt.Desktop.getDesktop().browse(uri);
+  }
 }
+
 // 方法二
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-Request reqTwo = new Request.Builder().url("your url").build();
-Response respTwo = client.newCall(reqTwo).execute();
-JSONObject jsonObject = JSONObject.parseObject(respTwo.body().string());
+OkHttpClient client = new OkHttpClient();
+
+//默认是GET请求
+Request request = new Request.Builder().url("your url").build();
+//POST请求
+MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+Request request = new Request.Builder().url("your url").post(RequestBody.create(mediaType, "your String body")).build();
+
+Response response = client.newCall(request).execute();
+JSONObject jsonObject = JSONObject.parseObject(response.body().string());
+
+//方法三
+CloseableHttpClient httpclient = HttpClients.createDefault();
+
+//GET请求
+List<NameValuePair> params = new ArrayList<>();     //有多个参数时，可以创建参数队列      
+params.add(new BasicNameValuePair("key", "value"));        
+try {
+    //将请求参数转为字符串
+    String paramsStr = EntityUtils.toString(new UrlEncodedFormEntity(params, "UTF-8"));
+    HttpGet httpget = new HttpGet("your url" + "?" + paramsStr);
+    //请求头
+    httpget.setHeader("key1", "value1");
+    CloseableHttpResponse response = httpclient.execute(httpget);
+    System.out.println("响应码是: " + response.getStatusLine());
+    //获取响应内容
+    HttpEntity entity = response.getEntity();
+    if (entity != null) {
+      System.out.println("响应内容是: " + EntityUtils.toString(entity);
+    }
+    //释放资源
+    response.close();
+    httpclient.close();
+} catch (Exception ex) {
+    ex.printStackTrace();
+}
+//POST请求
+JSONObject jsonObject = new JSONObject();    //创建参数字符串,用于封装请求报文
+jsonObject.put("name", name);
+jsonObject.put("appKey", appKey);
+jsonObject.put("secretKey", secretKey);
+jsonObject.put("description", description);
+try {
+    //设置请求报文格式
+    StringEntity body = new StringEntity("your String body", ContentType.APPLICATION_JSON);
+    HttpPost httppost = new HttpPost("your url");
+    httppost.setHeader("key1", "value1");
+    httppost.setEntity(body);
+    CloseableHttpResponse response = httpclient.execute(httppost);
+    System.out.println("响应码是: " + response.getStatusLine());
+    HttpEntity entity = response.getEntity();
+    if (entity != null) {
+        return new Result(EntityUtils.toString(entity));
+    }
+    //释放资源
+    response.close();
+    httpclient.close();
+} catch (Exception ex) {
+    ex.printStackTrace();
+}
 ```
 
 4. JavaScript的parseInt(string, radix)函数    
@@ -326,15 +384,26 @@ C: 添加xml文件：
 > 查看tomcat版本信息: cd Documents/tools/tomcat/bin 运行`./version.sh`
 
 10. 前后端分离跨域问题解决   
+> 浏览器发送请求的url的协议(http,https)，域名，端口，任一与当前页面地址不同，即为跨域。
+> 常用的跨域方案有JSONP(json with padding)和CORS(cross origin resource sharing)。前者只支持get的提交，后者支持get和post请求，但对客户端浏览器的版本有要求。           
+> CORS跨域请求原理: 当浏览器发现发送的请求不符合同源策略时，会给该请求加一个请求头Origin，后台如果确定接受该请求，就在返回结果中杰瑞个响应头Access-Control-Allow-Origin。浏览器判断响应头中是够包含Origin的值，有就会处理，能拿到数据，没有就直接驳回，拿不到数据。
 
 > 后端过滤器filter: 
 ```java
 public void doFilter(ServletRequest req, ServletResponse res,  FilterChain chain) throws IOException, ServletException {  
     HttpServletResponse response = (HttpServletResponse) res;  
+    // 指定允许其他域名访问
     response.setHeader("Access-Control-Allow-Origin", "*");  
-    response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");  
+    // 允许的请求方法
+    response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE"); 
+    // 相关配置的缓存
     response.setHeader("Access-Control-Max-Age", "3600");  
-    response.setHeader("Access-Control-Allow-Headers", "x-requested-with");  
+    // 服务器支持的所有头信息字段，用逗号分隔
+    response.setHeader("Access-Control-Allow-Headers", "x-requested-with, Content-Type, Accept"); 
+    // 不支持的头信息字段
+    response.setHeader("Access-Control-Expose-Headers", "");
+    // 是否支持跨域cookie
+    response.setHeader("Access-Control-Allow-Credentials", "true");
     chain.doFilter(req, res);  
 }  
 ```
