@@ -3,7 +3,7 @@ package com.me.gacl.service;
 import com.me.gacl.domain.Person;
 
 /**
- * Created by yunhua.he on 2017/8/23.
+ * Created by CH-yfy on 2017/8/23.
  */
 public interface PersonService {
 

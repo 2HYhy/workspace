@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * @author CH-yfy
  * @date 2018/6/26
+ * 验证redis缓存
  */
 @RestController
 @CacheConfig(cacheNames = "users")

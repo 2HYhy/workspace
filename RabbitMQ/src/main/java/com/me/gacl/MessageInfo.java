@@ -3,7 +3,7 @@ package com.me.gacl;
 import java.io.Serializable;
 
 /**
- * Created by yunhua.he on 2017/8/21.
+ * Created by CH-yfy on 2017/8/21.
  */
 //发送对象消息的过程需要序列化
 public class MessageInfo implements Serializable {

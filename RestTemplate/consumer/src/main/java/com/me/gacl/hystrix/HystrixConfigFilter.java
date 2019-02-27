@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * 要使用hystrix的缓存功能，必须管理HystrixRequestContext。若一个请求要用到另一个请求的缓存，则必须满足两个请求处于同一个context中。
  * initializeContext和close这两条语句中间的所有请求都处于同一个context
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2018/8/24
  */
 @WebFilter(filterName = "hystrixConfigFilter", urlPatterns = "/*")

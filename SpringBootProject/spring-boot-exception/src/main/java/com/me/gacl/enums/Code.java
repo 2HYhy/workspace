@@ -1,7 +1,7 @@
 package com.me.gacl.enums;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2018/6/25
  */
 public enum Code {

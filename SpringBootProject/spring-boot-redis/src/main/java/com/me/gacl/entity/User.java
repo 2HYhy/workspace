@@ -13,7 +13,7 @@ public class User implements Serializable {
 
     private Long id;
     private String name;
-    private Date birthDay;
+    private Date birthday;
 
     public Long getId() {
         return id;
@@ -31,12 +31,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public Date getBirthDay() {
-        return birthDay;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", birthDay=" + birthDay +
+                ", birthday=" + birthday +
                 '}';
     }
 }

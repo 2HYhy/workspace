@@ -1,7 +1,7 @@
 package com.me.gacl.domain;
 
 /**
- * Created by yunhua.he on 2017/9/29.
+ * Created by CH-yfy on 2017/9/29.
  */
 public class Cards {  //一对多，employee-cards
     private int cId;

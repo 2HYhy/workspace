@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * @author CH-yfy
  * @date 2018/6/27
+ * 验证各种形式传入的请求参数，不涉及缓存
  * 所有API均以postman请求为例
  */
 @RestController
@@ -27,7 +28,6 @@ public class ApiController {
      */
     @GetMapping("/one")
     public Integer [] getOne(@RequestParam Integer [] ids) {
-        System.out.println("------entering method------");
         int length = ids.length;
         System.out.println("length = " + length);
         return ids;
@@ -41,7 +41,6 @@ public class ApiController {
      */
     @PostMapping(value = "/two", consumes =  {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public OpenId getTwo(@RequestBody OpenId params) {
-        System.out.println("------entering method------");
         String [] openIds = params.getOpenIds();
         int length = openIds.length;
         System.out.println("length = " + length);
@@ -56,7 +55,6 @@ public class ApiController {
      */
     @PostMapping(value = "/three")
     public List<String> getThree(@RequestBody List<String> list) {
-        System.out.println("------entering method------");
         int length = list.size();
         System.out.println("length = " + length);
         return list;
@@ -94,7 +92,6 @@ public class ApiController {
      */
     @PostMapping(value = "/four")
     public List<User> getFour(@RequestBody JSONArray array) {
-        System.out.println("------entering method------");
         List<User> users = JSONArray.parseArray(array.toJSONString(),User.class);
         int length = users.size();
         System.out.println("length = " + length);
@@ -138,7 +135,6 @@ public class ApiController {
      */
     @PostMapping("/five")
     public JSONArray getFive(@RequestBody String jsonString) {
-        System.out.println("------entering method------");
         JSONObject json = JSONObject.parseObject(jsonString);
         String source = json.get("source").toString();
         String data = json.getString("data");

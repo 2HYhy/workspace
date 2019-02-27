@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.me.gacl.mapper.UserMapper">
+
+    <insert id="addUser">
+        INSERT INTO h_user(uuid, name, age, birthday)
+        VALUES (#{user.uuid}, #{user.name}, #{user.age}, #{user.birthday})
+    </insert>
+
+    <select id="getUser" resultType="com.me.gacl.entity.User">
+        SELECT * FROM h_user WHERE uuid = #{uuid}
+    </select>
+
+    <update id="updateUser">
+        update h_user set
+        <if test="user.age != null and user.age != ''">
+            age = #{user.age,jdbcType=VARCHAR},
+        </if>
+        <if test="user.name != null and user.name != ''" >
+            name = #{user.name,jdbcType=VARCHAR},
+        </if>
+        <if test="user.birthday != null and user.birthday != ''">
+            birthday = #{user.birthday,jdbcType=VARCHAR},
+        </if>
+--        这一行赋值是为防止其他参数为null时，SQL报错
+        uuid = #{user.uuid, jdbcType=VARCHAR}
+        where uuid = #{user.uuid}
+    </update>
+
+    <delete id="deleteUser">
+        DELETE FROM h_user WHERE name = #{name}
+    </delete>
+
+</mapper>

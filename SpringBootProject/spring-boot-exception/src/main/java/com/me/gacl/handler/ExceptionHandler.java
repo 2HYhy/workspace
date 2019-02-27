@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2018/6/25
  * 自定义异常统一处理
  */

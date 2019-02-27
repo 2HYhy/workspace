@@ -1,7 +1,7 @@
 package com.me.gacl.domain;
 
 /**
- * Created by yunhua.he on 2017/8/23.
+ * Created by CH-yfy on 2017/8/23.
  */
 public class Person {
     private int id;

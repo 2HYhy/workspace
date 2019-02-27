@@ -1,8 +1,23 @@
 ## 关于nodeJs和Vue项目   
 ### 安装npm  
 1. 查看版本: `npm -v`  
-2. 升级安装： `npm install npm -g `   
+2. 全局安装： `npm install npm -g`   
 >` cnpm install npm -g` 使用淘宝镜像 
+### 升级node
+```java
+//1.安装node版本管理工具'n'
+sudo npm install -g n
+
+//2. 执行安装命令
+sudo n stable   //安装node最新稳定版本
+sudo n 8.9.4   //或者安装node指定版本8.9.4
+```
+
+> sudo npm cache clean -f
+>- 清除node缓存
+
+> which node / npm
+>- 查看node/npm的安装位置
 
 **解决npm安装依赖包缓慢的问题：**  
 

@@ -6,6 +6,7 @@ import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * @author CH-yfy
+ * 该注解表示开启缓存功能
  */
 @EnableCaching
 @SpringBootApplication

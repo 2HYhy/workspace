@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * @author yunhua.he
+ * @author CH-yfy
  * @date 2018/6/25
  * 统一返回的json对象
  */
