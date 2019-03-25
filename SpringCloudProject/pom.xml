@@ -39,6 +39,7 @@
 		<module>zuul-ratelimit</module>
 		<module>config-server</module>
 		<module>config-client</module>
+		<module>cloud-gateway</module>
     </modules>
 
 	<dependencies>

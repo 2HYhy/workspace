@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Layout, Button, message, Table } from 'antd';
+import { Layout, Button, message, Table, Icon } from 'antd';
 import http from '../../utils/http';
+import MessageSvg from '../../image/untitled.svg';
 
 class Overview extends Component {
 
@@ -62,7 +63,9 @@ class Overview extends Component {
         return (
             <Layout>
                 <Layout style={{ background: '#fff', padding: 24, margin: 0 }}>
-                   <h3>用户数据概览页面</h3>
+                    <h3>用户数据概览页面</h3>
+                    <img src={MessageSvg} />
+                   {/*<h2> <Icon component={MessageSvg} /> Apple</h2>*/}
                 </Layout>
                 <Layout style={{ background: '#fff', padding: 24, paddingTop: 10, marginTop: 16, minHeight: 30 }}>
                     <Button type="primary" size="large" onClick={this.getData}>查询数据</Button>

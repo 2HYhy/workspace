@@ -1,0 +1,12 @@
+<!--应用启动时，该属性是undefined，导致应用挂掉，使用ngIf指令表示只有selectedHero为真时才显示该标签内容-->
+<div *ngIf="hero">
+  <h2>{{hero.name | uppercase}} Details</h2> <!-- uppercase表示换成大写字母，位于管道操作符(|)的右边，用来调用内置管道UppercasePipe-->
+  <div>id: <span>{{hero.id}}</span></div>
+  <div>
+    <label>
+      name:<input placeholder="请输入新的英雄名" [(ngModel)]="hero.name"/> <!--ngModel虽是有效angular命令，但默认不可用，需手动添加FormsModule模块-->
+    </label>
+  </div>
+</div>
+
+<button (click)="goBack()">返回</button>

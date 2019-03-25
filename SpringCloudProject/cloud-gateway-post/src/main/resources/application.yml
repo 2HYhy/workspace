@@ -1,0 +1,20 @@
+server:
+  port: 8083
+#spring:
+#  profiles:
+#    active: method_route
+
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_5
+#        uri: http://localhost:9000
+#        predicates:
+#        - Method=POST
+#        filters:
+#        - Request=false   # 过滤器工厂
+#  profiles: method_route
+# POST http://localhost:8083/gateway/filter

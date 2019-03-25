@@ -76,7 +76,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 #### start a react project:
 
 > cd react-project
-> npm start
+> npm start  /  npm run start
 
 #### react project add a new plugins: 
 

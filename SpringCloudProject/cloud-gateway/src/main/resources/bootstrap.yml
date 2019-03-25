@@ -1,0 +1,163 @@
+#server:
+#  port: 8082
+#spring:
+#  profiles:
+##    active: add_request_header_route
+##    active: add_response_header_route
+##    active: rewrite_path_route
+##    active: prefix_path_route
+##    active: add_request_param_route
+##    active: hystrix_route
+##    active: status_route
+#    active: redirect_route
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_1
+#        uri: http://localhost:9000    # 实际转发到eureka-server服务
+#        filters:
+#        - AddRequestHeader=Username, sumingyu   # 在下游请求(即eureka-server服务)且路径为gateway的请求头中添加
+#        - AddRequestHeader=UserAddress, sichuanchegndu  # 支持一个filter配置多个,可以是不同类型的
+#        predicates:   # 不能为空，否则启动报错
+#        - Path=/gateway/**
+#  profiles: add_request_header_route
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_2
+#        uri: http://example.org
+#        filters:
+#        - AddResponseHeader=X-Request-ID, hyh   # 在下游请求的响应头中添加，可以从浏览器中查看
+#        predicates:
+#        - Method=GET
+#  profiles: add_response_header_route
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_3
+#        uri: http://localhost:9000
+#        filters:
+#        - RewritePath=/extra/(?<segment>.*), /$\{segment}   # 路径重写,访问http://localhost:8082/extra/gateway/path，会将请求重置为http://localhost:9000/gateway/path
+#        predicates:
+#        - Path=/extra/**
+#  profiles: rewrite_path_route
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_4
+#        uri: http://localhost:9000
+#        filters:
+#        - AddRequestParameter=nickname, Linda   #
+#        predicates:
+#        - Method=GET
+#  profiles: add_request_param_route
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_5
+#        uri: http://localhost:9000
+#        filters:
+#        - name: Hystrix
+#          args:
+#            name: fallbackcmd
+#            fallbackUri: forward:/cloudGateway  # 访问localhost:8082/extra(转发到localhost:9000/gateway/other)超过5s时，就回退到localhost:8082/cloudGateway方法
+#        - RewritePath=/extra, /gateway/other
+#        predicates:
+#        - Path=/extra
+#  profiles: hystrix_route
+#hystrix:
+#  command:
+#    fallbackcmd:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 10   # 全局配置路由过期时间为2s
+##spring:
+##  cloud:
+##    gateway:
+##      routes:
+##      - id: route_id_5
+##        uri: http://localhost:9000
+##        predicates:
+##        - Path=/extra/**
+##        filters:
+##        - name: Hystrix
+##          args:
+##            name: fallbackcmd
+##            fallbackUri: forward:/fallback   # 当访问请求超时，会回退到localhost:9000/fallback方法中，API只能是fallback
+##      - id: route_id_5_fallback
+##        uri: http://localhost:9000
+##        predicates:
+##        - Path=/fallback
+##    profiles: hystrix_route
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_6
+#        uri: http://localhost:9000
+#        filters:
+#        - PrefixPath=/gateway  # 访问localhost:8082/other,转发到localhost:9000/gateway/other
+#        predicates:
+#        - Method=GET
+#  profiles: prefix_path_route
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_7
+#        uri: http://example.org
+#        filters:
+#        - SetStatus=415   # 符合条件的任何请求，响应的状态码status code为415 Unsupported Media Type  值必须为有效的http状态码或枚举类型
+#        predicates:
+#        - Path=/example
+#      - id: route_id_7_another
+#        uri: http://localhost:9000/server
+#        filters:
+#        - SetStatus=NOT_FOUND   # 符合条件的任何请求，响应的状态码status code为404 NOT_FOUND
+#        predicates:
+#        - Method=GET
+#  profiles: status_route
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_8
+#        uri: http://example.org
+#        filters:
+#        - RedirectTo=302, http://localhost:9000  # 访问任何GET请求，都会重定向到localhost:9000对应的页面
+#        predicates:
+#        - Method=GET
+#  profiles: redirect_route
+
+
+# spring cloud gateway 之 filters

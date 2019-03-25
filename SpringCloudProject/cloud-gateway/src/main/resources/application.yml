@@ -1,0 +1,113 @@
+server:
+  port: 8081
+spring:
+  profiles:
+    active: method_route
+
+#    active: time_route   # 指定程序启动的spring文件
+#    active: header_route
+#    active: cookie_route
+#    active: host_route
+#    active: path_route
+#    active: method_route, query_route
+
+---
+
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: route_id_5
+        uri: http://localhost:9000  # http://httpbin.org:80
+        predicates:
+        - Method=GET
+        filters:
+#        - SimpleTime=true    # true/false表示Config中的withParams的值,即带参数或不带参数， 此处自定义过滤器的配置与内置过滤器的配置一样
+        - AuthToken=true
+  profiles: method_route
+
+
+
+#---  # 新的配置文件分隔符
+#
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_1  #每个router对应的唯一id
+#        uri: http://httpbin.org:80  # 将请求路由到的地址
+#        predicates:
+#        - After=2019-03-07T10:42:40.789-07:00[America/Denver]  # 请求时间在该时间后路由能正确转发，否则是404
+##        - Before=2019-02-20T17:42:47.789-07:00[America/Denver]
+##        - Between=2019-02-20T17:42:47.789-07:00[America/Denver], 2019-03-21T17:42:47.789-07:00[America/Denver]
+#  profiles: time_route  # 与上面的active配置保持一致
+## curl http://localhost:8081/get
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_2
+#        uri: http://httpbin.org:80
+#        predicates:
+#        - Header=X-Request-Id, \d+  #当请求头中有header名为X-Request-Id且值为数字时路由正确响应
+#  profiles: header_route
+## curl -H 'X-Request-Id:1' localhost:8081/get
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_3
+#        uri: http://httpbin.org:80
+#        predicates:
+#        - Cookie=token, 1q2w3e4r
+#  profiles: cookie_route
+## curl -H 'Cookie:token=1q2w3e4r' localhost:8081/get
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_4
+#        uri: http://httpbin.org:80
+#        predicates:
+#        - Host=**.hyh.com
+#  profiles: host_route
+## curl -H 'Host:www.hyh.com' localhost:8081/get
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_7
+#        uri: http://httpbin.org:80/get
+#        predicates:
+#        - Path=/hyh/{id}
+#  profiles: path_route
+## curl localhost:8081/hyh/6
+#
+#---
+#
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#      - id: route_id_8
+#        uri: http://httpbin.org:80
+#        predicates:
+#        - Query=phone, 182.    # 一个参数名，一个参数值的正则表达式(可选),此处.表示一个字符
+#  profiles: query_route
+## curl localhost:8081/get?phone=1829
+
+
+# spring cloud gateway 之 predicate

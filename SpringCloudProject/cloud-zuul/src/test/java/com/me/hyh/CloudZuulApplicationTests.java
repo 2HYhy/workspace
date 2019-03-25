@@ -11,6 +11,11 @@ public class CloudZuulApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
+		stubFor(get(urlEqualTo("/get"))
+				.willReturn(aResponse()
+						.withBody("{\"headers\":{\"Hello\":\"World\"}}")
+						.withHeader("Content-Type", "application/json")));
 	}
 
 }

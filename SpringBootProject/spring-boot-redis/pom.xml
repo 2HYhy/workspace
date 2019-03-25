@@ -59,7 +59,7 @@
             <artifactId>mybatis</artifactId>
             <version>3.4.6</version>
         </dependency>
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>

@@ -35,8 +35,13 @@ public class EurekaServerApplication {
 	@Value("${server.port}")
 	private int port;
 	@GetMapping("/server")
-	public String function() {
+	public String server() {
 		return "This is eureka-server, port = "+port;
+	}
+
+	@GetMapping("/fallback")
+	public String fallback() {
+		return "......spring-cloud-gateway is fallback......";
 	}
 
 	/**

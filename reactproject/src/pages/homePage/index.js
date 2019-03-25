@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import imgLogo from '../../logo.svg';
+import imgLogo from '../../image/logo.svg';
 import { Layout } from 'antd';
 import './index.css';
 
