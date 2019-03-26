@@ -19,7 +19,6 @@
 >- mac启动redis客户端，运行`redis-cli`。
 >- 关闭redis: `quit` 或者 `exit`。  
 >- 成功启动redis的效果图如: ![alt-text](/images/redis1.png)  
->- 程序运行结果图: ![alt-text](/images/redis2.png) 
 >- 连接远程的redis服务器: `redis-cli -h host -p port -a password`
 
 5. Redis服务器之间是可以互相通信，共享数据的。客户端只需要知道主服务器就可以了，不用关心数据是如何在各个服务器间分配的。
