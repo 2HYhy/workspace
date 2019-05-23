@@ -42,9 +42,9 @@ class TimeMetric extends Component {
                 timeMetricList: response.data.data.metric
             }, () => {
                 console.log("timeMetricList = ", this.state.timeMetricList);
-                this.state.timeMetricList.forEach(item => {
-                    console.log("item = ", item);
-                })
+                // this.state.timeMetricList.forEach(item => {
+                //     console.log("item = ", item);
+                // })
             })
         })
     };

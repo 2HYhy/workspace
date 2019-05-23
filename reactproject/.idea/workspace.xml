@@ -58,11 +58,11 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/timemetric/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="596">
-              <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+            <state relative-caret-position="320">
+              <caret line="47" column="14" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
-                <element signature="e#2352#3058#0" expanded="false" />
+                <element signature="e#2361#3067#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -188,9 +188,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="276" />
-    <option name="y" value="224" />
+    <option name="y" value="236" />
     <option name="width" value="1641" />
-    <option name="height" value="803" />
+    <option name="height" value="785" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -780,16 +780,16 @@
       <workItem from="1558332947076" duration="13698000" />
       <workItem from="1558400148045" duration="10452000" />
       <workItem from="1558487524841" duration="24954000" />
-      <workItem from="1558572334335" duration="28083000" />
+      <workItem from="1558572334335" duration="28172000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="261938000" />
+    <option name="totallyTimeSpent" value="262027000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="276" y="224" width="1641" height="803" extended-state="0" />
-    <editor active="false" />
+    <frame x="276" y="236" width="1641" height="785" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1221,11 +1221,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/timemetric/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="596">
-          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+        <state relative-caret-position="320">
+          <caret line="47" column="14" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#2352#3058#0" expanded="false" />
+            <element signature="e#2361#3067#0" expanded="false" />
           </folding>
         </state>
       </provider>
