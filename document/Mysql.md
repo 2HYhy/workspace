@@ -1,4 +1,4 @@
-### mysql基本语句
+### mysql特点
 关系型数据库。    
 优点:
 > 体积小，速度快，成本低   
@@ -9,9 +9,10 @@
 > 不支持热备份    
 > 安全系统复杂且不标准   
 
-分为DDL(数据定义语言)，DML(数据操作语言)，DCL(数据控制语言)，DQL(数据查询语言))四种。      
+### mysql基本语句
+分为DDL(数据定义语言)，DML(数据操作语言)，DCL(数据控制语言)，DQL(数据查询语言)四种。      
  1. select column from table where column = value
- 2. select column from table where column = value1 and(or) column= value2
+ 2. select column from table where column = value1 and(or) column = value2
  3. select column from table where column in List
  4. select column from table where column between value1 and value2
  5. insert into table (column) values (value)
@@ -36,19 +37,18 @@ select * from table limit m , n
 select * from table limit x
 //取出前x条记录 
 ```   
-
 11. `alter table 表名 drop column 列名`   删除某一列     
 12. `truncate table xxxxxx`    清除某个表的全部数据 
 ```java
 //查看event是否开启:
  show variables like 'event_scheduler'; 
 //将事件计划开启: 
-set global event_scheduler=1; 
+set global event_scheduler = 1; 
 ```      
 
 ### mysql相关操作命令：          
 > 连接远程数据库:    
-> mysql  -h <主机> -P <端口> -u <用户名> -p<密码>    p之后不加空格直接登录，也可不输入密码，待回车后单独输入密码      
+> mysql -h <主机> -P <端口> -u <用户名> -p<密码>    p之后不加空格直接输入密码，也可不输入密码，待回车后单独输入密码      
 
 > exit;  退出数据库 
 
@@ -188,9 +188,9 @@ select productName from products where productName regexp '^.{10}$'   //有10个
 
 ### mysql查询的整个执行过程：
 > 客户端向mysql服务器发送一条查询请求  
-> 服务器首先检查缓存，若命中缓存，则直接将存储在缓存中的结果返回给客户端，否则执行下一条    
+> 服务器首先检查缓存，若命中缓存，则直接将存储在缓存中的结果返回给客户端，否则执行下一步    
 > 服务器进行SQL解析，预处理，再由优化器生成执行计划  
-> mySql根据执行计划调用存储引擎的接口执行查询  
+> MySql根据执行计划调用存储引擎的接口执行查询  
 > 将结果返回给客户端，同时缓存查询结果
 
 ### 关于索引：

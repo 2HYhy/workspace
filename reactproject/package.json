@@ -5,6 +5,9 @@
   "dependencies": {
     "antd": "^3.10.9",
     "axios": "^0.18.0",
+    "echarts": "^4.2.1",
+    "echarts-for-react": "^2.0.15-beta.0",
+    "moment": "^2.24.0",
     "qs": "^6.6.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
@@ -28,5 +31,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "https://tong.xing.zheng.testUrl.com/"
+  "proxy": "http://127.0.0.1:9999/"
 }

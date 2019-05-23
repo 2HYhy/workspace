@@ -1,7 +1,7 @@
-## mongodb 
+## mongodb特点 
 基于分布式文件存储的非关系型数据库。   
 优点:
-> 文档结构的存储方式，获取数据便捷             
+> 文档结构的存储方式，获取数据便捷         
 > 支持大容量存储 
 > 自带缓存功能
 > 自动分片(突破单节点数据库服务器的I/O能力限制，解决数据库扩展性问题)             
@@ -12,7 +12,7 @@
 > 占用空间过大     
 > 删除数据集合后空间不会自动释放，需手动调用db.repairDatabase()     
 
-| database  |   table | row  | column  | index  |
+| database  |  table  | row  | column  | index   |
 |-----------|---------|------|---------|---------|
 | database |  collection |  document  |   field   |  index  |     
 

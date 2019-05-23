@@ -104,7 +104,7 @@ redis-cli -a redis -h 127.0.0.1 -p 6500
 > 包含value属性，先根据value去查询缓存，结果不为空则不进入方法，结果为空则进入方法，并且进行缓存。
 
 #### @CacheEvict用法
-> 可用在update类方法上，也可用在remove类方法上。与@Cacheable用法用法一致。
+> 可用在update类方法上，也可用在remove类方法上。与@Cacheable用法一致。
 > allEntries = true, 清除缓存中所有元素，默认false。
 > beforeInvocation = true, 清除操作在对应方法成功执行后触发，即方法因为抛出异常未能成功返回不会触发该操作。
 > condition：触发条件，只有满足条件的情况才会加入缓存，默认为空，既表示全部都加入缓存，支持SpEL。
@@ -113,12 +113,12 @@ redis-cli -a redis -h 127.0.0.1 -p 6500
 > 每次都会执行方法，并将结果进行缓存，用在update类方法上。
 
 #### @Caching用法
-> 可以包含以上三个注解，key-value分别对应(cachable=[@Cacheable], put=[@CachePut], evict=[@CacheEvict])。
+> 可以包含以上三个注解，key-value分别对应(cacheable=[@Cacheable], put=[@CachePut], evict=[@CacheEvict])。
 
 #### @CacheConfig用法
 > 类级的注解，统一指定缓存的value和key，当指定了属性cacheNames的值时，其他几个方法注册的value属性就可以不写。
 
-### 自定义KeyGenerator和CacheManager  
+### 自定义KeyGenerator
 ```java
 @Configuration
 public class RedisConfig extends CachingConfigurerSupport {
@@ -137,11 +137,6 @@ public class RedisConfig extends CachingConfigurerSupport {
                 return sb.toString();
             }
         };
-    }
-    @Bean
-    public CacheManager cacheManager(@SuppressWarnings("rawtypes") RedisTemplate redisTemplate) {
-        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
-        return cacheManager;
     }
 }
 ```

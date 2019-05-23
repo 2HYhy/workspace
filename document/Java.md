@@ -52,7 +52,7 @@
 
 #### synchronized关键字
 1. 原理
-> java中，每一个对象有且仅有一个同步锁，即同步锁是依赖于对象而存在。    
+> java中，每一个对象有且仅有一个同步锁，即同步锁是依赖于对象而存在的。    
 > 不同线程对同步锁的访问是互斥的。即同一时间点，对象的同步锁只能由一个线程获取到。     
 > synchronized(this)指当前所在类的对象的同步锁，synchronized(obj)指“obj这个对象”的同步锁。
 
@@ -114,7 +114,7 @@ public void func() {
 > 唤醒在此对象监视器上等待的所有线程
 
 5. 
-> wait()和notify()之间正是通过对象的同步锁关联起来的。而同步锁是对象持有的，这就是notify(), wait()等函数定义在Object类，而不是Thread类中的原因。
+> wait()和notify()之间正是通过对象的同步锁关联起来的。而同步锁是对象持有的，这就是notify(), wait()等函数定义在Object类中，而不是Thread类中的原因。
 
 #### yield让步
 > 使当前线程由运行状态变成就绪状态，从而让其他具有相同优先级的线程获取执行权     
@@ -138,9 +138,10 @@ public void func() {
 1. 多个线程同时访问同一个资源时，就会产生线程安全问题。(解决方法就是使用sychronized关键字或者Lock接口类实现同步互斥访问)。
 2. 多个线程同时访问同一个方法时，不会出现线程安全问题，因为方法是在栈上运行的，而栈是线程私有的。
 3. 并发程序要正确执行，就得保证原子性、可见性以及有序性。三者缺一就有可能会导致程序运行不正确。
-   > 原子性是指:一个操作要么全部执行并且执行的过程不被任何因素打断，要么全都不执行。
-   > 可见性是指:多个线程访问同一个变量时，若其中一个线程修改了该变量的值，其他线程能够立即看得到修改后的值。
-   > 有序性是指:程序执行的顺序按照代码的先后顺序执行。
+   > 原子性是指: 一个操作要么全部执行并且执行的过程不被任何因素打断，要么全都不执行。
+   > 可见性是指: 多个线程访问同一个变量时，若其中一个线程修改了该变量的值，其他线程能够立即看得到修改后的值。
+   > 有序性是指: 程序执行的顺序按照代码的先后顺序执行。
+
 4. 在java中，只有简单的读取、赋值操作(将数字赋值给某个变量)才是原子性操作。变量之间的相互赋值不是原子性操作。提供了关键字volatile来保证可见性和有序性。synchronized和Lock也能够保证可见性和有序性。         
 
 #### 关于锁的分类
@@ -255,7 +256,7 @@ Inner in = out.new Inner();
 ### 四、Java抽象类和方法，多态与重载和重写
 #### 抽象
 1. 抽象类中可以有抽象方法和非抽象方法
-2. 有抽象方法的一定是抽象类，但抽象类包含抽象方法+一般方法
+2. 有抽象方法的一定是抽象类，但抽象类包含抽象方法 + 一般方法
 
 #### 重载
 1. 发生在同一个类中
@@ -280,6 +281,8 @@ Inner in = out.new Inner();
 
 3. 实现方式:
 > 同一类中进行方法重载，继承类中进行方法重写
+
+4. java面向对象的三大特性是：封装、继承、多态
 
 ### 五、Java访问权限修饰符
 | 范围   | public | protected | default | private |
@@ -306,7 +309,7 @@ HashMap是无序的，TreeMap是按自然顺序或自定义顺序的，LinkedHas
 equals()用来比较该类的两个对象是否相等。而hashCode()没有任何作用，可以忽略。
 2. 类中有用到HashSet, HashTable, HashMap等这些本质是散列表的数据结构: 
 如果两个对象相等(即equals比较两个对象时，返回true)，那么它们的hashCode一定相等；如果两个对象的hashCode相等，它们并不一定相等。   
-3. 总而言之: 当需要对比时，首先用hashCode()比，如果hashCode()不一样，那这两个对象肯定不相等(也就是不必再用equal()比了),如果hashCode()相同，再用equal()比，如果equal()也相同，那这两个对象就真的相同了。
+3. 总而言之: 当需要对比时，首先用hashCode()比，如果hashCode()不一样，那这两个对象肯定不相等(也就是不必再用equals()比了), 如果hashCode()相同，再用equals()比，如果equals()也相同，那这两个对象就真的相同了。
 
 ##### 日期相关函数：  
  > `Date date = new Date();`    获取系统当前日期和时间  
@@ -344,8 +347,8 @@ equals()用来比较该类的两个对象是否相等。而hashCode()没有任�
 `List<ClassDo> list = JSONArray.parseArray(jsonArray.toJSONString());`  
 
 > 基本数据类型转换
-> - 隐式类型转换(自动类型转换): 从存储范围小的类型到存储范围大的类型{ byte ->short(char)->int->long->float->double }。          
-> - 显式类型转换(强制类型转换): 从存储范围大的类型到存储范围小的类型{ double→float→long→int→short(char)→byte }。
+> - 隐式类型转换(自动类型转换): 从存储范围小的类型到存储范围大的类型{ byte -> short(char)-> int -> long -> float -> double }。          
+> - 显式类型转换(强制类型转换): 从存储范围大的类型到存储范围小的类型{ double → float → long → int → short(char) → byte }。
 
 > 父类和子类数据类型转换
 > - 子类可以直接向父类转换(因为子类一定是父类的一个实例)      
@@ -376,6 +379,9 @@ Object obj = "400";
 long param = Long.valueOf(obj.toString());
 
 // Object 转成其他类，当不是该子类的实例时，思路是先将Object转成String，然后再转成对应类型
+
+//string转JSONObject
+JSONObject jsonObject = JSONObject.parseObject(string);
 ```
 ##### 时间类型转换:
  String-->Date    
@@ -477,7 +483,7 @@ OutputStream(字节输出流)，Writer(字符输出流)
 >- List:可以重复元素，有序。       
 
 > Map:保存一个键值对，不允许key重复，否则后者会覆盖前者，有三个实现类，是HashMap，HashLinkedMap，TreeMap。HashTbable也是Map的实现类。 
->- HashMap: 无序，不支持线程同步，即同一时间可以有多个线程写hashMap，键可以一个为null，值可以多个为null。        
+>- HashMap: 无序，不支持线程同步，即同一时间可以有多个线程写hashMap，键可以一个为null，值可以多个为null。       
 >- LinkedHashMap: 有序，按插入顺序获取，是hashMap的子集。
 >- TreeMap: 有序，默认按键值的升序，键和值都不能为null。        
 >- HashTable: 无序，支持线程同步，键和值都不能为null。

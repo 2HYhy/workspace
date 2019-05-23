@@ -20,7 +20,12 @@ class LeftPage extends Component {
         {key: '2', url: 'detailDataPage'},
         {key: '3', url: 'managementPage'},
         {key: '4', url: 'userInfoPage'},
-        {key: '5', url: 'loginLogPage'}
+        {key: '5', url: 'loginLogPage'},
+
+        {key: '6', url: 'timeMetricPage'},
+        {key: '7', url: 'clusterLinkPage'},
+        {key: '8', url: 'manageRulePage'},
+        {key: '9', url: 'machineInfoPage'}
     ];
 
     componentDidMount() {
@@ -60,24 +65,42 @@ class LeftPage extends Component {
                     >
                         <Menu.Item key="1">
                             <Icon type="pie-chart" />
-                            <span>用户数据概览</span>
+                            <span>数据概览</span>
                         </Menu.Item>
                         <Menu.Item key="2">
                             <Icon type="desktop" />
-                            <span>用户注册明细</span>
+                            <span>注册明细</span>
                         </Menu.Item>
                         <SubMenu
-                            key="sub1" title={<span><Icon type="user" /><span>用户账号管理</span></span>}
+                            key="sub1" title={<span><Icon type="user" /><span>账号管理</span></span>}
                         >
-                            <Menu.Item key="3">冻结/解冻用户</Menu.Item>
+                            <Menu.Item key="3">冻结/解冻</Menu.Item>
                         </SubMenu>
                         <Menu.Item key="4">
                             <Icon type="team" />
-                            <span>获取用户基本信息</span>
+                            <span>基本信息</span>
                         </Menu.Item>
                         <Menu.Item key="5">
                             <Icon type="file" />
-                            <span>获取用户登录日志</span>
+                            <span>登录日志</span>
+                        </Menu.Item>
+
+                        {/*Sentinel*/}
+                        <Menu.Item key="6">
+                            <Icon type="bars" />
+                            <span>实时监控</span>
+                        </Menu.Item>
+                        <Menu.Item key="7">
+                            <Icon type="bars" />
+                            <span>簇点链路</span>
+                        </Menu.Item>
+                        <Menu.Item key="8">
+                            <Icon type="bars" />
+                            <span>治理规则</span>
+                        </Menu.Item>
+                        <Menu.Item key="9">
+                            <Icon type="bars" />
+                            <span>机器列表</span>
                         </Menu.Item>
                     </Menu>
                 </Sider>

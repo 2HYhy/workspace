@@ -11,12 +11,12 @@ const OverviewPage = Loadable({
 })
 
 const DetailDataPage = Loadable({
-    loader: () => import('../pages/detailData'),
+    loader: () => import('../pages/detaildata'),
     loading: Loading
 })
 
 const LoginLogPage = Loadable({
-    loader: () => import('../pages/loginLog'),
+    loader: () => import('../pages/loginlog'),
     loading: Loading
 })
 
@@ -26,7 +26,27 @@ const ManagementPage = Loadable({
 })
 
 const UserInfoPage = Loadable({
-    loader:() => import('../pages/userInfo'),
+    loader: () => import('../pages/userInfo'),
+    loading: Loading
+})
+
+const MachineInfo = Loadable({
+    loader: () => import('../pages/machineInfo'),
+    loading: Loading
+})
+
+const ManageRule = Loadable({
+        loader: () => import('../pages/managerule'),
+    loading: Loading
+})
+
+const timeMetric = Loadable({
+        loader: () => import('../pages/timemetric'),
+    loading: Loading
+})
+
+const clusterLink = Loadable({
+        loader: () => import('../pages/clusterlink'),
     loading: Loading
 })
 
@@ -37,6 +57,11 @@ const DetailContent = (props) => (
         <Route path={`${props.match.url}/loginLogPage`} component={LoginLogPage} />
         <Route path={`${props.match.url}/managementPage`} component={ManagementPage} />
         <Route path={`${props.match.url}/userInfoPage`} component={UserInfoPage} />
+
+        <Route path={`${props.match.url}/machineInfoPage`} component={MachineInfo} />
+        <Route path={`${props.match.url}/manageRulePage`} component={ManageRule} />
+        <Route path={`${props.match.url}/timeMetricPage`} component={timeMetric} />
+        <Route path={`${props.match.url}/clusterLinkPage`} component={clusterLink} />
     </Layout>
 )
 

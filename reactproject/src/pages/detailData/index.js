@@ -4,6 +4,7 @@ import { Layout, Button } from 'antd';
 
 import server from '../../utils/server';
 // import axios from 'axios';
+// import http from '../../utils/http';
 
 class DetailData extends Component {
 
@@ -20,7 +21,7 @@ class DetailData extends Component {
     getData = () => {
        let access_token_123 = "ZTMxYzNkODcxZDI3MTMyYQ==:HfXi2-ushJQp5oxg39qnIamnxho=:eyJhcGlzIjpbImlzRXhpc3RlZCJdLCJleHBpcmVkVGltZSI6MTU1Mzk2MTYwMDAwMCwic2NvcGUiOiJVU0VSIn0=";
 
-       //method1: with跨域
+       //method1:
         server.get(`/v2/user/isExisted?accessToken=${access_token_123}&value=1822058201`)
             .then(response => {
                 const data = response.data;
@@ -33,8 +34,7 @@ class DetailData extends Component {
                 }
             });
 
-        //结合package.json中的代理proxy,浏览器以为请求的是http://localhost:3000,所以不会产生跨域问题，但实际被转发到了proxy代理的后端地址。
-        //method2: no跨域
+        //method2:
         // axios.get(`/v2/user/isExisted?accessToken$=${access_token_123}&value=18220582019`).then(response => {
         //     //返回请求正确的结果
         //     console.log("response = ", response);

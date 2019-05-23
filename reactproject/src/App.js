@@ -26,9 +26,9 @@ class App extends Component {
     return (
         <Layout>
             <Layout>
-                <h4 style={{margin: '10px'}}>React工程DEMO</h4>
-                <h4 onClick={this.enterPages} style={{margin: '-20px 0px 0px 1200px', cursor:'pointer'}}>
-                    系统中心
+                <h4 style={{margin: '10px'}}>Enter Project Center</h4>
+                <h4 onClick={this.enterPages} style={{margin: '-33px 0px 0px 1200px', cursor:'pointer'}}>
+                    进入工程中心
                 </h4>
             </Layout>
             <Layout>

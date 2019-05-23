@@ -98,10 +98,10 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 
 > 前端解决跨域问题:  
->- 通过package.json中设置`"proxy": "http://www.portal.com"`
+>- 通过package.json中设置`"proxy": "https://tong.xing.zheng.testUrl.com/"`，后端服务器地址代理
 
 > 后端解决跨域问题:
->- 通过过滤器(或拦截器等)中设置请求头信息`{Access-Control-Allow-Origin: http://www.portal.com}`
+>- 通过过滤器(或拦截器等)中设置请求头信息`{Access-Control-Allow-Origin: http://www.portal.com}`，前端服务器地址
 
 
 > redux使用场景:
@@ -118,6 +118,5 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 >- devDependencies是只会在开发环境下依赖的模块，生产环境不会被打入包内,安装模块时使用--save-dev
 
 
-   
-
-
+> 要使用相对路径，在package.json中添加"homepage":"."即可
+  
