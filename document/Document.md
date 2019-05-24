@@ -434,6 +434,7 @@ public boolean preHandle(HttpServletRequest request, HttpServletResponse respons
 ```
 
 14. 关于jar包
+
 1. 打成jar包/解压jar包:
 ```java
 mvn clean install  //即根据pom文件，打成jar或war包

@@ -132,6 +132,7 @@ class ClusterLink extends Component {
                    </Col>
                 </Row>
                 <Row style={{marginTop: 10}}>
+                    {/*没有使用折叠面板显示的形式*/}
                     <Table dataSource={linkList} columns={columns} rowKey={`port`}/>
                 </Row>
             </Layout>

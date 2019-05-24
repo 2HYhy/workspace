@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //配置axios要访问的默认后端url,需要解决跨域问题
-axios.defaults.baseURL = "http://10.3.30.16:9009/";
+axios.defaults.baseURL = "http://127.0.0.1:9999/";
 
 //配置允许跨域携带cookie,若设为true,则不允许跨域的主机ip设为"*",即("Access-Control-Allow-Origin", "*")会报错,设为false可行
 axios.defaults.withCredentials = true;
