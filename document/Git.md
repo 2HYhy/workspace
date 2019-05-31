@@ -76,7 +76,8 @@
  > git remote -v 
  >- 查看当前项目所连接的远程git仓库地址
 
- > git remote set-url origin <newUrl>
+ > git remote origin set-url  "Your newUrl"
+ > git remote rm origin + git remote add origin "Your newUrl"   
  >- 修改当前项目pull/push的远程git仓库地址
 
 ### git上传代码及ssh-key生成  

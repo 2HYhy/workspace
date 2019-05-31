@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import server from '../../utils/server';
-import { Layout, Select, Table, Button, Icon, Row, Col } from 'antd';
+import { Layout, Select, Table, Button, Icon, Row, Col, Collapse } from 'antd';
 const Option = Select.Option;
+const Panel = Collapse.Panel;
 
 class ClusterLink extends Component {
     constructor(props) {
@@ -11,7 +12,9 @@ class ClusterLink extends Component {
             machineList: [],
             linkList: [],
             ip: '',
-            port: -1
+            port: -1,
+            fatherLinkList: [],
+            sonLinkList: []
         }
     }
 
@@ -59,6 +62,33 @@ class ClusterLink extends Component {
                     linkList: response.data.data
                 }, () => {
                     console.log("linkList = ", this.state.linkList);
+                    //封装linkList,分为父级和子级
+                    let fatherLinks = [];
+                    let sonLinks = [];
+                    let first = this.state.linkList[0];
+                    // console.log("this.state.linkList[0] = ", first);
+                    fatherLinks.push(this.state.linkList[0]);
+                    this.state.linkList.forEach(item => {
+                        // console.log("item = ", item);
+                        if (fatherLinks.length === 0) {
+                            fatherLinks.push(item);
+                        } else {  //list中是否已存在该key
+                            if (item.parentTtId === first.parentTtId && item.ttId !== first.ttId) {
+                                fatherLinks.push(item);
+                            } else {
+                                sonLinks.push(item);
+                            }
+                        }
+                    });
+                    // console.log("father = ",fatherLinks);
+                    // console.log("son = ",sonLinks);
+                    this.setState({
+                        fatherLinkList: fatherLinks,
+                        sonLinkList: sonLinks
+                    }, () => {
+                        console.log("fatherLinkList =  ", this.state.fatherLinkList);
+                        console.log("sonLinkList =  ", this.state.sonLinkList);
+                    })
                 })
             })
         });
@@ -135,6 +165,14 @@ class ClusterLink extends Component {
                     {/*没有使用折叠面板显示的形式*/}
                     <Table dataSource={linkList} columns={columns} rowKey={`port`}/>
                 </Row>
+
+                <Layout>
+                    <Collapse bordered={false} defaultActiveKey={['1']}>
+                        <Panel header="This is panel header 1" key="1">
+                            123
+                        </Panel>
+                    </Collapse>
+                </Layout>
             </Layout>
         );
     }
